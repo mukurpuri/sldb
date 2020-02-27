@@ -1,0 +1,131 @@
+.body {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 61px;
+}
+.body > .canvas{
+    margin-top: 50px;
+}
+
+.body > .canvas  .grid-container .slds-col.active::after {
+    border: 1px solid #09F;
+    border-right: 1px solid #09F;
+    border-bottom: 1px solid #09F;
+    background: #03a9f454;
+}
+#body-container {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.grid-container {
+    border: 1px dashed #cdcdcd;
+    min-height: 800px;
+    background: #00000008;
+    padding-top: 0;
+    position: relative;
+    padding-bottom: 0;
+    margin-top: 80px;
+}
+
+.grid-container .slds-grid.active {
+    /*border: 1px solid #09F;*/
+    border: 1px solid #0199ff;
+}
+
+.grid-container:after {
+    position: absolute;
+    display: none;
+    right: -1px;
+    top: -25px;
+    content: "Grid Container";
+    background: #ececec;
+    color: #2f2f2f;
+    text-align: center;
+    padding: 4px 8px;
+    font-size: 11px;
+    border: 1px dashed #cdcdcd;
+    z-index: 3;
+    border-bottom: 0;
+}
+.grid-container .slds-col {
+    background:  rgb(255, 255, 255);
+    min-height: 100px;
+    position: relative;
+}
+.grid-container .slds-col::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+.text_col {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.text_col:before {
+    color: #868686;
+    font-style: italic;
+    top: 20px;
+    font-size: 11px;
+}
+.text_col_11.text_col:before {
+    content: "11 of 12";
+}
+.text_col_12.text_col:before {
+    content: "12 of 12";
+}
+.text_col_10.text_col:before {
+    content: "10 of 12";
+}
+.text_col_9.text_col:before {
+    content: "9 of 12";
+}
+.text_col_8.text_col:before {
+    content: "8 of 12";
+}
+.text_col_7.text_col:before {
+    content: "7 of 12";
+}
+.text_col_6.text_col:before {
+    content: "6 of 12";
+}
+.text_col_5.text_col:before {
+    content: "5 of 12";
+}
+.text_col_4.text_col:before {
+    content: "4 of 12";
+}
+.text_col_3.text_col:before {
+    content: "3 of 12";
+}
+.text_col_2.text_col:before {
+    content: "2 of 12";
+}
+.text_col_1.text_col:before {
+    content: "1 of 12";
+}
+
+.grid-container.sm {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-container.md {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-container.lg {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,60 @@
+.deviceToggler {
+    width: 138px;
+    border-bottom: 1px solid #a1a1a1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 80px;
+}
+.deviceToggler .toggle-link {
+    float: left;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deviceToggler .toggle-link span {
+    width: 100%;
+    height: 47px;
+    border-bottom: 1px solid #a1a1a1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00000004;
+    border-top: 1px solid #f4f4f4;
+    border-radius: 2px 2px 0 0;
+}
+.deviceToggler .toggle-link span.active {
+    border-bottom: 1px solid #f4f4f4;
+    background: transparent;
+    border-top: 1px solid #a1a1a1;
+}
+.deviceToggler .toggle-link span svg {
+    font-size: 19px;
+}
+.deviceToggler.md .toggle-link:nth-child(2) span {
+    border-top: 1px solid #a1a1a1;
+    border-left: 1px solid #a1a1a1;
+    border-right: 1px solid #a1a1a1;
+    background: transparent;
+    border-bottom: 1px solid #f4f4f4;
+}
+.deviceToggler.sm .toggle-link:nth-child(1) span {
+    background: transparent;
+    border-bottom: 1px solid #f4f4f4;
+    border-right: 1px solid #a1a1a1;
+    border-top: 1px solid #a1a1a1;
+    border-left: 1px solid #a1a1a1;
+}
+
+.deviceToggler.lg .toggle-link:nth-child(3) span {
+    background: transparent;
+    border-bottom: 1px solid #f4f4f4;
+    border-right: 1px solid #a1a1a1;
+    border-top: 1px solid #a1a1a1;
+    border-left: 1px solid #a1a1a1;
+}

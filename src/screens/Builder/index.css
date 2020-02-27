@@ -1,0 +1,11 @@
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    background-image: radial-gradient(#6c6c6c 2%, transparent 2%);
+    background-color: #f4f4f4;
+    background-position: 0 0, 0px 0px;
+    background-size: 20px 38px;
+}
+html, body, #root {
+    height: 100%;
+}

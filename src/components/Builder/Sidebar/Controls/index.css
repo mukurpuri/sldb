@@ -1,0 +1,57 @@
+.controls {
+    border-top: 1px solid #e5e5e5;
+    overflow-y: scroll;
+    border-bottom: 1px solid #e5e5e5;
+    -webkit-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+.controls .btn {
+    padding: 10px;
+    overflow: hidden;
+    border-bottom: 1px dashed #e5e5e5;
+    cursor: move;
+}
+.controls .btn:last-child {
+    border-bottom: 0;
+}
+.controls .btn:hover {
+    background: #f7f7f7;
+}
+.controls .btn img{
+    float: left;
+}
+.controls .btn p{
+    font-size: 10px;
+    letter-spacing: 0px;
+    font-weight: bold;
+    color: #646464;
+    float: left;
+    margin-top: -2px;
+    text-transform: uppercase;
+}
+.slds-search {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+}
+.control-search {
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.2s;
+}
+.control-search .search {
+    width: 100% !important;
+    box-shadow: none;
+    border: 1px solid #e5e5e5;
+    border-bottom: 0;
+    font-size: 12px;
+    padding: 5px;
+    padding-left: 10px;
+    border-right: 0;
+    background: #fafafa;
+}
+.comp.controls {
+    max-height: 220px;
+}
