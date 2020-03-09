@@ -1,8 +1,11 @@
 export default {
-    'appGradientTheme': getGradientTheme()
+    'appGradientTheme': getGradientTheme(),
+    'gradClasses':gradClasses() 
 }
-
+function gradClasses() {
+    const classes = ["amin","cosmic","stripe","instagram","dimigo","rainbowBlue","soundcloud","ver","booker"];
+    return classes;
+}
 function getGradientTheme() {
-    var gradClasses = ["amin","cosmic","instagram","dimigo","rainbowBlue","soundcloud","ver","booker"];
-    return gradClasses[Math.floor(Math.random() * Math.floor(gradClasses.length))]
+    return gradClasses()[Math.floor(Math.random() * Math.floor(gradClasses.length))]
 }

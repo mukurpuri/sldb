@@ -20,6 +20,8 @@ const builderDataElement =  {
 }
 const gridData  = {
     activeEditor: "lg",
+    activeRow: 0,
+    activeColumn: 0,
     gridProperties: {
       columnHeight: {
         "lable": "Column Height",
@@ -32,117 +34,115 @@ const gridData  = {
     },
     properties: {
       gutters: "slds-gutters_medium",
-      wrap: "slds-wrap",
+      margin: {
+        top: "none",
+        bottom: "none"
+      },
+      padding: {
+        top: "none",
+        bottom: "none"
+      },
       data: {
         sm: [
           {
-            wrap: "slds-wrap",
+            spacings: {
+              margin: {
+                top: "none",
+                bottom: "none"
+              },
+              padding: {
+                top: "none",
+                bottom: "none",
+              },
+            },
             cols: [
               {
+                height: 80,
                 size: 12,
                 visible: [],
                 hide: [],
-                active: true
-              },
-              {
-                size: 6,
-                visible: [],
-                hide: [],
-                active: false
+                active: true,
+                spacings: {
+                  margin: {
+                    top: "none",
+                    bottom: "none"
+                  },
+                  padding: {
+                    top: "none",
+                    bottom: "none"
+                  },
+                }
               }
             ],
             active: true
-          },
-          {
-            wrap: "slds-wrap",
-            cols: [
-              {
-                size: 3,
-                visible: [],
-                hide: [],
-                active: false
-              },
-              {
-                size: 9,
-                visible: [],
-                hide: [],
-                active: false
-              }
-            ]
           }
         ],
         md: [
           {
-            wrap: "slds-wrap",
+            spacings: {
+              margin: {
+                top: "none",
+                bottom: "none"
+              },
+              padding: {
+                top: "none",
+                bottom: "none",
+              },
+            },
             cols: [
               {
+                height: 80,
                 size: 12,
                 visible: [],
                 hide: [],
-                active: true
-              },
-              {
-                size: 6,
-                visible: [],
-                hide: [],
-                active: false
+                active: true,
+                spacings: {
+                  margin: {
+                    top: "none",
+                    bottom: "none"
+                  },
+                  padding: {
+                    top: "none",
+                    bottom: "none"
+                  },
+                }
               }
             ],
             active: true
-          },
-          {
-            wrap: "slds-wrap",
-            cols: [
-              {
-                size: 2,
-                visible: [],
-                hide: [],
-                active: false
-              },
-              {
-                size: 10,
-                visible: [],
-                hide: [],
-                active: false
-              }
-            ]
           }
         ],
         lg: [
           {
-            wrap: "slds-wrap",
+            spacings: {
+              margin: {
+                top: "none",
+                bottom: "none"
+              },
+              padding: {
+                top: "none",
+                bottom: "none",
+              },
+            },
             cols: [
               {
+                height: 80,
                 size: 12,
                 visible: [],
                 hide: [],
-                active: true
-              },
-              {
-                size: 6,
-                visible: [],
-                hide: [],
-                active: false
+                active: true,
+                spacings: {
+                  margin: {
+                    top: "none",
+                    bottom: "none"
+                  },
+                  padding: {
+                    top: "none",
+                    bottom: "none"
+                  },
+                }
               }
             ],
             active: true
-          },
-          {
-            wrap: "slds-wrap",
-            cols: [
-              {
-                size: 8,
-                visible: [],
-                hide: [],
-                active: false
-              },
-              {
-                size: 4,
-                visible: [],
-                hide: [],
-                active: false
-              }
-            ]
           }
         ]
       }

@@ -15,6 +15,7 @@ body {
     top: 0;
     position: absolute;
     display: block;
+    z-index: 1;
 
 }
 .box .head {
@@ -27,22 +28,17 @@ body {
     background-color: #f4f4f4;
 }
 .box .value.text {
-    width: 120px;
     outline: none;
-    font-size: 11px;
+    font-size: 12px;
     border: 0;
     border-left: 1px solid #ececec;
     height: 25px;
-    padding-left: 5px;
+    padding-left: 10px;
 }
 .box .section {
     padding: 10px;
 }
-.box .content .property{
-    flex-direction: row;
-    display: flex;
-    justify-content: space-between;
-}
+
 .box .head.bordered {
     border-bottom: 1px solid #ececec;
 }
@@ -50,16 +46,41 @@ body {
     position: relative;
 }
 .box .content .property {
-    padding: 0px 10px;
-    overflow: hidden;
-    border: 0;
     border-bottom: 1px solid #ececec;
 }
 .box .content .property .name{
     font-size: 12px;
     line-height: 25px;
 }
+.box .content .property .key {
+    line-height: 24px;;
+}
+.box .content .property .value {
+    height: 24px;
+}
+.box .content .property .value .slds-select{
+    border: 0;
+    border-left: 1px solid #ececec;
+    border-radius: 0;
+    height: 24px;
+    outline: none;
+    width: 100%;
+    box-shadow: none;
+}
+.box .content .property .value.property .slds-select{
+    border-left: 0!important;
+    padding-left: 0 !important;
+}
 
+.box .content .property .value .slds-select_container:before{
+    display: none;
+}
+.box .content .property .link-button{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+}
 input[type="text"] {
     outline: none;
 }
@@ -68,4 +89,10 @@ input[type="text"] {
 }
 .text-center {
     text-align: center;
+}
+
+.properties-btn-big {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.7rem;
 }

@@ -1,6 +1,17 @@
 // Initial State
-import { builderData, builderDataElement, gridData } from '../../config/dataSkeletons';
+import {builderDataElement, gridData } from '../../config/dataSkeletons';
 import _ from 'lodash';
+import {
+  setRowGutter,
+  setRowHeight,
+  setRowWrap,
+  addRowToGrid,
+  deleteRowFromGrid,
+  setRowPosition,
+  updateGridSpacing,
+  updateRowSpacing,
+} from './utilities/gridRow';
+import { updateColumnSpacing, setColumnWidth, deleteSelectedcolumn, addNewColumn } from './utilities/gridColumns';
 const initialState = {
     builderData: []
   };
@@ -65,10 +76,94 @@ const initialState = {
         }
       }
 
+      case 'SET_ROW_GUTTER': { 
+        return {
+          ...state,
+          builderData: setRowGutter(state.builderData, action.selectedOption)
+        }
+      }
+
       case 'ACTIVATE_COLUMN': {
         return {
           ...state,
           builderData: activateColumn(state.builderData, action.id, action.device, action.rowId)
+        }
+      }
+
+      case 'SET_ROW_HEIGHT': {
+        return {
+          ...state,
+          builderData: setRowHeight(state.builderData, action.height)
+        }
+      }
+
+      case 'SET_ROW_WRAP': {
+        return {
+          ...state,
+          builderData: setRowWrap(state.builderData, action.wrap)
+        }
+      }
+
+      case 'ADD_ROW_TO_GRID': {
+        return {
+          ...state,
+          builderData: addRowToGrid(state.builderData)
+        }
+      }
+
+      case 'DELETE_ROW': {
+        return {
+          ...state,
+          builderData: deleteRowFromGrid(state.builderData)
+        } 
+      }
+
+      case 'SET_ROW_POSITION': {
+        return {
+          ...state,
+          builderData: setRowPosition(state.builderData, action.initialPosition, action.finalPosition)
+        }
+      }
+
+      case 'UPDATE_GRID_SPACING': {
+        return {
+          ...state,
+          builderData: updateGridSpacing(state.builderData, action.key, action.value)
+        }
+      }
+
+      case 'UPDATE_ROW_SPACING': {
+        return {
+          ...state,
+          builderData: updateRowSpacing(state.builderData, action.key, action.value)
+        }
+      }
+
+      case 'UPDATE_COLUMN_SPACING': {
+        return {
+          ...state,
+          builderData: updateColumnSpacing(state.builderData, action.key, action.value)
+        }
+      }
+
+      case 'SET_COLUMN_SIZE': {
+        return {
+          ...state,
+          builderData: setColumnWidth(state.builderData, action.size)
+        }
+      }
+
+      case 'DELETE_SELECTED_COLUMN': {
+        return {
+          ...state,
+          builderData: deleteSelectedcolumn(state.builderData)
+        }
+      }
+
+      case 'ADD_NEW_COLUMN': {
+        return {
+          ...state,
+          builderData: addNewColumn(state.builderData)
         }
       }
   
@@ -114,7 +209,6 @@ const initialState = {
 
     return newData;
   }
-
   function makePageActive(data, id) {
     var newData = data.slice();
     _.map(newData, nd => {
@@ -126,7 +220,6 @@ const initialState = {
     })
     return newData;
   }
-
   function addNewPage(data) {
     var newData = data.slice();
     if(newData.length < 50) {
@@ -143,7 +236,6 @@ const initialState = {
     }
     return newData;
   }
-
   function getPageNumber(data) {
     var pageNumbers = [];
     var page = 0;
@@ -159,7 +251,6 @@ const initialState = {
     }
     return page + 1;
   }
-
   function addGridToCanvas(data) {
     const newData = data.slice();
     const activePage = _.find(newData, page => {
@@ -181,23 +272,27 @@ const initialState = {
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
     if(activePage.component.type === "grid") {
-        if(activePage.component.data.activeEditor === device) {
-          const rows = activePage.component.data.properties.data[device];
-          _.each(rows, (row, rowIndex) => {
-            if(rowIndex === rowId) {
-              row.active = true;
-            } else {
-              row.active = false;
-            }
-            _.each(row.cols, (col, colIndex) => {
-              col.active = false;
+        if(true) {
+          const rows = activePage.component.data.properties.data;
+          _.each(rows, (row) => {
+            _.each(row, (r,rowIndex) => {
               if(rowIndex === rowId) {
-                if(colIndex === id) {
-                  col.active = true;
-                }
+                r.active = true;
+                activePage.component.data.activeRow = rowIndex
+              } else {
+                r.active = false;
               }
+              _.each(r.cols, (col, colIndex) => {
+                col.active = false;
+                if(rowIndex === rowId) {
+                  if(colIndex === id) {
+                      activePage.component.data.activeColumn = colIndex
+                      col.active = true;
+                  }
+                }
+              })
             })
-          });
+          })
         }
     }
     return newData

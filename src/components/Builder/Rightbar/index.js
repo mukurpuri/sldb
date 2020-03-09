@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PageDetails from './PageDetails';
 import _ from 'lodash';
 import './index.css';
+import GridProperties from './Components/GridProperties';
 import { getBuilderData } from '../../../redux/actions/dataActions';
 
 class Rightbar extends React.Component {
@@ -13,7 +14,17 @@ class Rightbar extends React.Component {
       return "";
     }
     const activePage = _.find(builderData, page => { return page.active === true });
-    return <p>fewfwe</p>
+    if(activePage !== null) {
+      const type = activePage.component.type;
+      switch(type) {
+        case 'grid':
+        return <GridProperties/>
+
+        default:
+        return null
+      }
+    }
+    return null
   }
 
   render() {

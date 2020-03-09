@@ -34,8 +34,12 @@ class PageDetails extends React.Component {
         <div className="content">
           <div className={builderData.length <= 0 ? "disabler" : ""}></div>
             <div className="property">
-                <div className="name">Name</div>
-                <input onChange={val => this.updatePageName(val)} value={pageName} defaultValue={pageName} className="value text" type="text" />
+            <div className="slds-grid slds-p-left_small slds-p-right_small">
+              <div className="slds-col active slds-large-size_4-of-12 key">Name</div>
+              <div className="slds-col active slds-large-size_8-of-12 value">
+                <input onChange={val => this.updatePageName(val)} value={pageName || ""} className="value text" type="text" />
+              </div>
+            </div>
             </div>
         </div>
         {/* <div className="head bordered">

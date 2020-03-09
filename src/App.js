@@ -1,13 +1,12 @@
 
 // Imports: Dependencies
-import React,  { useState } from 'react';
+import React from 'react';
 import { PersistGate } from 'redux-persist/es/integration/react'
 import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import { HomeScreen, BuilderScreen } from './screens';
 import './App.css'

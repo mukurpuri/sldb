@@ -23,6 +23,17 @@ class Body extends React.Component {
   renderGrid = data => {
       const properties = data.properties;
       const gutters = properties.gutters || "";
+      const margins = properties.margin || "";
+      const paddings = properties.padding || "";
+      
+      const marginTop = margins.top.split("_")[1] ? margins.top + " " : '';
+      const marginBottom = margins.bottom.split("_")[1] ? margins.bottom + " " : '';
+      const paddingTop = paddings.top.split("_")[1] ? paddings.top + " " : '';
+      const paddingBottom = paddings.bottom.split("_")[1] ? paddings.bottom + " " : '';
+
+      let marginsPaddings = `${marginTop}${marginBottom}${paddingTop}${paddingBottom}`;
+
+      //var guuterproperties.data[data.activeEditor];
       var parentGridClasses =  `slds-p-left_${gutters.split("_")[1]} slds-p-right_${gutters.split("_")[1]}`;
       const stack = data.properties.data[data.activeEditor];
       const grid = [];
@@ -33,15 +44,33 @@ class Body extends React.Component {
         _.each(row.cols, (col, index) => {
           const activeClass = col.active ? "active" : "";
           const classNames =  `${activeClass} slds-large-size_${col.size}-of-12`;
+          const gridHeight = col.height;
+
+          const colMarginTop = col.spacings.margin.top.split("_")[1] ? col.spacings.margin.top + " " : ''; ;
+          const colMarginBottom = col.spacings.margin.bottom.split("_")[1] ? col.spacings.margin.bottom + " " : '';
+          const colPaddingTop = col.spacings.padding.top.split("_")[1] ? col.spacings.padding.top + " " : ''; ;
+          const colPaddingBottom = col.spacings.padding.bottom.split("_")[1] ? col.spacings.padding.bottom + " " : '';
+
+          let colMarginsPaddings = `${colMarginTop}${colMarginBottom}${colPaddingTop}${colPaddingBottom}`;
           columns.push(
-            <div key={index} onClick={() => this.activateColumn(index, data.activeEditor, rowId)} className={`slds-col ${classNames} text_col_${col.size} text_col`}></div>
+            <div style={{"height": `${gridHeight}px`}} key={index} onClick={() => this.activateColumn(index, data.activeEditor, rowId)} className={`${colMarginsPaddings} slds-col ${classNames} text_col_${col.size} text_col`}></div>
           )
         });
+
+        const { spacings } = row;
+        const rowMarginTop = spacings.margin.top.split("_")[1] ? spacings.margin.top + " " : ''; ;
+        const rowMarginBottom = spacings.margin.bottom.split("_")[1] ? spacings.margin.bottom + " " : ''; ;
+        const rowPaddingTop = spacings.padding.top.split("_")[1] ? spacings.padding.top + " " : ''; ;
+        const rowPaddingBottom = spacings.padding.bottom.split("_")[1] ? spacings.padding.bottom + " " : ''; ;
+
+      let rowMarginsPaddings = `${rowMarginTop}${rowMarginBottom}${rowPaddingTop}${rowPaddingBottom}`;
+
         
-        grid.push(<div key={rowIndex} className={`slds-grid ${gutters} ${activeRowClass} ${row.wrap}`}>{columns}</div>)
+        // const rowWrapClass = row.wrap === true ? "slds-wrap" : "";
+        grid.push(<div key={rowIndex} className={`slds-grid ${activeRowClass} ${rowMarginsPaddings} slds-wrap`}>{columns}</div>)
       });
 
-      return <div><DeviceToggler/><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}>{grid}</div></div>;
+      return <div><DeviceToggler/><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}><div className={`${marginsPaddings}`} ><div className={`${gutters}`}>{grid}</div></div></div></div>;
   }
   generateComponent = () => {
     const gridBuilder = this.props.builderData;
