@@ -48,7 +48,6 @@
 }
 .canvas .slds-col {
     background: content-box rgb(255, 255, 255);
-    min-height: 100%;
     position: relative;
 }
 .canvas .slds-col::after {

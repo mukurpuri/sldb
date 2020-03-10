@@ -11,7 +11,7 @@ import {
   updateGridSpacing,
   updateRowSpacing,
 } from './utilities/gridRow';
-import { updateColumnSpacing, setColumnWidth, deleteSelectedcolumn, addNewColumn } from './utilities/gridColumns';
+import { updateColumnSpacing, setColumnWidth, deleteSelectedcolumn, addNewColumn, setRowReverse, setRowHorizontalAlignment, setRowVerticalAlignment } from './utilities/gridColumns';
 const initialState = {
     builderData: []
   };
@@ -166,7 +166,35 @@ const initialState = {
           builderData: addNewColumn(state.builderData)
         }
       }
-  
+
+      case 'SET_ROW_REVERSE': {
+        return {
+          ...state,
+          builderData: setRowReverse(state.builderData, action.dir)
+        }
+      }
+
+      case 'SET_ROW_HORIZONTAL_ALIGNMENT': {
+        return {
+          ...state,
+          builderData: setRowHorizontalAlignment(state.builderData, action.alignment)
+        }
+      }
+
+      case 'SET_ROW_VERTICAL_ALIGNMENT': {
+        return {
+          ...state,
+          builderData: setRowVerticalAlignment(state.builderData, action.alignment)
+        }
+      }
+
+      case 'SET_PAGE_STATE': {
+        return {
+          ...state,
+          builderData: setPageState(state.builderData, action.state)
+        }
+      }
+
       // Default
       default: {
         return state;
@@ -297,4 +325,12 @@ const initialState = {
     }
     return newData
   }
+  function setPageState(data, state) {
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {
+      return page.active === true;
+    });
+    activePage.state = state;
+    return newData;
+}
   export default dataReducer;

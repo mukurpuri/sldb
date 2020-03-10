@@ -14,7 +14,7 @@ class Rightbar extends React.Component {
       return "";
     }
     const activePage = _.find(builderData, page => { return page.active === true });
-    if(activePage !== null) {
+    if(activePage !== null && activePage.state === "builder") {
       const type = activePage.component.type;
       switch(type) {
         case 'grid':

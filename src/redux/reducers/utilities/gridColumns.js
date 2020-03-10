@@ -85,7 +85,6 @@ function updateColumnSpacing(data, key, value) {
   function deleteSelectedcolumn(data) {
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
-    const activeColumn  = activePage.component.data.activeColumn;
     const activeRow  = activePage.component.data.activeRow;
     var deviceData = activePage.component.data.properties.data;
     _.each(deviceData, (deviceRow, index) => {
@@ -150,15 +149,69 @@ function updateColumnSpacing(data, key, value) {
   function addNewColumn(data) {
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
-    const activeColumn  = activePage.component.data.activeColumn;
     const activeRow  = activePage.component.data.activeRow;
     var deviceData = activePage.component.data.properties.data;
-    
+    _.each(deviceData, deviceRow => {
+      const colums = deviceRow[activeRow].cols;
+      _.each(deviceRow[activeRow].cols, col => {
+        col.active = false;
+      });
+      colums.push({
+        height: 80,
+        size: 4,
+        visible: [],
+        hide: [],
+        active: true,
+        spacings: {
+          margin: {
+            top: "none",
+            bottom: "none"
+          },
+          padding: {
+            top: "none",
+            bottom: "none"
+          },
+        }
+      });
+    });
+    activePage.component.data.activeColumn = deviceData.sm[activeRow].cols.length - 1;
+    console.log(activePage.component.data)
+    return newData;
   }
 
+  function setRowReverse(data, dir) {
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {return page.active === true});
+    const activeRow  = activePage.component.data.activeRow;
+    activePage.component.data.properties.data.sm[activeRow].reverse = dir;
+    activePage.component.data.properties.data.lg[activeRow].reverse = dir;
+    activePage.component.data.properties.data.md[activeRow].reverse = dir;
+    return newData;
+  }
+  function setRowHorizontalAlignment(data, val) {
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {return page.active === true});
+    const activeRow  = activePage.component.data.activeRow;
+    activePage.component.data.properties.data.sm[activeRow].horizontal_align = val;
+    activePage.component.data.properties.data.lg[activeRow].horizontal_align = val;
+    activePage.component.data.properties.data.md[activeRow].horizontal_align = val;
+    return newData;
+  }
+  function setRowVerticalAlignment(data, val) {
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {return page.active === true});
+    const activeRow  = activePage.component.data.activeRow;
+    activePage.component.data.properties.data.sm[activeRow].vertical_align = val;
+    activePage.component.data.properties.data.lg[activeRow].vertical_align = val;
+    activePage.component.data.properties.data.md[activeRow].vertical_align = val;
+    return newData;
+  }
 export {
   updateColumnSpacing,
   setColumnWidth,
   deleteSelectedcolumn,
-  addNewColumn
+  addNewColumn,
+  setRowReverse,
+  setRowHorizontalAlignment,
+  setRowVerticalAlignment
 }

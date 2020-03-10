@@ -1,5 +1,5 @@
   import _ from 'lodash';
-  
+  import { gridRow } from '../../../config/dataSkeletons';
   function setRowGutter(data, selectedOption) {
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
@@ -17,10 +17,11 @@
     _.each(deviceData, deviceRow => {
       _.each(deviceRow, (row, index) => {
         if(index === (activeRow)) {
-          console.log(row.cols);
-          _.each(row.cols, col => {
-              col.height = height;
-          })
+          // console.log(row.cols);
+          // _.each(row.cols, col => {
+          //     col.height = height;
+          // })
+          row.height = height;
           row.cols[activeColumn].active = true;
           row.active = true;
         } else {
@@ -28,7 +29,7 @@
           row.active = false;
         }
       })
-    })
+    });
     return newData;
   }
   function setRowWrap(data,val) {
@@ -50,42 +51,7 @@
     const devicesData = activePage.component.data.properties.data;
     _.each(devicesData, deviceRow => {
       deviceRow.push(
-        {
-          spacings: {
-            margin: {
-              top: "none",
-              bottom: "none"
-            },
-            padding: {
-              top: "none",
-              bottom: "none",
-            },
-          },
-          cols: [
-            {
-              height: 80,
-              size: 12,
-              visible: [],
-              hide: [],
-              active: false,
-              spacings: {
-                margin: {
-                  top: "none",
-                  bottom: "none",
-                  left: "none",
-                  right: "none"
-                },
-                padding: {
-                  top: "none",
-                  bottom: "none",
-                  left: "none",
-                  right: "none"
-                },
-              }
-            }
-          ],
-          active: false
-        }
+        JSON.parse(JSON.stringify(gridRow))
       )
     });
     if(devicesData.sm.length === 1) {
@@ -159,7 +125,6 @@
     activePage.component.data.activeRow = f;
     return newData;
   }
-
   function updateGridSpacing(data, key, value) {
     const type = value.split("-")[1];
     const newData = data.slice();
@@ -179,7 +144,6 @@
     }
     return newData;
   }
-
   function updateRowSpacing(data, key, value){
     const type = value.split("-")[1];
     const newData = data.slice();
@@ -205,7 +169,6 @@
     console.log(activePage)
     return newData;
   }
-
   export {
     setRowGutter,
     setRowHeight,

@@ -7,5 +7,6 @@ function gradClasses() {
     return classes;
 }
 function getGradientTheme() {
-    return gradClasses()[Math.floor(Math.random() * Math.floor(gradClasses.length))]
+    const d = gradClasses()[Math.floor(Math.random() * Math.floor(gradClasses().length))]
+    return d;
 }

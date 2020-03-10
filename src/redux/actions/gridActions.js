@@ -71,3 +71,18 @@
   export const addNewColumn = () => ({
     type: 'ADD_NEW_COLUMN'
   })
+
+  export const setRowReverse = dir => ({
+    type: 'SET_ROW_REVERSE',
+    dir: dir
+  })
+
+  export const setRowHorizontalAlignment = val => ({
+    type: 'SET_ROW_HORIZONTAL_ALIGNMENT',
+    alignment: val
+  })
+
+  export const setRowVerticalAlignment = val => ({
+    type: 'SET_ROW_VERTICAL_ALIGNMENT',
+    alignment: val
+  })

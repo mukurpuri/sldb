@@ -13,7 +13,11 @@ import { setRowGutter,
   setRowPosition,
   updateGridSpacing,
   updateRowSpacing,
-  addNewColumn} from '../../../../../../redux/actions/gridActions';
+  addNewColumn,
+  setRowReverse,
+  setRowHorizontalAlignment,
+  setRowVerticalAlignment
+} from '../../../../../../redux/actions/gridActions';
 //import validation from '../../../../../../config/validations';
 
 class RowProperties extends React.Component {
@@ -178,22 +182,23 @@ class RowProperties extends React.Component {
     const activePage = _.find(builderData, page => { return page.active === true } );
     const activeEditor = activePage.component.data.activeEditor;
     const selectedRow = activePage.component.data.properties.data[activeEditor];
-    // if(selectedRow.cols.length === 0) {
-    //   return "";
-    // }
-    console.log(selectedRow)
-    const columnHeight = selectedRow[activePage.component.data.activeRow] && selectedRow[activePage.component.data.activeRow].cols.length  >= 1 ? selectedRow[activePage.component.data.activeRow].cols[activePage.component.data.activeColumn].height : 0;
+    const columnHeight = selectedRow[activePage.component.data.activeRow] && selectedRow[activePage.component.data.activeRow].cols.length  >= 1 ? selectedRow[activePage.component.data.activeRow].height : 0;
     
     const defaultMarginValue = (activePage.component.data.properties.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "none";
     const defaultPaddingValue = (activePage.component.data.properties.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "none";
     
     const activeRow = activePage.component.data.activeRow;
-
+    let columnReverse = "no";
     let defaultRowMarginValue = "none";
     let defaultRowPaddingValue = "none";
+    let rowHorizontalAlignmnet= "none";
+    let rowVerticalAlignmnet = "none";
     if(activePage.component.data.properties.data[activeEditor][activeRow]) {
       defaultRowMarginValue = (activePage.component.data.properties.data[activeEditor][activeRow].spacings.margin[this.state.rowSpacing.margin.property.split("-")[1]]).split("_")[1] || "none";
       defaultRowPaddingValue =  (activePage.component.data.properties.data[activeEditor][activeRow].spacings.padding[this.state.rowSpacing.padding.property.split("-")[1]]).split("_")[1] || "none";
+      columnReverse = activePage.component.data.properties.data[activeEditor][activeRow].reverse || "no";
+      rowHorizontalAlignmnet = activePage.component.data.properties.data[activeEditor][activeRow].horizontal_align;
+      rowVerticalAlignmnet = activePage.component.data.properties.data[activeEditor][activeRow].vertical_align;
     }
     return (
       <div className="box">
@@ -426,9 +431,78 @@ class RowProperties extends React.Component {
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
                         <select value={columnHeight} onChange={this.setRowHeightInGrid} className="slds-select" id="select-01">
-                          <option value={40}>Small</option>
-                          <option value={80}>Medium</option>
-                          <option value={120}>Large</option>
+                          <option value={"auto"}>Auto</option>
+                          <option value={100}>100px</option>
+                          <option value={120}>120px</option>
+                          <option value={200}>200px</option>
+                          <option value={250}>250px</option>
+                          <option value={300}>300px</option>
+                          <option value={350}>350px</option>
+                          <option value={400}>400px</option>
+                          <option value={450}>450px</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                  Alignments (Hor.)
+                </div>
+                <div className="slds-col slds-large-size_6-of-12 value">
+                  <div className="slds-form-element">
+                    <div className="slds-form-element__control">
+                      <div className="slds-select_container">
+                        <select value={rowHorizontalAlignmnet} onChange={e => this.props.setRowHorizontalAlignment(e.target.value)} className="slds-select" id="select-01">
+                          <option value={""}>None</option>
+                          <option value={"slds-grid_align-center"}>Center align</option>
+                          <option value={"slds-grid_align-space"}>Space between</option>
+                          <option value={"slds-grid_align-spread"}>Spread</option>
+                          <option value={"slds-grid_align-end"}>End</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                  Alignments (Ver.)
+                </div>
+                <div className="slds-col slds-large-size_6-of-12 value">
+                  <div className="slds-form-element">
+                    <div className="slds-form-element__control">
+                      <div className="slds-select_container">
+                        <select value={rowVerticalAlignmnet} onChange={e => this.props.setRowVerticalAlignment(e.target.value)} className="slds-select" id="select-01">
+                          <option value={""}>None</option>
+                          <option value={"slds-grid_vertical-align-start"}>Start</option>
+                          <option value={"slds-grid_vertical-align-center"}>Center</option>
+                          <option value={"slds-grid_vertical-align-end"}>End</option>
+                          <option value={"slds-grid_vertical-align-center slds-grid_align-center"}>Absolute Center</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                  Reverse Columns
+                </div>
+                <div className="slds-col slds-large-size_6-of-12 value">
+                  <div className="slds-form-element">
+                    <div className="slds-form-element__control">
+                      <div className="slds-select_container">
+                        <select value={columnReverse} onChange={(e) => this.props.setRowReverse(e.target.value)} className="slds-select" id="select-01">
+                          <option value={"yes"}>Yes</option>
+                          <option value={"no"}>No</option>
                         </select>
                       </div>
                     </div>
@@ -452,6 +526,7 @@ class RowProperties extends React.Component {
                 </div>
               </div>
             </div>
+            
         </div>
           </React.Fragment> : null
         }
@@ -476,7 +551,10 @@ const mapDispatchToProps = (dispatch) => {
       setRowPosition: (i, f) => dispatch(setRowPosition(i,f)),
       updateGridSpacing: (key, value) => dispatch(updateGridSpacing(key, value)),
       updateRowSpacing: (key, value) => dispatch(updateRowSpacing(key, value)),
-      addNewColumn: () => dispatch(addNewColumn())
+      addNewColumn: () => dispatch(addNewColumn()),
+      setRowReverse: dir => dispatch(setRowReverse(dir)),
+      setRowVerticalAlignment: val => dispatch(setRowVerticalAlignment(val)),
+      setRowHorizontalAlignment: val => dispatch(setRowHorizontalAlignment(val))
    };
 };
 
