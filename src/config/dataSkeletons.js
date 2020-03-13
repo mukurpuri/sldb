@@ -11,12 +11,11 @@ const builderDataElement =  {
 
     },
     code: {
-        lwc: {
-
-        },
-        lightning: {
-            
-        }
+        isMinified: false,
+        allowVirtualProperties: true,
+        innerText: true,
+        lwc: "",
+        lightning: ""
     }
 }
 const gridData  = {
@@ -36,24 +35,24 @@ const gridData  = {
     properties: {
       gutters: "slds-gutters_medium",
       margin: {
-        top: "none",
-        bottom: "none"
+        top: "",
+        bottom: ""
       },
       padding: {
-        top: "none",
-        bottom: "none"
+        top: "",
+        bottom: ""
       },
       data: {
         sm: [
           {
             spacings: {
               margin: {
-                top: "none",
-                bottom: "none"
+                top: "",
+                bottom: ""
               },
               padding: {
-                top: "none",
-                bottom: "none",
+                top: "",
+                bottom: "",
               },
             },
             cols: [
@@ -65,33 +64,33 @@ const gridData  = {
                 active: true,
                 spacings: {
                   margin: {
-                    top: "none",
-                    bottom: "none"
+                    top: "",
+                    bottom: ""
                   },
                   padding: {
-                    top: "none",
-                    bottom: "none"
+                    top: "",
+                    bottom: ""
                   },
                 }
               }
             ],
             active: true,
             height: "auto",
-            horizontal_align: "none",
-            vertical_align: "none",
-            reverse: "no"
+            horizontal_align: "",
+            vertical_align: "",
+            reverse: ""
           }
         ],
         md: [
           {
             spacings: {
               margin: {
-                top: "none",
-                bottom: "none"
+                top: "",
+                bottom: ""
               },
               padding: {
-                top: "none",
-                bottom: "none",
+                top: "",
+                bottom: "",
               },
             },
             cols: [
@@ -103,33 +102,33 @@ const gridData  = {
                 active: true,
                 spacings: {
                   margin: {
-                    top: "none",
-                    bottom: "none"
+                    top: "",
+                    bottom: ""
                   },
                   padding: {
-                    top: "none",
-                    bottom: "none"
+                    top: "",
+                    bottom: ""
                   },
                 }
               }
             ],
             active: true,
             height: "auto",
-            horizontal_align: "none",
-            vertical_align: "none",
-            reverse: "no"
+            horizontal_align: "",
+            vertical_align: "",
+            reverse: ""
           }
         ],
         lg: [
           {
             spacings: {
               margin: {
-                top: "none",
-                bottom: "none"
+                top: "",
+                bottom: ""
               },
               padding: {
-                top: "none",
-                bottom: "none",
+                top: "",
+                bottom: "",
               },
             },
             cols: [
@@ -141,21 +140,21 @@ const gridData  = {
                 active: true,
                 spacings: {
                   margin: {
-                    top: "none",
-                    bottom: "none"
+                    top: "",
+                    bottom: ""
                   },
                   padding: {
-                    top: "none",
-                    bottom: "none"
+                    top: "",
+                    bottom: ""
                   },
                 }
               }
             ],
             active: true,
             height: "auto",
-            horizontal_align: "none",
-            vertical_align: "none",
-            reverse: "no"
+            horizontal_align: "",
+            vertical_align: "",
+            reverse: ""
           }
         ]
       }
@@ -164,18 +163,18 @@ const gridData  = {
 const gridRow = {
   spacings: {
     margin: {
-      top: "none",
-      bottom: "none"
+      top: "",
+      bottom: ""
     },
     padding: {
-      top: "none",
-      bottom: "none",
+      top: "",
+      bottom: "",
     },
   },
   height: "auto",
-  horizontal_align: "none",
-  vertical_align: "none",
-  reverse: "no",
+  horizontal_align: "",
+  vertical_align: "",
+  reverse: "",
   cols: [
     {
       height: 80,
@@ -185,16 +184,16 @@ const gridRow = {
       active: false,
       spacings: {
         margin: {
-          top: "none",
-          bottom: "none",
-          left: "none",
-          right: "none"
+          top: "",
+          bottom: "",
+          left: "",
+          right: ""
         },
         padding: {
-          top: "none",
-          bottom: "none",
-          left: "none",
-          right: "none"
+          top: "",
+          bottom: "",
+          left: "",
+          right: ""
         },
       }
     }

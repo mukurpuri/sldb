@@ -12,6 +12,10 @@ import {
   updateRowSpacing,
 } from './utilities/gridRow';
 import { updateColumnSpacing, setColumnWidth, deleteSelectedcolumn, addNewColumn, setRowReverse, setRowHorizontalAlignment, setRowVerticalAlignment } from './utilities/gridColumns';
+import { setCode,
+  setCodeMinify,
+  setCodeVirtualProperty,
+  setCodeinnerText } from './utilities/codeColumns';
 const initialState = {
     builderData: []
   };
@@ -195,6 +199,35 @@ const initialState = {
         }
       }
 
+      case 'SET_CODE': {
+        return {
+          ...state,
+          builderData: setCode(state.builderData, action.code)
+        }
+      }
+
+      case 'SET_CODE_MINIFY': {
+        console.log("kjbnjknkj", action);
+        return {
+          ...state,
+          builderData: setCodeMinify(state.builderData, action.boo)
+        }
+      }
+
+      case 'SET_CODE_VIRTUAL_PROPERTY': {
+        return {
+          ...state,
+          builderData: setCodeVirtualProperty(state.builderData, action.boo)
+        }
+      }
+
+      case 'SET_CODE_INNER_TEXT': {
+        return {
+          ...state,
+          builderData: setCodeinnerText(state.builderData, action.boo)
+        }
+      }
+
       // Default
       default: {
         return state;
@@ -242,6 +275,7 @@ const initialState = {
     _.map(newData, nd => {
       if(nd.id === id) {
         nd.active = true;
+        nd.state = "builder";
       } else {
         nd.active = false;
       }

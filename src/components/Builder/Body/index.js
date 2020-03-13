@@ -21,58 +21,65 @@ class Body extends React.Component {
         return <p>Add component</p>;
     }
   }
+  valueGapper = val => {
+    if(val === "") {
+      return "";
+    } else {
+      return " " + val + " ";
+    }
+  }
   renderGrid = data => {
       const properties = data.properties;
       const gutters = properties.gutters || "";
       const margins = properties.margin || "";
       const paddings = properties.padding || "";
       
-      const marginTop = margins.top.split("_")[1] ? margins.top + " " : '';
-      const marginBottom = margins.bottom.split("_")[1] ? margins.bottom + " " : '';
-      const paddingTop = paddings.top.split("_")[1] ? paddings.top + " " : '';
-      const paddingBottom = paddings.bottom.split("_")[1] ? paddings.bottom + " " : '';
+      const marginTop = margins.top.split("_")[1] ? margins.top + this.valueGapper(margins.top) : '';
+      const marginBottom = margins.bottom.split("_")[1] ? margins.bottom + this.valueGapper(margins.bottom) : '';
+      const paddingTop = paddings.top.split("_")[1] ? paddings.top + this.valueGapper(paddings.top) : '';
+      const paddingBottom = paddings.bottom.split("_")[1] ? paddings.bottom + this.valueGapper(paddings.bottom) : '';
 
-      let marginsPaddings = `${marginTop}${marginBottom}${paddingTop}${paddingBottom}`;
+      let marginsPaddings = ` ${marginTop}${marginBottom}${paddingTop}${paddingBottom} `;
 
-      var parentGridClasses =  `slds-p-left_${gutters.split("_")[1]} slds-p-right_${gutters.split("_")[1]}`;
+      var parentGridClasses =  gutters === "" ? `` : `slds-p-left_${gutters.split("_")[1]} slds-p-right_${gutters.split("_")[1]}`;
       const stack = data.properties.data[data.activeEditor];
       const grid = [];
       _.each(stack, (row, rowIndex) => {
 
         const rowId = rowIndex;
-        const activeRowClass = row.active ? "active" : "";
-        const reverseClass = row.reverse === "yes" ? "slds-grid_reverse" : "";
+        const activeRowClass = row.active ? " active " : "";
+        const reverseClass = this.valueGapper(row.reverse);
 
-        const horizontalAlignmentClass = row.horizontal_align;
-        const verticalAlignmentClass = row.vertical_align;
+        const horizontalAlignmentClass = this.valueGapper(row.horizontal_align);
+        const verticalAlignmentClass = this.valueGapper(row.vertical_align);
 
         const columns = [];
         _.each(row.cols, (col, index) => {
           const activeClass = col.active ? "active" : "";
-          const classNames =  `${activeClass} slds-large-size_${col.size}-of-12`;
+          const classNames =  ` ${activeClass} slds-large-size_${col.size}-of-12`;
 
-          const colMarginTop = col.spacings.margin.top.split("_")[1] ? col.spacings.margin.top + " " : ''; ;
-          const colMarginBottom = col.spacings.margin.bottom.split("_")[1] ? col.spacings.margin.bottom + " " : '';
-          const colPaddingTop = col.spacings.padding.top.split("_")[1] ? col.spacings.padding.top + " " : ''; ;
-          const colPaddingBottom = col.spacings.padding.bottom.split("_")[1] ? col.spacings.padding.bottom + " " : '';
+          const colMarginTop = col.spacings.margin.top.split("_")[1] ? this.valueGapper(col.spacings.margin.top) : ''; ;
+          const colMarginBottom = col.spacings.margin.bottom.split("_")[1] ? this.valueGapper(col.spacings.margin.bottom) : '';
+          const colPaddingTop = col.spacings.padding.top.split("_")[1] ? this.valueGapper(col.spacings.padding.top) : ''; ;
+          const colPaddingBottom = col.spacings.padding.bottom.split("_")[1] ? this.valueGapper(col.spacings.padding.bottom) : '';
 
           let colMarginsPaddings = `${colMarginTop}${colMarginBottom}${colPaddingTop}${colPaddingBottom}`;
           columns.push(
-            <div style={{"height": `78px`}} key={index} onClick={() => this.activateColumn(index, data.activeEditor, rowId)} className={`${colMarginsPaddings} slds-col ${classNames} text_col_${col.size} text_col`}></div>
+            <div style={{"height": `78px`}} key={index} onClick={() => this.activateColumn(index, data.activeEditor, rowId)} className={`${colMarginsPaddings}slds-col${classNames} text_col_${col.size} text_col`}></div>
           )
         });
 
         const { spacings } = row;
-        const rowMarginTop = spacings.margin.top.split("_")[1] ? spacings.margin.top + " " : ''; ;
-        const rowMarginBottom = spacings.margin.bottom.split("_")[1] ? spacings.margin.bottom + " " : ''; ;
-        const rowPaddingTop = spacings.padding.top.split("_")[1] ? spacings.padding.top + " " : ''; ;
-        const rowPaddingBottom = spacings.padding.bottom.split("_")[1] ? spacings.padding.bottom + " " : ''; ;
+        const rowMarginTop = spacings.margin.top.split("_")[1] ? this.valueGapper(spacings.margin.top) : ''; ;
+        const rowMarginBottom = spacings.margin.bottom.split("_")[1] ? this.valueGapper(spacings.margin.bottom) : ''; ;
+        const rowPaddingTop = spacings.padding.top.split("_")[1] ? this.valueGapper(spacings.padding.top) : ''; ;
+        const rowPaddingBottom = spacings.padding.bottom.split("_")[1] ? this.valueGapper(spacings.padding.bottom) : ''; ;
 
       let rowMarginsPaddings = `${rowMarginTop}${rowMarginBottom}${rowPaddingTop}${rowPaddingBottom}`;
-        grid.push(<div key={rowIndex} style={{"height": row.height === "auto" ? `auto` : `${row.height}px`}} className={`slds-grid ${horizontalAlignmentClass} ${verticalAlignmentClass} ${activeRowClass} ${reverseClass} ${rowMarginsPaddings} slds-wrap`}>{columns}</div>)
+        grid.push(<div key={rowIndex} style={{"height": row.height === "auto" ? `auto` : `${row.height}px`}} className={`slds-grid${horizontalAlignmentClass}${verticalAlignmentClass}${activeRowClass}${reverseClass}${rowMarginsPaddings} slds-wrap`}>{columns}</div>)
       });
 
-      return <div><DeviceToggler/><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}><div className={`${marginsPaddings}`} ><div className={`${gutters}`}>{grid}</div></div></div></div>;
+      return <div><DeviceToggler/><div className="code-target"><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}><div className={`${marginsPaddings}`} ><div className={`${gutters}`}>{grid}</div></div></div></div></div>;
   }
   generateComponent = () => {
     const gridBuilder = this.props.builderData;

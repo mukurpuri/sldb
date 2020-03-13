@@ -34,6 +34,11 @@ class Controls extends React.Component {
   }
   
   render() {
+    const { builderData } = this.props;
+    const activePage = _.find(builderData, d => { return d.active === true; });
+    if(activePage.component && activePage.component.type !== null) {
+      return null;
+    }
     var components = ["Accordion"
     ,"Alert"
     ,"Avatar"

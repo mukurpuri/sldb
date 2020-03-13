@@ -31,7 +31,7 @@ function updateColumnSpacing(data, key, value) {
     const activeRow  = activePage.component.data.activeRow;
     const activeColumn  = activePage.component.data.activeColumn;
     let column = activePage.component.data.properties.data[activePage.component.data.activeEditor][activeRow].cols[activeColumn];
-    column.size = size;
+    column.size = parseInt(size);
     return newData;
   }
 
@@ -175,7 +175,6 @@ function updateColumnSpacing(data, key, value) {
       });
     });
     activePage.component.data.activeColumn = deviceData.sm[activeRow].cols.length - 1;
-    console.log(activePage.component.data)
     return newData;
   }
 

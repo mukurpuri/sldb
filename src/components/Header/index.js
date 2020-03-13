@@ -28,8 +28,11 @@ class Header extends React.Component {
     const tabState = activePage.state ;
     return (
       <div  className={this.props.type}>
-      <div className={`header-logo ${Constants.appGradientTheme}`}>
-        <img alt="SLDS" src="/slds-text-logo-header.png"/>
+      <div className={`header-logo`}>
+        <div className="cloud">
+          <div className={`slds-cloud ${Constants.appGradientTheme}`}></div>
+        </div>
+        {/* <img alt="SLDS" src="/slds-text-logo-header.png"/> */}
       </div>
       {
         activePage.component.data === null ? "" : 

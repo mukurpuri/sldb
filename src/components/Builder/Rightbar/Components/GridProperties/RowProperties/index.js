@@ -184,19 +184,19 @@ class RowProperties extends React.Component {
     const selectedRow = activePage.component.data.properties.data[activeEditor];
     const columnHeight = selectedRow[activePage.component.data.activeRow] && selectedRow[activePage.component.data.activeRow].cols.length  >= 1 ? selectedRow[activePage.component.data.activeRow].height : 0;
     
-    const defaultMarginValue = (activePage.component.data.properties.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "none";
-    const defaultPaddingValue = (activePage.component.data.properties.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "none";
+    const defaultMarginValue = (activePage.component.data.properties.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
+    const defaultPaddingValue = (activePage.component.data.properties.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
     
     const activeRow = activePage.component.data.activeRow;
-    let columnReverse = "no";
-    let defaultRowMarginValue = "none";
-    let defaultRowPaddingValue = "none";
-    let rowHorizontalAlignmnet= "none";
-    let rowVerticalAlignmnet = "none";
+    let columnReverse = "";
+    let defaultRowMarginValue = "";
+    let defaultRowPaddingValue = "";
+    let rowHorizontalAlignmnet= "";
+    let rowVerticalAlignmnet = "";
     if(activePage.component.data.properties.data[activeEditor][activeRow]) {
-      defaultRowMarginValue = (activePage.component.data.properties.data[activeEditor][activeRow].spacings.margin[this.state.rowSpacing.margin.property.split("-")[1]]).split("_")[1] || "none";
-      defaultRowPaddingValue =  (activePage.component.data.properties.data[activeEditor][activeRow].spacings.padding[this.state.rowSpacing.padding.property.split("-")[1]]).split("_")[1] || "none";
-      columnReverse = activePage.component.data.properties.data[activeEditor][activeRow].reverse || "no";
+      defaultRowMarginValue = (activePage.component.data.properties.data[activeEditor][activeRow].spacings.margin[this.state.rowSpacing.margin.property.split("-")[1]]).split("_")[1] || "";
+      defaultRowPaddingValue =  (activePage.component.data.properties.data[activeEditor][activeRow].spacings.padding[this.state.rowSpacing.padding.property.split("-")[1]]).split("_")[1] || "";
+      columnReverse = activePage.component.data.properties.data[activeEditor][activeRow].reverse;
       rowHorizontalAlignmnet = activePage.component.data.properties.data[activeEditor][activeRow].horizontal_align;
       rowVerticalAlignmnet = activePage.component.data.properties.data[activeEditor][activeRow].vertical_align;
     }
@@ -229,7 +229,7 @@ class RowProperties extends React.Component {
                       <div className="slds-form-element__control">
                         <div className="slds-select_container">
                           <select value={defaultMarginValue} onChange={this.setGridMargin} className="slds-select" id="grid-gutters">
-                            <option value="none">None</option>
+                            <option value="">None</option>
                             <option value="x-small">x-Small</option>
                             <option value="small">Small</option>
                             <option value="medium">Medium</option>
@@ -262,7 +262,7 @@ class RowProperties extends React.Component {
                       <div className="slds-form-element__control">
                         <div className="slds-select_container">
                           <select value={defaultPaddingValue} onChange={this.setGridPadding} className="slds-select">    
-                            <option value="none">None</option>
+                            <option value="">None</option>
                             <option value="xxx-small">xxx-Small</option>
                             <option value="xx-small">xx-Small</option>
                             <option value="x-small">x-Small</option>
@@ -313,6 +313,18 @@ class RowProperties extends React.Component {
               </div>
             </div>
           </div>
+          {
+            selectedRow.length > 0 ?  
+            <div className="property slds-p-around_small">
+              <div className="slds-grid">
+                <div className="slds-col active slds-large-size_12-of-12 key">
+                  <button onClick={this.props.addNewColumn} className="green properties-btn-big slds-button slds-button_brand full primary-button">
+                    Add Column to Row
+                  </button>
+                </div>
+              </div>
+            </div> : null
+          }
         </div>
         {
           selectedRow.length > 0 ?  
@@ -340,7 +352,7 @@ class RowProperties extends React.Component {
                   <div className="slds-form-element__control">
                     <div className="slds-select_container">
                       <select value={defaultRowMarginValue} onChange={this.setRowMargin} className="slds-select">
-                        <option value="none">None</option>
+                        <option value="">None</option>
                         <option value="xxx-small">xxx-Small</option>
                         <option value="xx-small">xx-Small</option>
                         <option value="x-small">x-Small</option>
@@ -375,7 +387,7 @@ class RowProperties extends React.Component {
                   <div className="slds-form-element__control">
                     <div className="slds-select_container">
                       <select value={defaultRowPaddingValue} onChange={this.setRowPadding} className="slds-select">    
-                        <option value="none">None</option>
+                        <option value="">None</option>
                         <option value="xxx-small">xxx-Small</option>
                         <option value="xx-small">xx-Small</option>
                         <option value="x-small">x-Small</option>
@@ -493,16 +505,18 @@ class RowProperties extends React.Component {
             </div>
             <div className="property">
               <div className="slds-grid slds-p-left_small slds-p-right_small">
-                <div className="slds-col slds-large-size_6-of-12 key">
-                  Reverse Columns
+                <div title="Directions of columns" className="slds-col slds-large-size_6-of-12 key">
+                  Columns Dir.
                 </div>
                 <div className="slds-col slds-large-size_6-of-12 value">
                   <div className="slds-form-element">
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
-                        <select value={columnReverse} onChange={(e) => this.props.setRowReverse(e.target.value)} className="slds-select" id="select-01">
-                          <option value={"yes"}>Yes</option>
-                          <option value={"no"}>No</option>
+                        <select value={columnReverse} onChange={(e) => this.props.setRowReverse(e.target.value)} className="slds-select">
+                        <option value={""}>Row</option>
+                        <option value={"slds-grid_reverse"}>Row reverse</option>
+                        <option value={"slds-grid_vertical"}>Column</option>
+                        <option value={"slds-grid_vertical-reverse"}>Column Reverse</option>
                         </select>
                       </div>
                     </div>
@@ -510,15 +524,6 @@ class RowProperties extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="property slds-p-around_small">
-            <div className="slds-grid">
-              <div className="slds-col active slds-large-size_12-of-12 key">
-                <button onClick={this.props.addNewColumn} className="properties-btn-big slds-button slds-button_brand full primary-button">
-                  Add Column to Row
-                </button>
-              </div>
-            </div>
-          </div>
             <div className="property">
               <div className="slds-grid slds-p-around_x-small">
                 <div className="slds-col slds-large-size_12-of-12 key slds-text-align_center">

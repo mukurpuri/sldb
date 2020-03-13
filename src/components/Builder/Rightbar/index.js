@@ -5,9 +5,18 @@ import PageDetails from './PageDetails';
 import _ from 'lodash';
 import './index.css';
 import GridProperties from './Components/GridProperties';
+import CodeProperties from './codeProperties';
 import { getBuilderData } from '../../../redux/actions/dataActions';
 
 class Rightbar extends React.Component {
+
+  renderCodeProperty = data => {
+    const activePage = _.find(data, d => {return d.active === true});
+    if(activePage && activePage.state !== "code") {
+      return null;
+    }
+    return <CodeProperties/>
+  }
 
   renderComponentProperties = builderData => {
     if(builderData.length === 0) {
@@ -33,6 +42,7 @@ class Rightbar extends React.Component {
       <div className="rightbar">
         <PageDetails/>
         { this.renderComponentProperties(builderData) }
+        { this.renderCodeProperty(builderData) }
       </div>
     );
   }

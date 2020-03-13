@@ -10,3 +10,21 @@
     top: 0;
     overflow-y: auto;
 }
+.code-hide {
+    position: absolute;
+    top: -20000px;
+    right: -20000px;
+    opacity: 0;
+}
+.copy-message {
+    height: 0;
+    text-align: center;
+    transition: height 0.2s;
+    width: 100%;
+    font-size: 14px;
+    overflow: hidden;
+}
+.copy-message.show{
+    height: 50px;
+    margin-bottom: 20px;
+}

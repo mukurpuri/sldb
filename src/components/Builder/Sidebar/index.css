@@ -9,3 +9,15 @@
     border-right: 1px solid #e5e5e5;
     z-index: 5;
 }
+.footer-author {
+    font-size: 11px;
+    color: #676767;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background: #fafafa;
+    padding: 10px;
+    border-top: 1px solid #ebebeb;
+}
