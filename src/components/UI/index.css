@@ -1,0 +1,20 @@
+.checkboxSelect {
+    background: white;
+    border: 1px solid #ececec;
+    position: absolute;
+    width: 250px;
+    right: -12px;
+    z-index: 1;
+}
+.checkboxSelect .item {
+    border-bottom: 1px solid #ececec;
+}
+.checkboxSelect .item > div label {
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.checkboxSelect .item > div:hover {
+    background: #00000005;
+    cursor: pointer;
+}

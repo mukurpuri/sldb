@@ -166,7 +166,6 @@
       default:
       console.log("undefined");
     }
-    console.log(activePage)
     return newData;
   }
   export {

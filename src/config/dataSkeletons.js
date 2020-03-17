@@ -18,6 +18,69 @@ const builderDataElement =  {
         lightning: ""
     }
 }
+const ComponentList = [
+"Alert"
+,"Avatar"
+,"Avatar Group"
+,"Badges"
+,"Brand Band"
+,"Breadcrumbs"
+,"Button Groups"
+,"Button Icons"
+,"Buttons"
+,"Cards"
+,"Checkbox"
+,"Checkbox Button"
+,"Checkbox Button Group"
+,"Checkbox Toggle"
+,"Color Picker"
+,"Combobox"
+,"Data Tables"
+,"Datepickers"
+,"Datetime Picker"
+,"Dynamic Icons"
+,"Dynamic Menu"
+,"Expandable Section"
+,"File Selector"
+,"Files"
+,"Form Element"
+,"Icons"
+,"Illustration"
+,"Input"
+,"Lookups"
+,"Map"
+,"Menus"
+,"Modals"
+,"Notifications"
+,"Panels"
+,"Picklist"
+,"Pills"
+,"Popovers"
+,"Progress Bar"
+,"Progress Indicator"
+,"Progress Ring"
+,"Prompt"
+,"Radio Button Group"
+,"Radio Group"
+,"Rich Text Editor"
+,"Scoped Notifications"
+,"Scoped Tabs"
+,"Select"
+,"Slider"
+,"Spinners"
+,"Summary Detail"
+,"Tabs"
+,"Textarea"
+,"Tiles"
+,"Timepicker"
+,"Toast"
+,"Tooltips"
+,"Trees"
+,"Vertical Navigation"
+,"Vertical Tabs"
+,"Visual Picker"
+];
+
 const gridData  = {
     activeEditor: "lg",
     activeRow: 0,
@@ -200,6 +263,150 @@ const gridRow = {
   ],
   active: false
 }
-const builderData = [ builderDataElement ];
 
-export { builderData, builderDataElement, gridData, gridRow };
+const cardData = {
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  },
+  header: {
+    hidden: [],
+    spacings: {
+      margin: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      },
+      padding: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      }
+    },
+    flip: "",
+    icon: {
+      hidden: [],
+      name: "custom5",
+      size: "",
+      flip: false,
+      type: "custom",
+      description: "Description of the icon",
+      spacings: {
+        margin: {
+          "top": "slds-m-top_xxx-small",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        },
+        padding: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        }
+      }
+    },
+    title: {
+      hidden: [],
+      text: "Accounts",
+      size: "slds-text-title",
+      color: "",
+      align: "slds-text-align_left",
+      spacings: {
+        margin: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        },
+        padding: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        }
+      }
+    },
+    button: {
+      streched: false,
+      hidden: [],
+      text: "Button 2",
+      strong: false,
+      isDisabled: false,
+      type: "slds-button_neutral",
+      spacings: {
+        margin: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        },
+        padding: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        }
+      },
+      icon: {
+        name: "",
+        position: "",
+      },
+    }
+  },
+  body: {
+    hidden: [],
+    text: "Anything can go into the card body",
+    align: "slds-text-align_left",
+    spacings: {
+      margin: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      },
+      padding: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      }
+    },
+    size: ""
+  },
+  footer: {
+    hidden: [],
+    spacings: {
+      margin: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      },
+      padding: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      }
+    },
+    align: "slds-text-align_center",
+    textAlign: "",
+    text: "View All"
+  }
+}
+
+const builderData = [ builderDataElement ];
+export { builderData, ComponentList, builderDataElement, gridData, gridRow, cardData };

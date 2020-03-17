@@ -28,9 +28,9 @@ class GridSizer extends React.Component {
                         <div className="slds-large-size_8-of-12">
                             <div className="slds-p-around_medium">
                                 <fieldset className="slds-form-element">
-                                <div class="slds-form-element__control"><span class="slds-radio slds-float_left slds-p-right_medium"><input type="radio" id="small" name="device" value="small"/><label class="slds-radio__label" for="small"><span class="slds-radio_faux"></span><span class="slds-form-element__label">Mobiles</span></label>
-                                    </span><span class="slds-radio slds-float_left slds-p-right_medium"><input type="radio" id="medium" name="device" value="medium"/><label class="slds-radio__label" for="medium"><span class="slds-radio_faux"></span><span class="slds-form-element__label">Tablets</span></label>
-                                    </span><span class="slds-radio slds-float_left slds-p-right_medium"><input type="radio" id="desktop" name="device" value="desktop"/><label class="slds-radio__label" for="desktop"><span class="slds-radio_faux"></span><span class="slds-form-element__label">Desktops</span></label>
+                                <div className="slds-form-element__control"><span className="slds-radio slds-float_left slds-p-right_medium"><input type="radio" id="small" name="device" value="small"/><label className="slds-radio__label" for="small"><span className="slds-radio_faux"></span><span className="slds-form-element__label">Mobiles</span></label>
+                                    </span><span className="slds-radio slds-float_left slds-p-right_medium"><input type="radio" id="medium" name="device" value="medium"/><label className="slds-radio__label" for="medium"><span className="slds-radio_faux"></span><span className="slds-form-element__label">Tablets</span></label>
+                                    </span><span className="slds-radio slds-float_left slds-p-right_medium"><input type="radio" id="desktop" name="device" value="desktop"/><label className="slds-radio__label" for="desktop"><span className="slds-radio_faux"></span><span className="slds-form-element__label">Desktops</span></label>
                                     </span>
                                 </div>
                                 </fieldset>
@@ -50,9 +50,9 @@ class GridSizer extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="slds-large-size_2-of-12">
-                                        <input class="slds-m-left_xx-small" type="button" value="+" />
-                                        <input class="slds-m-left_xx-small" type="button" value="-"/>
+                                    <div className="slds-large-size_2-of-12">
+                                        <input className="slds-m-left_xx-small" type="button" value="+" />
+                                        <input className="slds-m-left_xx-small" type="button" value="-"/>
                                     </div>
                                     <div className="slds-large-size_3-of-12">
                                         <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/><label for="vehicle1">&nbsp;Wrap</label>
@@ -69,7 +69,7 @@ class GridSizer extends React.Component {
                         </div>
                         <div  className="slds-large-size_4-of-12">
                             <div className="box">
-                                <div class="head bordered">COLUMN DETAILS</div>
+                                <div className="head bordered">COLUMN DETAILS</div>
                             </div>
                         </div>
                     </div>

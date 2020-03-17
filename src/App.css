@@ -38,7 +38,11 @@ body {
 .box .section {
     padding: 10px;
 }
-
+.inputSelector {
+    cursor: pointer;
+    font-size: 13px;
+    padding-left: 6px;
+}
 .box .head.bordered {
     border-bottom: 1px solid #ececec;
 }
@@ -56,6 +60,7 @@ body {
     line-height: 24px;;
 }
 .box .content .property .value {
+    position: relative;
     height: 24px;
 }
 .box .content .property .value .slds-select{
@@ -157,5 +162,12 @@ background: linear-gradient(to right, #799F0C, #FFE000); /* W3C, IE 10+/ Edge, F
     background: #e65c00;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #F9D423, #e65c00);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #F9D423, #e65c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.ocean, .ocean:before, .ocean:after  {
+    color: white;
+    background: #DA22FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }

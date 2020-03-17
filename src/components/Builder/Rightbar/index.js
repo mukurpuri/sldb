@@ -7,6 +7,7 @@ import './index.css';
 import GridProperties from './Components/GridProperties';
 import CodeProperties from './codeProperties';
 import { getBuilderData } from '../../../redux/actions/dataActions';
+import CardProperties from './Components/CardProperties';
 
 class Rightbar extends React.Component {
 
@@ -28,6 +29,9 @@ class Rightbar extends React.Component {
       switch(type) {
         case 'grid':
         return <GridProperties/>
+
+        case 'card':
+        return <CardProperties/>
 
         default:
         return null

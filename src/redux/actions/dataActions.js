@@ -27,7 +27,8 @@ export const getBuilderData = () => ({
     data: val
   });
 
-  export const addGridToCanvas = () => ({
-    type: 'ADD_GRID_TO_CANVAS'
+  export const addComponentToCanvas = component => ({
+    type: 'ADD_COMPONENT_TO_CANVAS',
+    component: component
   })
   

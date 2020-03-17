@@ -27,7 +27,7 @@ class Pagination extends React.Component {
   render() {
     var pages = [];
     var gradClasses = Constants.gradClasses;
-    var gradient = gradClasses[[Math.floor(Math.random() * Math.floor(gradClasses.length))]];
+    //var gradient = gradClasses[[Math.floor(Math.random() * Math.floor(gradClasses.length))]];
     _.each(this.props.pages, (page,index) => {
       var li = <li onClick={() => { this.makePageActive(page.id)}} key={page.id} className={page.active ? Constants.appGradientTheme : ""} id={page.id}>{page.name} <span className="minus-page" title="Close this page" onClick={(e) => {this.deletePage(page.id, e)}}>+</span></li>;
       pages.push(li);
@@ -36,7 +36,7 @@ class Pagination extends React.Component {
     return (
       <div className="box">
           <div className="head">
-              PAGES <span title="Add new page" onClick={() => this.addBuilderPage()} className="add">+</span>
+              PAGES <span title="Add new page" onClick={() => this.addBuilderPage()} className="add">ADD NEW</span>
           </div>
           <ul className="pages">
               {_.reverse(pages)}

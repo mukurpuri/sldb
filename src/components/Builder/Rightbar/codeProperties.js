@@ -33,7 +33,7 @@ class CodeProperties extends React.Component {
             this.setState({
                 message: ""
             });
-          }, 1000)
+          }, 2000)
         })
       }
 
@@ -136,7 +136,7 @@ class CodeProperties extends React.Component {
                     <div className="slds-grid slds-p-left_small slds-p-right_small slds-p-top_medium slds-p-bottom_medium">
                         <button onClick={() => this.setMessage(activePage)} className={`copyButton ${Constants.appGradientTheme}`}>Copy Code to Clipboard</button>
                     </div>
-                    <p className={`copy-message ${this.state.message.length >= 0 ? 'show': ''}`}>
+                    <p className={`copy-message ${this.state.message.length > 0 ? 'show': ''}`}>
                         {this.state.message}
                     </p>
                 </div>

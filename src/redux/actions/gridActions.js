@@ -86,3 +86,9 @@
     type: 'SET_ROW_VERTICAL_ALIGNMENT',
     alignment: val
   })
+
+  export const activateRow = (device, rowId) => ({
+    type: 'ACTIVATE_ROW',
+    device: device,
+    rowId: rowId
+  })

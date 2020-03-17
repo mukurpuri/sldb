@@ -9,6 +9,7 @@
     height: 100%;
     top: 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .code-hide {
     position: absolute;
@@ -26,5 +27,4 @@
 }
 .copy-message.show{
     height: 50px;
-    margin-bottom: 20px;
 }

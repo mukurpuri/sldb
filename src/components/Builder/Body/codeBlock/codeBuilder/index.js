@@ -30,7 +30,7 @@ function gridbuilder(properties) {
             bottom: properties.padding.bottom
         }
     }
-    const gridContainerClasses =  gridClasses.gutter === "" && !gridClasses.gutter ? `` : ` class="slds-p-left_${gridClasses.gutter.split("_")[1]} slds-p-right_${gridClasses.gutter.split("_")[1]}"`;
+    const gridContainerClasses =  gridClasses.gutter === "" && !gridClasses.gutter ? `` : ` className="slds-p-left_${gridClasses.gutter.split("_")[1]} slds-p-right_${gridClasses.gutter.split("_")[1]}"`;
     const margins = properties.margin || "";
     const paddings = properties.padding || "";
     const marginTop = margins.top.split("_")[1] ? margins.top + valueGapper(margins.top) : '';
@@ -38,8 +38,8 @@ function gridbuilder(properties) {
     const paddingTop = paddings.top.split("_")[1] ? paddings.top + valueGapper(paddings.top) : '';
     const paddingBottom = paddings.bottom.split("_")[1] ? paddings.bottom + valueGapper(paddings.bottom) : '';
     let gridContainerMarginsPaddings = `${marginTop}${marginBottom}${paddingTop}${paddingBottom}`;
-    gridContainerMarginsPaddings = gridContainerMarginsPaddings !== "" ? ` class="${gridContainerMarginsPaddings.trim()}"` : '';
-    let gridGutters = properties.gutters !== "" ? ` class="${properties.gutters.trim()}"` : '';
+    gridContainerMarginsPaddings = gridContainerMarginsPaddings !== "" ? ` className="${gridContainerMarginsPaddings.trim()}"` : '';
+    let gridGutters = properties.gutters !== "" ? ` className="${properties.gutters.trim()}"` : '';
     const rows= fetchRows(properties.data);
     const gridCode = `<div${gridContainerMarginsPaddings}${gridContainerClasses}><div${gridGutters}>${rows}</div></div>`;
     return gridCode;
@@ -76,7 +76,7 @@ function fetchColumns(data,ind) {
         const smString = "slds-small-size_" + smClasses[index] + "-of-12"
         const mdString = "slds-medium-size_" + mdClasses[index] + "-of-12"
         const lgString = "slds-large-size_" + lgClasses[index] + "-of-12"
-        columnString += `<div class="${smString} ${mdString} ${lgString}">Inner Text</div>`
+        columnString += `<div className="${smString} ${mdString} ${lgString}">Inner Text</div>`
     });
     return columnString;
 }
@@ -96,7 +96,7 @@ function fetchRows(data) {
         const reverse = row.reverse;
         const height = row.height === "auto" ? ` style="height:${row.height}"` : ` style="height:${row.height}px"` ;
         const totalClasses = (`slds-grid slds-wrap${rowMarginsPaddings}${horizontal_align}${vertical_align}${reverse}`).trim().replace(new RegExp(' {2}', "g"), ' ');
-        rowString += `<div${height}class="${totalClasses}">${fetchColumns(data,index)}</div>`
+        rowString += `<div${height}className="${totalClasses}">${fetchColumns(data,index)}</div>`
     });
     return rowString;
 }
