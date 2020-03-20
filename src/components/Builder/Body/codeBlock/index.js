@@ -22,7 +22,18 @@ class CodeBlock extends React.Component {
   }
 
   componentWillMount = () => {
-    this.props.setCode(codeBuilder(this.state.activePage.component.data.properties, this.state.activePage.component.type));
+    let code = "";
+    switch(this.state.activePage.component.type) {
+      case 'grid':
+        code = this.state.activePage.component.data.properties;
+        break;
+      case 'card':
+        code = this.state.activePage.component.data;
+        break;
+      default:
+        console.log('undefined');
+    }
+    this.props.setCode(codeBuilder(code, this.state.activePage.component.type));
   }
 
   render() {

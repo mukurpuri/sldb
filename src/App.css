@@ -34,6 +34,10 @@ body {
     border-left: 1px solid #ececec;
     height: 25px;
     padding-left: 10px;
+    max-width: 110px;
+}
+.head .bordered:hover {
+    color: #09F;
 }
 .box .section {
     padding: 10px;
@@ -44,10 +48,19 @@ body {
     padding-left: 6px;
 }
 .box .head.bordered {
+    cursor: pointer;
     border-bottom: 1px solid #ececec;
 }
 .box .content {
     position: relative;
+    transition: all 0.2s;
+}
+.box .content.collapse {
+    overflow: hidden;
+    height:0;
+}
+.box .content.expand {
+    height:auto;
 }
 .box .content .property {
     border-bottom: 1px solid #ececec;
@@ -57,7 +70,8 @@ body {
     line-height: 25px;
 }
 .box .content .property .key {
-    line-height: 24px;;
+    line-height: 24px;
+    position: relative;
 }
 .box .content .property .value {
     position: relative;
@@ -170,4 +184,39 @@ background: linear-gradient(to right, #F9D423, #e65c00); /* W3C, IE 10+/ Edge, F
     background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+}
+.icon-selector {
+    padding-top: 0px;
+    padding-left: 5px;
+    border-left: 1px solid #ececec;
+    height: 25px;
+}
+.icon-selector input[type="button"] {
+    width: 100%;
+    font-size: 11px;
+    margin-top: 3px;
+}
+.icon-setchange {
+    position: absolute;
+    right: 6px;
+    top: 0;
+}
+.ReactModal__Overlay {
+    z-index: 12;
+    background-color: rgba(0, 0, 0, 0.75) !important;
+}
+.ReactModal__Overlay .head{
+    font-size: 12px;
+    position: sticky;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+}
+.minimizer-icon {
+    position: absolute;
+    right: 15px;
+    top: 9px;
+}
+.property-divider {
+    border-bottom: 2px solid #e5e5e5;
 }

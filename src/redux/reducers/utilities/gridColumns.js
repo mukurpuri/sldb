@@ -164,12 +164,12 @@ function updateColumnSpacing(data, key, value) {
         active: true,
         spacings: {
           margin: {
-            top: "none",
-            bottom: "none"
+            top: "",
+            bottom: ""
           },
           padding: {
-            top: "none",
-            bottom: "none"
+            top: "",
+            bottom: ""
           },
         }
       });

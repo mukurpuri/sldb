@@ -2,17 +2,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { updateCardHeaderSpacing, cardHeaderHideInDeviceList, setCardHeaderFlip, setCardHeaderAlignment } from '../../../../../../redux/actions/cardActions';
+import { 
+    updateCardHeaderTitleSpacing,
+    cardHeaderTitleHideInDeviceList,
+    setCardHeaderTitleAlign,
+    setCardHeaderTitleText,
+    setCardHeaderTitleSize,
+    setCardHeaderTitleColor
+ } from '../../../../../../redux/actions/cardActions';
 import CheckboxSelect from '../../../../../../components/UI/CheckboxSelect'
 
-class CardHeader extends React.Component {
+class CardHeaderTitle extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
           minimizer: true,
           showDeviceVisibilityCheckBox: false,
           hideInDeviceList: "",
-          modalIsOpen: false,
           spacing: {
             margin: {
               property: "margin-top",
@@ -38,25 +44,25 @@ class CardHeader extends React.Component {
     
       setCardMargin = e => {
         let value = e.target.value;
-        this.updateCardHeaderSpacing(this.state.spacing.margin.property, value , "margin");
+        this.updateCardHeaderTitleSpacing(this.state.spacing.margin.property, value , "margin");
       }
     
       setCardPadding = e => {
         let value = e.target.value;
-        this.updateCardHeaderSpacing(this.state.spacing.padding.property, value , "padding");
+        this.updateCardHeaderTitleSpacing(this.state.spacing.padding.property, value , "padding");
       }
     
-      updateCardHeaderSpacing = (key, value, property) => {
+      updateCardHeaderTitleSpacing = (key, value, property) => {
         key =  key.split("-")[1];
         switch(property) {
           case 'margin':
           value = `slds-m-${key}_${value}`
-          this.props.updateCardHeaderSpacing(key, value);
+          this.props.updateCardHeaderTitleSpacing(key, value);
           break;
     
           case 'padding':
           value = `slds-p-${key}_${value}`
-          this.props.updateCardHeaderSpacing(key, value);
+          this.props.updateCardHeaderTitleSpacing(key, value);
           break;
     
           default:
@@ -73,7 +79,7 @@ class CardHeader extends React.Component {
         this.setState({
           showDeviceVisibilityCheckBox: false
         }, () => {
-          this.props.cardHeaderHideInDeviceList(val, state);
+          this.props.cardHeaderTitleHideInDeviceList(val, state);
         })
       }
 
@@ -95,20 +101,21 @@ class CardHeader extends React.Component {
     const activePage = _.find(builderData, page => { return page.active === true } );
     let defaultCardMarginValue = "";
     let defaultCardPaddingValue = "";
-    let defaultFlipValue = "";
-    let defaultHeaderalignment = "";
-    let headerHiddenDevices = activePage.component.data.header.hidden.slice();
+    let defaultCardTitleAlign = "";
+    let defaultHeaderTitleText = "";
+    let defaultCardTitleColor = "";
+    let headerHiddenDevices = activePage.component.data.header.title.hidden.slice();
     if(activePage.component.data) {
-      defaultCardMarginValue = (activePage.component.data.header.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
-      defaultCardPaddingValue = (activePage.component.data.header.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
-      defaultFlipValue = activePage.component.data.header.flip;
-      defaultHeaderalignment = activePage.component.data.header.alignment;
+      defaultCardMarginValue = (activePage.component.data.header.title.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
+      defaultCardPaddingValue = (activePage.component.data.header.title.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
+      defaultHeaderTitleText = activePage.component.data.header.title.text;
+      defaultCardTitleAlign = activePage.component.data.header.title.align;
+      defaultCardTitleColor = activePage.component.data.header.title.color;
     }
     return (
-      <React.Fragment>
         <div className="box">
         <div onClick={() => this.setState({minimizer: !this.state.minimizer}) } className="head bordered">
-            HEADER PROPERTIES
+            HEADER TITLE PROPERTIES
             <span className="minimizer-icon">
               <span className={`slds-icon_container slds-icon-utility-${this.state.minimizer ? "add": "dash"}`}>
                 <svg className="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
@@ -157,8 +164,8 @@ class CardHeader extends React.Component {
                 </div>
             </div>
             <div className="property">
-                <div className="slds-grid slds-p-left_small slds-p-right_small">
-                  <div className="slds-col slds-large-size_6-of-12 value property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 value property">
                     <div className="slds-form-element">
                       <div className="slds-form-element__control">
                         <div className="slds-select_container">
@@ -214,15 +221,26 @@ class CardHeader extends React.Component {
             <div className="property">
               <div className="slds-grid slds-p-left_small slds-p-right_small">
                 <div className="slds-col slds-large-size_6-of-12 key">
-                    Reverse Content
+                    Text
+                  </div>
+                  <div className="slds-col slds-large-size_6-of-12 value">
+                    <input value={defaultHeaderTitleText} onChange={e => this.props.setCardHeaderTitleText(e.target.value)} className="value text" type="text" />
+                  </div>
+                </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                    Align
                   </div>
                   <div className="slds-col slds-large-size_6-of-12 value">
                     <div className="slds-form-element">
                       <div className="slds-form-element__control">
                         <div className="slds-select_container">
-                          <select value={defaultFlipValue} onChange={(e) => this.props.setCardHeaderFlip(e.target.value)} className="slds-select">
-                            <option value="">No</option>
-                            <option value="slds-grid_reverse">Yes</option>
+                          <select value={defaultCardTitleAlign} onChange={(e) => this.props.setCardHeaderTitleAlign(e.target.value)} className="slds-select">
+                            <option value="slds-text-align_left">Left</option>
+                            <option value="slds-text-align_right">Right</option>
+                            <option value="slds-text-align_center">Center</option>
                           </select>
                         </div>
                       </div>
@@ -232,30 +250,31 @@ class CardHeader extends React.Component {
             </div>
             <div className="property">
               <div className="slds-grid slds-p-left_small slds-p-right_small">
-                <div className="slds-col slds-large-size_6-of-12 key">
-                    Alignment
+                  <div className="slds-col slds-large-size_6-of-12 key">
+                      Style
                   </div>
                   <div className="slds-col slds-large-size_6-of-12 value">
-                    <div className="slds-form-element">
-                      <div className="slds-form-element__control">
-                        <div className="slds-select_container">
-                          <select value={defaultHeaderalignment} onChange={(e) => this.props.setCardHeaderAlignment(e.target.value)} className="slds-select">
-                            <option value="">None</option>
-                            <option value="slds-grid_align-center">Center</option>
-                            <option value="slds-grid_align-space">Space Between</option>
-                            <option value="slds-grid_align-spread">Spread</option>
-                            <option value="slds-grid_align-end">End</option>
-                          </select>
-                        </div>
+                      <div className="slds-form-element">
+                          <div className="slds-form-element__control">
+                              <div className="slds-select_container">
+                                  <select value={defaultCardTitleColor} onChange={(e) => this.props.setCardHeaderTitleColor(e.target.value)} className="slds-select">
+                                  <option value="slds-text-color_default">Default</option>
+                                  <option value="slds-text-color_success">Success</option>
+                                  <option value="slds-text-color_weak">Weak</option>
+                                  <option value="slds-text-color_error">Error</option>
+                                  <option value="slds-text-color_inverse">Inverse</option>
+                                  <option value="slds-text-color_inverse-weak">Inverse Weak</option>
+                                  <option value="slds-text-font_monospace">Monospace</option>
+                                  </select>
+                              </div>
+                          </div>
                       </div>
-                    </div>
                   </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </React.Fragment>
     );
   }
 }
@@ -268,11 +287,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCardHeaderSpacing: (key, value) => dispatch(updateCardHeaderSpacing(key, value)),
-        cardHeaderHideInDeviceList: (device, state) => dispatch(cardHeaderHideInDeviceList(device, state)),
-        setCardHeaderFlip: val => dispatch(setCardHeaderFlip(val)),
-        setCardHeaderAlignment: val => dispatch(setCardHeaderAlignment(val))
+        updateCardHeaderTitleSpacing: (key, value) => dispatch(updateCardHeaderTitleSpacing(key, value)),
+        cardHeaderTitleHideInDeviceList: (device, state) => dispatch(cardHeaderTitleHideInDeviceList(device, state)),
+        setCardHeaderTitleAlign: (val) => dispatch(setCardHeaderTitleAlign(val)),
+        setCardHeaderTitleText: (val) => dispatch(setCardHeaderTitleText(val)),
+        setCardHeaderTitleSize: (val) => dispatch(setCardHeaderTitleSize(val)),
+        setCardHeaderTitleColor: (val) => dispatch(setCardHeaderTitleColor(val))
    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(CardHeaderTitle);

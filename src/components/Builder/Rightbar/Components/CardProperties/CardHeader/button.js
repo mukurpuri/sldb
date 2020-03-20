@@ -2,17 +2,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { updateCardHeaderSpacing, cardHeaderHideInDeviceList, setCardHeaderFlip, setCardHeaderAlignment } from '../../../../../../redux/actions/cardActions';
+import { updateCardHeaderButtonSpacing,
+    cardHeaderButtonHideInDeviceList,
+    setCardHeaderButtonText,
+    setCardHeaderButtonTheme,
+    setCardHeaderButtonStreched,
+    setCardHeaderButtonStrong,
+    setCardHeaderButtonDisabled,
+    setHeaderButtonIcon
+} from '../../../../../../redux/actions/cardActions';
 import CheckboxSelect from '../../../../../../components/UI/CheckboxSelect'
+import IconSelectorModal from '../../../../../UI/IconSelector';
 
-class CardHeader extends React.Component {
+class CardHeaderButton extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
           minimizer: true,
           showDeviceVisibilityCheckBox: false,
           hideInDeviceList: "",
-          modalIsOpen: false,
           spacing: {
             margin: {
               property: "margin-top",
@@ -38,25 +46,25 @@ class CardHeader extends React.Component {
     
       setCardMargin = e => {
         let value = e.target.value;
-        this.updateCardHeaderSpacing(this.state.spacing.margin.property, value , "margin");
+        this.updateCardHeaderButtonSpacing(this.state.spacing.margin.property, value , "margin");
       }
     
       setCardPadding = e => {
         let value = e.target.value;
-        this.updateCardHeaderSpacing(this.state.spacing.padding.property, value , "padding");
+        this.updateCardHeaderButtonSpacing(this.state.spacing.padding.property, value , "padding");
       }
     
-      updateCardHeaderSpacing = (key, value, property) => {
+      updateCardHeaderButtonSpacing = (key, value, property) => {
         key =  key.split("-")[1];
         switch(property) {
           case 'margin':
           value = `slds-m-${key}_${value}`
-          this.props.updateCardHeaderSpacing(key, value);
+          this.props.updateCardHeaderButtonSpacing(key, value);
           break;
     
           case 'padding':
           value = `slds-p-${key}_${value}`
-          this.props.updateCardHeaderSpacing(key, value);
+          this.props.updateCardHeaderButtonSpacing(key, value);
           break;
     
           default:
@@ -73,7 +81,7 @@ class CardHeader extends React.Component {
         this.setState({
           showDeviceVisibilityCheckBox: false
         }, () => {
-          this.props.cardHeaderHideInDeviceList(val, state);
+          this.props.cardHeaderButtonHideInDeviceList(val, state);
         })
       }
 
@@ -90,25 +98,46 @@ class CardHeader extends React.Component {
           return cls
       }
 
+      openModal = () => {
+        this.setState({
+          modalIsOpen: true
+        })
+      }
+    
+      selectIcon = (icon) => {
+        this.setState({
+          modalIsOpen: false
+        }, ()=> {
+          this.props.setHeaderButtonIcon(icon)
+        })
+      }
+
   render() {
     const { builderData } = this.props;
     const activePage = _.find(builderData, page => { return page.active === true } );
     let defaultCardMarginValue = "";
     let defaultCardPaddingValue = "";
-    let defaultFlipValue = "";
-    let defaultHeaderalignment = "";
-    let headerHiddenDevices = activePage.component.data.header.hidden.slice();
+    let defaultHeaderButtonTheme = "";
+    let defaultHeaderButtonText = "";
+    let defaultHeaderButtonStreched = "";
+    let defaultHeaderButtonStrong = false;
+    let defaultHeaderButtonDisabled = false;
+    let headerHiddenDevices = activePage.component.data.header.button.hidden.slice();
     if(activePage.component.data) {
-      defaultCardMarginValue = (activePage.component.data.header.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
-      defaultCardPaddingValue = (activePage.component.data.header.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
-      defaultFlipValue = activePage.component.data.header.flip;
-      defaultHeaderalignment = activePage.component.data.header.alignment;
+      defaultCardMarginValue = (activePage.component.data.header.button.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
+      defaultCardPaddingValue = (activePage.component.data.header.button.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
+      defaultHeaderButtonText = activePage.component.data.header.button.text; 
+      defaultHeaderButtonTheme = activePage.component.data.header.button.theme;
+      defaultHeaderButtonStreched = activePage.component.data.header.button.streched;
+      defaultHeaderButtonStrong = activePage.component.data.header.button.strong;
+      defaultHeaderButtonDisabled = activePage.component.data.header.button.isDisabled;
     }
     return (
-      <React.Fragment>
+        <React.Fragment>
+        <IconSelectorModal selectClose={() => {this.setState({modalIsOpen: false})}} selectIconClose={this.selectIcon} modalOpen={this.state.modalIsOpen} />
         <div className="box">
         <div onClick={() => this.setState({minimizer: !this.state.minimizer}) } className="head bordered">
-            HEADER PROPERTIES
+            HEADER BUTTON PROPERTIES
             <span className="minimizer-icon">
               <span className={`slds-icon_container slds-icon-utility-${this.state.minimizer ? "add": "dash"}`}>
                 <svg className="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
@@ -214,15 +243,30 @@ class CardHeader extends React.Component {
             <div className="property">
               <div className="slds-grid slds-p-left_small slds-p-right_small">
                 <div className="slds-col slds-large-size_6-of-12 key">
-                    Reverse Content
+                    Text
+                  </div>
+                  <div className="slds-col slds-large-size_6-of-12 value">
+                    <input value={defaultHeaderButtonText} onChange={e => this.props.setCardHeaderButtonText(e.target.value)} className="value text" type="text" />
+                  </div>
+                </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                    Theme
                   </div>
                   <div className="slds-col slds-large-size_6-of-12 value">
                     <div className="slds-form-element">
                       <div className="slds-form-element__control">
                         <div className="slds-select_container">
-                          <select value={defaultFlipValue} onChange={(e) => this.props.setCardHeaderFlip(e.target.value)} className="slds-select">
-                            <option value="">No</option>
-                            <option value="slds-grid_reverse">Yes</option>
+                          <select value={defaultHeaderButtonTheme} onChange={(e) => this.props.setCardHeaderButtonTheme(e.target.value)} className="slds-select">
+                            <option value="link">Link</option>
+                            <option value="slds-button_neutral">Neutral</option>
+                            <option value="slds-button_brand">Brand</option>
+                            <option value="slds-button_outline-brand">Outline Brand</option>
+                            <option value="slds-button_destructive">Destructive</option>
+                            <option value="slds-button_text-destructive">Text Destructive</option>
+                            <option value="slds-button_success">Success</option>
                           </select>
                         </div>
                       </div>
@@ -233,21 +277,48 @@ class CardHeader extends React.Component {
             <div className="property">
               <div className="slds-grid slds-p-left_small slds-p-right_small">
                 <div className="slds-col slds-large-size_6-of-12 key">
-                    Alignment
+                    Streched
                   </div>
                   <div className="slds-col slds-large-size_6-of-12 value">
                     <div className="slds-form-element">
-                      <div className="slds-form-element__control">
+                        <div className="slds-form-element__control">
                         <div className="slds-select_container">
-                          <select value={defaultHeaderalignment} onChange={(e) => this.props.setCardHeaderAlignment(e.target.value)} className="slds-select">
-                            <option value="">None</option>
-                            <option value="slds-grid_align-center">Center</option>
-                            <option value="slds-grid_align-space">Space Between</option>
-                            <option value="slds-grid_align-spread">Spread</option>
-                            <option value="slds-grid_align-end">End</option>
-                          </select>
+                            <select value={defaultHeaderButtonStreched} onChange={(e) => this.props.setCardHeaderButtonStreched(e.target.value)} className="slds-select">
+                            <option value={false}>No</option>
+                            <option value={true}>Yes</option>
+                            </select>
                         </div>
-                      </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                    Font Weight
+                  </div>
+                  <div className="slds-col slds-large-size_6-of-12 value">
+                    <div className="slds-select_container">
+                        <select value={defaultHeaderButtonStrong} onChange={(e) => this.props.setCardHeaderButtonStrong(e.target.value)} className="slds-select">
+                        <option value="">No</option>
+                        <option value="slds-button_stretch">Yes</option>
+                        </select>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div className="property">
+              <div className="slds-grid slds-p-left_small slds-p-right_small">
+                <div className="slds-col slds-large-size_6-of-12 key">
+                    Disabled
+                  </div>
+                  <div className="slds-col slds-large-size_6-of-12 value">
+                    <div className="slds-select_container">
+                        <select value={defaultHeaderButtonDisabled} onChange={(e) => this.props.setCardHeaderButtonDisabled(e.target.value)} className="slds-select">
+                        <option value="">No</option>
+                        <option value="slds-button_stretch">Yes</option>
+                        </select>
                     </div>
                   </div>
                 </div>
@@ -268,11 +339,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCardHeaderSpacing: (key, value) => dispatch(updateCardHeaderSpacing(key, value)),
-        cardHeaderHideInDeviceList: (device, state) => dispatch(cardHeaderHideInDeviceList(device, state)),
-        setCardHeaderFlip: val => dispatch(setCardHeaderFlip(val)),
-        setCardHeaderAlignment: val => dispatch(setCardHeaderAlignment(val))
+        updateCardHeaderButtonSpacing: (key, value) => dispatch(updateCardHeaderButtonSpacing(key, value)),
+        cardHeaderButtonHideInDeviceList: (device, state) => dispatch(cardHeaderButtonHideInDeviceList(device, state)),
+        setCardHeaderButtonText: val => dispatch(setCardHeaderButtonText(val)),
+        setCardHeaderButtonTheme: val => dispatch(setCardHeaderButtonTheme(val)),
+        setCardHeaderButtonStreched: val => dispatch(setCardHeaderButtonStreched(val)),
+        setCardHeaderButtonStrong: val => dispatch(setCardHeaderButtonStrong(val)),
+        setCardHeaderButtonDisabled: val => dispatch(setCardHeaderButtonDisabled(val)),
+        setHeaderButtonIcon: val => dispatch(setHeaderButtonIcon(val))
+        
    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(CardHeaderButton);

@@ -16,7 +16,41 @@ import { setCode,
   setCodeMinify,
   setCodeVirtualProperty,
   setCodeinnerText } from './utilities/codeColumns';
-import { updateCardSpacing, updateCardHeaderSpacing, cardHeaderHideInDeviceList, setCardHeaderFlip } from './utilities/card';
+import { updateCardSpacing,
+  updateCardHeaderSpacing,
+  cardHeaderHideInDeviceList,
+  setCardHeaderFlip,
+  updateCardHeaderIconSpacing,
+  cardHeaderIconHideInDeviceList,
+  setCardHeaderIconFlip,
+  setCardHeaderIcon,
+  setCardHeaderIconSize,
+  setCardHeaderIconColor,
+  updateCardHeaderTitleSpacing,
+  cardHeaderTitleHideInDeviceList,
+  setCardHeaderTitleAlign,
+  setCardHeaderTitleText,
+  setCardHeaderTitleSize,
+  setCardHeaderTitleColor,
+  setCardHeaderAlignment,
+  updateCardHeaderButtonSpacing,
+  cardHeaderButtonHideInDeviceList,
+  setCardHeaderButtonText,
+  setCardHeaderButtonTheme,
+  setCardHeaderButtonStreched,
+  setCardHeaderButtonStrong,
+  setCardHeaderButtonDisabled,
+  updateCardBodySpacing,
+  cardBodyHideInDeviceList,
+  setCardBodyText,
+  setCardBodyColor,
+  setCardBodyAlign,
+  setCardBodySize,
+  setHeaderButtonIcon,
+  updateCardFooterSpacing,
+  cardFooterHideInDeviceList,
+  setCardFooterText
+ } from './utilities/card';
 const initialState = {
     builderData: []
   };
@@ -260,6 +294,211 @@ const initialState = {
         return {
           ...state,
           builderData: setCardHeaderFlip(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_ICON_SPACING': {
+        return {
+          ...state,
+          builderData: updateCardHeaderIconSpacing(state.builderData, action.key, action.val)
+        }
+      }
+
+      case 'CARD_HEADER_ICON_HIDEN_IN_DEVICE_LIST': {
+        return {
+          ...state,
+          builderData: cardHeaderIconHideInDeviceList(state.builderData, action.device, action.state)
+        }
+      }
+
+      case 'SET_CARD_HEADER_ICON_FLIP': {
+        return {
+          ...state,
+          builderData: setCardHeaderIconFlip(state.builderData, action.val)
+        }
+      }
+
+      case 'SET_CARD_HEADER_ICON': {
+        return {
+          ...state,
+          builderData: setCardHeaderIcon(state.builderData, action.icon)
+        }
+      }
+
+      case 'SET_CARD_HEADER_ICON_SIZE': {
+        return {
+          ...state,
+          builderData: setCardHeaderIconSize(state.builderData, action.iconSize)
+        }
+      }
+
+      case 'SET_CARD_HEADER_ICON_COLOR': {
+        return {
+          ...state,
+          builderData: setCardHeaderIconColor(state.builderData, action.color)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_TITLE_SPACING': {
+        return{
+          ...state,
+          builderData: updateCardHeaderTitleSpacing(state.builderData, action.key, action.val)
+        }
+      }
+      case 'UPDATE_CARD_HEADER_TITLE_HIDEN_IN_DEVICE_LIST': {
+        return{
+          ...state,
+          builderData: cardHeaderTitleHideInDeviceList(state.builderData, action.device, action.state)
+        }
+      }
+      case 'UPDATE_CARD_HEADER_TITLE_ALIGN': {
+        return{
+          ...state,
+          builderData: setCardHeaderTitleAlign(state.builderData, action.val)
+        }
+      }
+      case 'UPDATE_CARD_HEADER_TITLE_TEXT': {
+        return{
+          ...state,
+          builderData: setCardHeaderTitleText(state.builderData, action.val)
+        }
+      }
+      case 'UPDATE_CARD_HEADER_TITLE_SIZE': {
+        return{
+          ...state,
+          builderData: setCardHeaderTitleSize(state.builderData, action.val)
+        }
+      }
+      case 'UPDATE_CARD_HEADER_TITLE_COLOR': {
+        return{
+          ...state,
+          builderData: setCardHeaderTitleColor(state.builderData, action.val)
+        }
+      }
+
+      case 'SET_CARD_HEADER_ALIGNMENT': {
+        return {
+          ...state,
+          builderData: setCardHeaderAlignment(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_SPACING': {
+        return {
+          ...state,
+          builderData: updateCardHeaderButtonSpacing(state.builderData, action.key, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_HIDEN_IN_DEVICE_LIST': {
+        return {
+          ...state,
+          builderData: cardHeaderButtonHideInDeviceList(state.builderData, action.device, action.state)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_TEXT': {
+        return {
+          ...state,
+          builderData: setCardHeaderButtonText(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_THEME': {
+        return {
+          ...state,
+          builderData: setCardHeaderButtonTheme(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_STRECHED': {
+        return {
+          ...state,
+          builderData: setCardHeaderButtonStreched(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_STRONG': {
+        return {
+          ...state,
+          builderData: setCardHeaderButtonStrong(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_DISABLED': {
+        return {
+          ...state,
+          builderData: setCardHeaderButtonDisabled(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_BODY_SPACING': {
+        return {
+          ...state,
+          builderData: updateCardBodySpacing(state.builderData, action.key, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_BODY_HIDEN_IN_DEVICE_LIST': {
+        return {
+          ...state,
+          builderData: cardBodyHideInDeviceList(state.builderData, action.device, action.state)
+        }
+      }
+
+      case 'UPDATE_CARD_BODY_TEXT': {
+        return {
+          ...state,
+          builderData: setCardBodyText(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_BODY_ALIGN': {
+        return {
+          ...state,
+          builderData: setCardBodyAlign(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_BODY_COLOR': {
+        return {
+          ...state,
+          builderData: setCardBodyColor(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_BODY_SIZE': {
+        return {
+          ...state,
+          builderData: setCardBodySize(state.builderData, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_HEADER_BUTTON_ICON': {
+        return {
+          ...state,
+          builderData: setHeaderButtonIcon(state.builderData, action.icon)
+        }
+      }
+
+      case 'UPDATE_CARD_FOOTER_SPACING': {
+        return {
+          ...state,
+          builderData: updateCardFooterSpacing(state.builderData, action.key, action.val)
+        }
+      }
+
+      case 'UPDATE_CARD_FOOTER_HIDEN_IN_DEVICE_LIST': {
+        return {
+          ...state,
+          builderData: cardFooterHideInDeviceList(state.builderData, action.device, action.state)
+        }
+      }
+
+      case 'UPDATE_CARD_FOOTER_TEXT': {
+        return {
+          ...state,
+          builderData: setCardFooterText(state.builderData, action.val)
         }
       }
 

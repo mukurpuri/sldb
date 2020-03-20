@@ -18,3 +18,37 @@
     background: #00000005;
     cursor: pointer;
 }
+.iconContainer {
+    text-align: center;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 0;
+}
+.iconContainer:hover, .iconContainer.active {
+    background: #0000000a;
+    cursor: pointer;
+    border: 1px solid #09f;
+}
+.iconContainer p {
+    margin-top: 6px;
+    color: #464545;
+    font-size: 13px;
+}
+.icon-actions-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    width: 100%;
+    background: #ebebeb;
+    bottom: 0;
+    border-top: 1px solid #cccccc;
+}
+.iconSelector .content {
+    min-height: 431px;
+    padding-top: 20px;
+    padding-top: 25px;
+}

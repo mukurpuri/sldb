@@ -81,8 +81,8 @@ class ColumnProperties extends React.Component {
     let defaultColumnPaddingValue = 0;
     let columnWidth = 1;
     if(activePage.component.data.properties.data[activeEditor][activeRow] && activePage.component.data.properties.data[activeEditor][activeRow].cols.length >= 1) {
-      defaultColumnMarginValue = (activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "none";
-      defaultColumnPaddingValue = (activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "none";
+      defaultColumnMarginValue = (activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
+      defaultColumnPaddingValue = (activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
       columnWidth = activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].size;
     }
     if(selectedRow.length <= 0) {
@@ -116,7 +116,7 @@ class ColumnProperties extends React.Component {
                   <div className="slds-form-element__control">
                     <div className="slds-select_container">
                       <select value={defaultColumnMarginValue} onChange={this.setColumnMargin} className="slds-select" id="grid-gutters">
-                        <option value="none">None</option>
+                        <option value="">None</option>
                         <option value="x-small">x-Small</option>
                         <option value="small">Small</option>
                         <option value="medium">Medium</option>
@@ -149,7 +149,7 @@ class ColumnProperties extends React.Component {
                   <div className="slds-form-element__control">
                     <div className="slds-select_container">
                       <select value={defaultColumnPaddingValue} onChange={this.setColumnPadding} className="slds-select" id="grid-gutters">
-                        <option value="none">None</option>
+                        <option value="">None</option>
                         <option value="x-small">x-Small</option>
                         <option value="small">Small</option>
                         <option value="medium">Medium</option>
