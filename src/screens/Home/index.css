@@ -1,7 +1,7 @@
 .home {
     width: 100%;
     min-height: 100vh;
-    background: url(/static/media/bgBuilder.2db5e5a0.jpg);
+    background: url('./bgBuilder.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: white;
