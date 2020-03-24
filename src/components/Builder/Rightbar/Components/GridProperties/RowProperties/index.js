@@ -13,7 +13,6 @@ import { setRowGutter,
   setRowPosition,
   updateGridSpacing,
   updateRowSpacing,
-  addNewColumn,
   setRowReverse,
   setRowHorizontalAlignment,
   setRowVerticalAlignment
@@ -304,26 +303,17 @@ class RowProperties extends React.Component {
                 </div>
             </React.Fragment> : ""
           }
-          <div className="property slds-p-around_small">
-            <div className="slds-grid">
-              <div className="slds-col active slds-large-size_12-of-12 key">
-                <button onClick={this.addNewGrid} className="add-row-btn properties-btn-big slds-button slds-button_brand full primary-button">
-                  Add row to Grid
-                </button>
-              </div>
-            </div>
-          </div>
           {
-            selectedRow.length > 0 ?  
+            selectedRow.length === 0 ?
             <div className="property slds-p-around_small">
               <div className="slds-grid">
                 <div className="slds-col active slds-large-size_12-of-12 key">
-                  <button onClick={this.props.addNewColumn} className="green properties-btn-big slds-button slds-button_brand full primary-button">
-                    Add Column to Row
+                  <button onClick={this.addNewGrid} className="add-row-btn properties-btn-big slds-button slds-button_brand full primary-button">
+                    Add row to Grid
                   </button>
                 </div>
               </div>
-            </div> : null
+            </div> : ""
           }
         </div>
         {
@@ -524,14 +514,13 @@ class RowProperties extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="property">
+            {/* <div className="property">
               <div className="slds-grid slds-p-around_x-small">
                 <div className="slds-col slds-large-size_12-of-12 key slds-text-align_center">
                   <a onClick={() => this.deleteSelectedRow()} href="#" className="link-button">Delete Row</a>
                 </div>
               </div>
-            </div>
-            
+            </div> */}
         </div>
           </React.Fragment> : null
         }
@@ -556,7 +545,6 @@ const mapDispatchToProps = (dispatch) => {
       setRowPosition: (i, f) => dispatch(setRowPosition(i,f)),
       updateGridSpacing: (key, value) => dispatch(updateGridSpacing(key, value)),
       updateRowSpacing: (key, value) => dispatch(updateRowSpacing(key, value)),
-      addNewColumn: () => dispatch(addNewColumn()),
       setRowReverse: dir => dispatch(setRowReverse(dir)),
       setRowVerticalAlignment: val => dispatch(setRowVerticalAlignment(val)),
       setRowHorizontalAlignment: val => dispatch(setRowHorizontalAlignment(val))

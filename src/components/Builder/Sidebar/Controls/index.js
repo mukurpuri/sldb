@@ -31,6 +31,12 @@ class Controls extends React.Component {
       searchComponent: e.target.value
     });
   }
+
+  nameReducer = comp => {
+    let newName = comp.toLowerCase().trim();
+    newName = newName.replace(" ", "-");
+    return newName;
+  }
   
   render() {
     const { builderData } = this.props;
@@ -42,7 +48,7 @@ class Controls extends React.Component {
     var componentsList = [];
     _.each(components, (comp,index) => {
       if(comp.toLowerCase().indexOf(this.state.searchComponent.toLowerCase()) >= 0) {
-        componentsList.push(<div key={index} className="btn"><p>{comp}</p></div>)
+        componentsList.push(<div onClick={() => this.props.addComponentToCanvas(this.nameReducer(comp))} key={index} className="btn"><p>{comp}</p></div>)
       }
       });
       return (

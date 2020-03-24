@@ -1,5 +1,5 @@
 // Initial State
-import {builderDataElement, gridData, cardData } from '../../config/dataSkeletons';
+import {builderDataElement, gridData, cardData, textareaData, alertData } from '../../config/dataSkeletons';
 import _ from 'lodash';
 import {
   setRowGutter,
@@ -10,8 +10,9 @@ import {
   setRowPosition,
   updateGridSpacing,
   updateRowSpacing,
+  cloneRow
 } from './utilities/gridRow';
-import { updateColumnSpacing, setColumnWidth, deleteSelectedcolumn, addNewColumn, setRowReverse, setRowHorizontalAlignment, setRowVerticalAlignment } from './utilities/gridColumns';
+import { updateColumnSpacing, setColumnWidth, deleteSelectedcolumn, addNewColumn, setRowReverse, setRowHorizontalAlignment, setRowVerticalAlignment, cloneColumn } from './utilities/gridColumns';
 import { setCode,
   setCodeMinify,
   setCodeVirtualProperty,
@@ -49,7 +50,8 @@ import { updateCardSpacing,
   setHeaderButtonIcon,
   updateCardFooterSpacing,
   cardFooterHideInDeviceList,
-  setCardFooterText
+  setCardFooterText,
+  setCardTab
  } from './utilities/card';
 const initialState = {
     builderData: []
@@ -164,6 +166,20 @@ const initialState = {
         } 
       }
 
+      case 'CLONE_ROW': {
+        return {
+          ...state,
+          builderData: cloneRow(state.builderData)
+        } 
+      }
+
+      case 'CLONE_COLUMN': {
+        return {
+          ...state,
+          builderData: cloneColumn(state.builderData, action.ids)
+        } 
+      }
+
       case 'SET_ROW_POSITION': {
         return {
           ...state,
@@ -202,7 +218,7 @@ const initialState = {
       case 'DELETE_SELECTED_COLUMN': {
         return {
           ...state,
-          builderData: deleteSelectedcolumn(state.builderData)
+          builderData: deleteSelectedcolumn(state.builderData, action.ids)
         }
       }
 
@@ -501,6 +517,19 @@ const initialState = {
           builderData: setCardFooterText(state.builderData, action.val)
         }
       }
+      case 'UPDATE_CARD_TAB': {
+        return {
+          ...state,
+          builderData: setCardTab(state.builderData, action.val, action.tabtype)
+        }
+      }
+
+      case 'REMOVE_ELEMENT': {
+        return {
+          ...state,
+          builderData: removeElement(state.builderData, action.val)
+        }
+      }
 
       // Default
       default: {
@@ -602,9 +631,15 @@ const initialState = {
           activePage.component.type = componentType;
           activePage.component.data = JSON.parse(JSON.stringify(cardData));    
           break;
-    
+        case "textarea":
+          activePage.component.type = componentType;
+          activePage.component.data = JSON.parse(JSON.stringify(textareaData));
+          break;
+          case "alert":
+            activePage.component.type = componentType;
+            activePage.component.data = JSON.parse(JSON.stringify(alertData));
+            break;
       default:
-        break;
     }
     return newData;
   }
@@ -647,7 +682,20 @@ const initialState = {
           if(rowIndex === rowId) {
             r.active = true;
             activePage.component.data.activeRow = rowIndex
+            let isColSelected = false;
+            _.each(r.cols, (col, colIndex) => {
+              if(col.active === true) {
+                isColSelected = true;;
+              }
+            });
+            if(!isColSelected) {
+              activePage.component.data.activeColumn = 0
+              r.cols[0].active = true;
+            }
           } else {
+            _.each(r.cols, (col, colIndex) => {
+              col.active = false;
+            });
             r.active = false;
           }
         })
@@ -662,5 +710,16 @@ const initialState = {
     });
     activePage.state = state;
     return newData;
-}
+  }
+  function removeElement(data, val) {
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {
+      return page.active === true;
+    });
+    let element = (activePage.component.data);
+    let value = element.remove[val];
+    //element.remove["remove"] = val;
+    element.remove[val] = !value
+    return newData;
+  }
   export default dataReducer;

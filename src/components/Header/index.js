@@ -30,6 +30,7 @@ class Header extends React.Component {
       <div  className={this.props.type}>
       <div className={`header-logo`}>
         <div className="cloud">
+          
           <div className={`slds-cloud ${Constants.appGradientTheme}`}></div>
         </div>
         {/* <img alt="SLDS" src="/slds-text-logo-header.png"/> */}

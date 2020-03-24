@@ -1,0 +1,32 @@
+.rowAction {
+    position: absolute;
+    right: -40px;
+    top: -2px;
+    width: 31px;
+    background: #026fd2;
+    z-index: 4;
+    border-radius: 4px;
+    display: none;
+    cursor: pointer;
+}
+
+.row_icon_action {
+    border-bottom: 1px solid #aed8ff;
+    height: 36px;
+    padding-top: 7px;
+}
+.row_icon_action.last {
+    border-bottom: 0;
+}
+.addColumn {
+    position: absolute;
+    right: 44px;
+    background: #4baf50;
+    width: 30px;
+    text-align: center;
+    border-radius: 4px;
+    height: 30px;
+    padding-top: 4px;
+    top: 5px;
+    cursor: pointer;
+}

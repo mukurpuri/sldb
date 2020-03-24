@@ -21,7 +21,7 @@ class CodeBlock extends React.Component {
     }
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     let code = "";
     switch(this.state.activePage.component.type) {
       case 'grid':
@@ -36,6 +36,37 @@ class CodeBlock extends React.Component {
     this.props.setCode(codeBuilder(code, this.state.activePage.component.type));
   }
 
+  copyCode = () => {
+    var copyText = document.getElementById("textToBeCopied");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+  }
+
+  setMessage = (activePage) => {
+      let newCode = "";
+      newCode = activePage.code.lightning;
+      if (newCode === "" ||  !newCode)  {
+          return null;
+      }
+      let canvasCode = newCode;
+      if(!activePage.code.isMinified || activePage.code.isMinified === false) {
+      canvasCode = pretty(canvasCode);
+      }
+      if(!activePage.code.allowVirtualProperties) {
+      canvasCode = canvasCode.replace(/style="[^"]*"/g, "");
+      }
+      if(!activePage.code.innerText) {
+      canvasCode = canvasCode.replace(/Inner Text/g, "");
+      }
+      this.setState({
+          textToBeCopied: canvasCode
+      }, () => {
+          this.copyCode();
+      })
+  }
+
+
   render() {
     let canvasCode = this.state.activePage.code.lightning;
     if(!this.state.activePage.code.isMinified || this.state.activePage.code.isMinified === false) {
@@ -49,9 +80,11 @@ class CodeBlock extends React.Component {
     }
     return (
       <div className={`codeBlock ${Constants.appGradientTheme} ${this.state.activePage.code.isMinified ? "minified": ""}`}>
+          <button onClick={() => this.setMessage(this.state.activePage)} className={`copyButton ${Constants.appGradientTheme}`}>Copy Code to Clipboard</button>
           <SyntaxHighlighter language="html" style={darcula}>
                 {(canvasCode)}
             </SyntaxHighlighter>
+            <textarea readOnly type="text" id="textToBeCopied" className="code-hide" value={this.state.textToBeCopied}></textarea>
       </div>
     );
   }

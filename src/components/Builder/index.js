@@ -33,7 +33,7 @@ class Builder extends React.Component {
     return (
       <div className="builder">
           <Sidebar builderData={builderData} data={sidebarData}></Sidebar>
-          <Body  builderData={builderData}></Body>
+          <Body builderData={builderData}></Body>
           <Rightbar></Rightbar>
       </div>
     );

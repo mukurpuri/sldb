@@ -3,7 +3,7 @@ export default {
     'gradClasses':gradClasses() 
 }
 function gradClasses() {
-    const classes = ["amin","cosmic","stripe","instagram","dimigo","rainbowBlue","soundcloud","ver","booker", "ocean"];
+    const classes = ["amin","cosmic","yahoo","stripe","instagram","dimigo","rainbowBlue","soundcloud","ver","booker", "ocean"];
     return classes;
 }
 function getGradientTheme() {

@@ -132,7 +132,7 @@ class CodeProperties extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="property">
+                {/* <div className="property slds-hide">
                     <div className="slds-grid slds-p-left_small slds-p-right_small slds-p-top_medium slds-p-bottom_medium">
                         <button onClick={() => this.setMessage(activePage)} className={`copyButton ${Constants.appGradientTheme}`}>Copy Code to Clipboard</button>
                     </div>
@@ -140,7 +140,7 @@ class CodeProperties extends React.Component {
                         {this.state.message}
                     </p>
                 </div>
-                <textarea readOnly type="text" id="textToBeCopied" className="code-hide" value={this.state.textToBeCopied}></textarea>
+                <textarea readOnly type="text" id="textToBeCopied" className="code-hide slds-hide" value={this.state.textToBeCopied}></textarea> */}
                 </div>
         </div>
         );

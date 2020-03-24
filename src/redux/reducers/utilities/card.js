@@ -321,6 +321,16 @@ function setCardFooterText(data, val) {
   activePage.component.data.footer.text = val;
   return newData;
 }
+function setCardTab(data, val, type) {
+  const newData = data.slice();
+  const activePage = _.find(newData, page => {return page.active === true});
+  if(type) {  
+    activePage.component.data.selectedProperties[type] = val;
+  }
+  
+  
+  return newData;
+}
 
 export {
     updateCardFooterSpacing,
@@ -356,5 +366,6 @@ export {
     setCardHeaderButtonTheme,
     setCardHeaderButtonStreched,
     setCardHeaderButtonStrong,
-    setCardHeaderButtonDisabled
+    setCardHeaderButtonDisabled,
+    setCardTab
 }

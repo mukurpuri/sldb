@@ -52,3 +52,10 @@
     padding-top: 20px;
     padding-top: 25px;
 }
+.propertyIconBox {
+    position: absolute;
+    width: 28px;
+    height: 25px;
+    right: 0px;
+    top: 0px;
+}

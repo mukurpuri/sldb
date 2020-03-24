@@ -64,8 +64,9 @@
     size: size
   })
 
-  export const deleteSelectedcolumn = () => ({
-    type: 'DELETE_SELECTED_COLUMN'
+  export const deleteSelectedcolumn = (ids) => ({
+    type: 'DELETE_SELECTED_COLUMN',
+    ids: ids
   })
 
   export const addNewColumn = () => ({
@@ -92,3 +93,11 @@
     device: device,
     rowId: rowId
   })
+  export const cloneRow = () => ({
+    type: 'CLONE_ROW'
+  })
+  export const cloneColumn = (ids) => ({
+    type: 'CLONE_COLUMN',
+    ids: ids
+  })
+  

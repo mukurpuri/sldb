@@ -9,6 +9,8 @@ import { activateColumn, activateRow } from '../../../redux/actions/gridActions'
 import Codeblock from './codeBlock';
 import AddComponent from './AddComponent';
 import Helpers from '../../../config/helpers';
+import RowAction from './Component/Grid/RowAction';
+import ColumnAction from './Component/Grid/ColumnAction';
 import './index.css';
 
 class Body extends React.Component {
@@ -23,9 +25,19 @@ class Body extends React.Component {
         case 'card':
         return this.renderCard(data);
 
+        case 'alert':
+          return this.renderAlert(data)
+        
+        case 'textarea':
+          return this.renderTextArea(data)
+
         default:
         return <p>Add component</p>;
     }
+  }
+
+  renderAlert = data => {
+    return <p>Alert</p>
   }
   
   renderGrid = data => {
@@ -65,7 +77,7 @@ class Body extends React.Component {
 
           let colMarginsPaddings = `${colMarginTop}${colMarginBottom}${colPaddingTop}${colPaddingBottom}`;
           columns.push(
-            <div style={{"height": `78px`}} key={index} onClick={() => this.activateColumn(index, data.activeEditor, rowId)} className={`${colMarginsPaddings}slds-col${classNames} text_col_${col.size} text_col`}></div>
+            <div style={{"height": `78px`}} key={index} onClick={(e) => { this.activateColumn(index, data.activeEditor, rowId); }} className={`${colMarginsPaddings}slds-col${classNames} text_col_${col.size} text_col builderColumn`}><ColumnAction id={index} rowId={rowId}/></div>
           )
         });
 
@@ -76,10 +88,10 @@ class Body extends React.Component {
         const rowPaddingBottom = spacings.padding.bottom.split("_")[1] ? Helpers.valueGapper(spacings.padding.bottom) : ''; ;
 
       let rowMarginsPaddings = `${rowMarginTop}${rowMarginBottom}${rowPaddingTop}${rowPaddingBottom}`;
-        grid.push(<div onClick={() => this.activateRow(data.activeEditor, rowId)} key={rowIndex} style={{"height": row.height === "auto" ? `auto` : `${row.height}px`}} className={`slds-grid${horizontalAlignmentClass}${verticalAlignmentClass}${activeRowClass}${reverseClass}${rowMarginsPaddings} slds-wrap`}>{columns}</div>)
+        grid.push(<div onClick={() => this.activateRow(data.activeEditor, rowId)} key={rowIndex} style={{"height": row.height === "auto" ? `auto` : `${row.height}px`}} className={`slds-grid${horizontalAlignmentClass}${verticalAlignmentClass}${activeRowClass}${reverseClass}${rowMarginsPaddings} slds-wrap builderRow`}><RowAction />{columns}</div>)
       });
 
-      return <div><DeviceToggler/><div className="code-target"><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}><div className={`${marginsPaddings}`} ><div className={`${gutters}`}>{grid}</div></div></div></div></div>;
+      return <div className="gridBuilder"><DeviceToggler/><div className="code-target"><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}><div className={`${marginsPaddings}`} ><div className={`${gutters}`}>{grid}</div></div></div></div></div>;
   }
 
   renameIcon = (icon) => {
@@ -90,6 +102,7 @@ class Body extends React.Component {
   renderCard = data => {
     let marginsPaddings = Helpers.getSpacings(data);
     let header = data.header;
+    let removeHeader = data.remove.header;
     let headerAlignment = header.alignment;
     let headerSpacing = Helpers.getSpacings(header);
     let headerReverse = Helpers.valueGapper2(header.flip);
@@ -101,6 +114,7 @@ class Body extends React.Component {
     }
 
     let headerIcon = header.icon;
+    let removeHeaderIcon = data.remove.icon;
     let headerIconSize = Helpers.valueGapper2(headerIcon.size);
     let headerIconColor=Helpers.valueGapper2(headerIcon.color);
     let headerIconFlip = headerIcon.flip ? " slds-icon_flip" : "";
@@ -115,6 +129,7 @@ class Body extends React.Component {
 
     let headerTitle = header.title;
     let headerText = headerTitle.text;
+    let removeHeaderBody =  data.remove.title;
     let headerTitleMarginsPaddings = Helpers.getSpacings(headerTitle);
     let headerTitleAlign = headerTitle.align;
     let headerTitleColor = headerTitle.color;
@@ -127,6 +142,7 @@ class Body extends React.Component {
 
     let headerButton = header.button;
     let headerButtonText = headerButton.text;
+    let removeHeaderButton = data.remove.button;
     let headerButtonStreched = headerButton.streched ? "slds-button_stretch" : "";
     let headerButtonType = headerButton.theme;
     let headerButtonStrong = headerButton.strong;
@@ -139,7 +155,7 @@ class Body extends React.Component {
       })
     }
 
-    let mediaFigure = <div className={`slds-media__figure ${headerIconMarginsPaddings} ${hiddenHeaderIcon}`}>
+    let mediaFigure =  removeHeaderIcon ? "" : <div className={`slds-media__figure ${headerIconMarginsPaddings} ${hiddenHeaderIcon}`}>
       <div dir={headerIcon.flip ? `rtl` : "ltr"} >
         <span className={`slds-icon_container slds-icon-${headerIcon.type}-${this.renameIcon(headerIcon.name)}${headerIconFlip}`} title={`${this.renameIcon(headerIcon.name)}`}>
           <svg className={`${headerIconColor}${headerIconSize}slds-icon ${headerIcon.type === "utility" ? "slds-icon-text-default" : ""}`} aria-hidden={true}>
@@ -149,13 +165,13 @@ class Body extends React.Component {
         </span>
       </div>
     </div>
-    let mediaBody = <div className={`${headerTitleMarginsPaddings} ${headerTitleAlign} slds-media__body ${hiddenHeaderTitle}`}>
+    let mediaBody = removeHeaderBody ? "" :  <div className={`${headerTitleMarginsPaddings} ${headerTitleAlign} slds-media__body ${hiddenHeaderTitle}`}>
       <h2 className="slds-card__header-title">
         <a className= {`slds-card__header-link slds-truncate ${headerTitleColor}`} title={headerText}><span>{headerText}</span>
         </a>
       </h2>
     </div>
-    let mediaButton = <div className={`slds-no-flex ${hiddenHeaderButton} ${headerButtonStreched} ${headerButtonSpacing}`}>
+    let mediaButton = removeHeaderButton ? "" :  <div className={`slds-no-flex ${hiddenHeaderButton} ${headerButtonStreched} ${headerButtonSpacing}`}>
       <button disabled={headerButtonIsDisabled} className={`slds-button ${headerButtonType} ${headerButtonStreched}`}>{headerButtonStrong ? <strong>{headerButtonText}</strong> : <span>{headerButtonText}</span>}</button>
     </div>
     let headerNode = <header className={`slds-media slds-media_center slds-has-flexi-truncate ${headerReverse} ${headerAlignment}`}>{mediaFigure}{mediaBody}{mediaButton}</header>;
@@ -163,12 +179,13 @@ class Body extends React.Component {
     _.each(header.hidden.slice(), cls => {
       headerHiddenClasses += cls + " ";
     })
-    let cardHeader = <div className={`${hiddenHeader}${headerSpacing}slds-card__header slds-grid ${headerHiddenClasses}`}>{headerNode}</div>;
+    let cardHeader = removeHeader ? "" : <div className={`${hiddenHeader}${headerSpacing}slds-card__header slds-grid ${headerHiddenClasses}`}>{headerNode}</div>;
     
 
     let body = data.body;
     let bodyAlign = body.align;
     let bodyColor = body.color;
+    let removeBody = data.remove.body;
     let bodySize = body.size;
     let bodyMarginPadding = Helpers.getSpacings(body);
     let hiddenBody = "";
@@ -177,9 +194,10 @@ class Body extends React.Component {
         hiddenBody += `${cls} `;
       })
     }
-    let cardBody = <div className={`slds-card__body slds-card__body_inner ${bodyColor} ${bodyAlign} ${bodyMarginPadding} ${hiddenBody} ${bodySize}`}>{body.text}</div>;
+    let cardBody = removeBody ? "" : <div className={`slds-card__body slds-card__body_inner ${bodyColor} ${bodyAlign} ${bodyMarginPadding} ${hiddenBody} ${bodySize}`}>{body.text}</div>;
     
     let footer = data.footer;
+    let removeFooter = data.remove.footer;
     let hiddenFooter = "";
     let footerSpacing = Helpers.getSpacings(footer);
     let footerText = footer.text;
@@ -189,7 +207,7 @@ class Body extends React.Component {
         hiddenFooter += `${cls} `;
       })
     }
-    let cardFooter = <footer className={`slds-card__footer ${hiddenFooter} ${footerAlign} ${footerSpacing}`}><a className="slds-card__footer-action">{footerText} <span className="slds-assistive-text">Accounts</span></a></footer>
+    let cardFooter = removeFooter ? "" : <footer className={`slds-card__footer ${hiddenFooter} ${footerAlign} ${footerSpacing}`}><a className="slds-card__footer-action">{footerText} <span className="slds-assistive-text">Accounts</span></a></footer>
 
     return (
       <div className="canvas-card">
@@ -199,7 +217,66 @@ class Body extends React.Component {
           {cardFooter}
         </article>
       </div>);
-}
+  }
+
+  renderTextArea = data => {
+    let textArea = data;
+    let textAreaSpacing = Helpers.getSpacings(textArea);
+    let textAreaisDisabled = textArea.isDisabled;
+    console.log(textAreaisDisabled);
+    let textAreaisRequired = textArea.isRequired;
+    let textAreaisReadonly = textArea.isReadonly;
+    let textAreaisError = textArea.isError;
+    
+    let hiddenTextArea = "";
+    if(textArea.hidden.length > 0) {
+      _.each(textArea.hidden, cls => {
+        hiddenTextArea += `${cls} `;
+      })
+    }
+
+    let textAreaLabel = textArea.label;
+    let textAreaLabelText =  textAreaLabel.text;
+    let textAreaLabelSpacings =  Helpers.getSpacings(textAreaLabel);
+    let hiddenTextAreaLabel = "";
+    if(textAreaLabel.hidden.length > 0) {
+      _.each(textArea.hidden, cls => {
+        hiddenTextAreaLabel += `${cls} `;
+      })
+    }
+    let textAreaLabelClasses = Helpers.extraSpaceRemover(`slds-form-element__label ${hiddenTextAreaLabel} ${textAreaLabelSpacings}`);
+
+    let textAreaError = textArea.error;
+    let textAreaErrorText = textAreaError.text;
+    let textAreaErrorTextPosition = textAreaError.isfloatRight;
+    let textAreaErrorLabelClasses =  Helpers.extraSpaceRemover(`slds-form-element__help ${textAreaErrorTextPosition}`);
+    let textareaClasses = Helpers.extraSpaceRemover(`slds-form-element ${textAreaisError} ${textAreaSpacing} ${hiddenTextArea}`);
+    return (
+      <div className={textareaClasses}>
+        <label className={textAreaLabelClasses} htmlFor="textarea-sldb">
+          {
+            textAreaisError ? 
+            <abbr className="slds-required" title="required">* </abbr> : null
+          }{textAreaLabelText}</label>
+          {
+            ! textAreaisReadonly ? 
+            <div className="slds-form-element__control">
+              <textarea value={textArea.value} disabled={textAreaisDisabled} id="textarea-sldb" required="" aria-describedby="error-01" className="slds-textarea" placeholder="Placeholder Text"></textarea>
+            </div>
+            :
+            <div class="slds-form-element__control slds-border_bottom">
+              <div class="slds-form-element__static">
+                <p>{textArea.value}</p>
+              </div>
+            </div>
+          }
+        {
+          textAreaisError ? 
+          <div className={textAreaErrorLabelClasses} id="error-01">{textAreaErrorText}</div> : null
+        }
+      </div>
+    )
+  }
 
   generateComponent = () => {
     const gridBuilder = this.props.builderData;
@@ -238,9 +315,9 @@ class Body extends React.Component {
     return (
       <div className="body">
         <div className="canvas">
-        {
-          activePage.state === "builder" ? this.generateComponent() : this.generateCode()
-        }
+          {
+            activePage.state === "builder" ? this.generateComponent() : this.generateCode()
+          }
         </div>
       </div>
     );

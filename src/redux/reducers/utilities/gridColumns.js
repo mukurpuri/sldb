@@ -35,31 +35,32 @@ function updateColumnSpacing(data, key, value) {
     return newData;
   }
 
-  function deleteRowFromGrid(data) {
+  function deleteRowFromGrid(data, rowId) {
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
+    const activePageIndex = _.findIndex(newData, page => {return page.active === true});
     var deviceData = activePage.component.data.properties.data;
     const sm = [];
     const md = [];
     const lg = [];
     _.each(deviceData, (deviceRow, index) => {
       if(index === "sm") {
-        _.each(deviceRow, dr => {
-          if(dr.active === false) {
+        _.each(deviceRow, (dr, index) => {
+          if(index !== rowId) {
             sm.push(dr);
           }
         });
       }
       if(index === "md") {
-        _.each(deviceRow, dr => {
-          if(dr.active === false) {
+        _.each(deviceRow, (dr, index) => {
+          if(index !== rowId) {
             md.push(dr);
           }
         });
       }
       if(index === "lg") {
-        _.each(deviceRow, dr => {
-          if(dr.active === false) {
+        _.each(deviceRow, (dr, index) => {
+          if(index !== rowId) {
             lg.push(dr);
           }
         });
@@ -69,62 +70,78 @@ function updateColumnSpacing(data, key, value) {
       sm[0].active = true;
       md[0].active = true;
       lg[0].active = true;
-      sm[0].cols[0].active = true;
-      md[0].cols[0].active = true;
-      lg[0].cols[0].active = true;
+      if(sm[0].cols.length >= 1) {
+        sm[0].cols[0].active = true;
+        md[0].cols[0].active = true;
+        lg[0].cols[0].active = true;
+      }
     }
-    deviceData.sm = sm;
-    deviceData.md = md;
-    deviceData.lg = lg;
+
+    deviceData.sm = JSON.parse(JSON.stringify((sm)));
+    deviceData.md = JSON.parse(JSON.stringify((md)));
+    deviceData.lg = JSON.parse(JSON.stringify((lg)));
+
+    activePage.component.data.properties.data = JSON.parse(JSON.stringify(deviceData));
     activePage.component.data.activeRow = 0;
     activePage.component.data.activeColumn = 0;
-    
+    console.log(activePage)
+    newData[activePageIndex] =  Object.assign({}, JSON.parse(JSON.stringify(activePage)));
+    console.log(newData)
     return newData;
   }
 
-  function deleteSelectedcolumn(data) {
+  function deleteSelectedcolumn(data, ids) {
+    const { rowId, id } = ids;
+    // console.log(rowId)
+    // console.log(id)
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
-    const activeRow  = activePage.component.data.activeRow;
+    const activeRow  = rowId;
     var deviceData = activePage.component.data.properties.data;
     _.each(deviceData, (deviceRow, index) => {
       switch(index) {
         case 'sm':
-        _.each(deviceRow, dr => {
-          let columns = dr.cols;
-          let lsm = [];
-          _.each(columns, col => {
-            if(col.active !== true) {
-              lsm.push(col);
-            }
-          });
-          dr.cols = lsm;
+        _.each(deviceRow, (dr, rowIndex) => {
+          if(rowIndex === activeRow){
+            let columns = dr.cols;
+            let sm = [];
+            _.each(columns, (col, index) => {
+              if(index !== id) {
+                sm.push(col);
+              }
+            });
+            dr.cols = sm;
+          }
         });
         break;
 
         case 'md':
-        _.each(deviceRow, dr => {
-          let columns = dr.cols;
-          let lmd = [];
-          _.each(columns, col => {
-            if(col.active !== true) {
-              lmd.push(col);
-            }
-          });
-          dr.cols = lmd;
+        _.each(deviceRow, (dr, rowIndex) => {
+          if(rowIndex === activeRow){
+            let columns = dr.cols;
+            let md = [];
+            _.each(columns, (col, index) => {
+              if(index !== id) {
+                md.push(col);
+              }
+            });
+            dr.cols = md;
+          }
         });
         break;
 
         case 'lg':
-        _.each(deviceRow, dr => {
-          let columns = dr.cols;
-          let llg = [];
-          _.each(columns, col => {
-            if(col.active !== true) {
-              llg.push(col);
-            }
-          });
-          dr.cols = llg;
+        _.each(deviceRow, (dr, rowIndex) => {
+          if(rowIndex === activeRow){
+            let columns = dr.cols;
+            let lg = [];
+            _.each(columns, (col, index) => {
+              if(index !== id) {
+                lg.push(col);
+              }
+            });
+            dr.cols = lg;
+          }
         });
         break;
 
@@ -132,6 +149,7 @@ function updateColumnSpacing(data, key, value) {
         console.log(true)
       }
     });
+    activePage.component.data.activeRow = activeRow;
     if(deviceData.sm[activeRow].cols.length >= 1) {
       deviceData.sm[activeRow].cols[0].active = true;
       deviceData.md[activeRow].cols[0].active = true;
@@ -141,8 +159,23 @@ function updateColumnSpacing(data, key, value) {
       deviceData.sm[activeRow].cols = [];
       deviceData.md[activeRow].cols = [];
       deviceData.lg[activeRow].cols = [];
-      return deleteRowFromGrid(newData)
+      return deleteRowFromGrid(newData, rowId)
     }
+    return newData;
+  }
+
+  function cloneColumn(data, ids) {
+    const { rowId, id } = ids;
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {return page.active === true});
+    const devicesData = activePage.component.data.properties.data;
+    _.each(devicesData, device => {
+      let selectedRow = JSON.parse(JSON.stringify(device[rowId]));
+      let columnToClone = JSON.parse(JSON.stringify(selectedRow.cols[id]));
+      columnToClone.active = false;
+      selectedRow.cols.push(columnToClone);
+      device[rowId] = selectedRow
+    })
     return newData;
   }
 
@@ -212,5 +245,6 @@ export {
   addNewColumn,
   setRowReverse,
   setRowHorizontalAlignment,
-  setRowVerticalAlignment
+  setRowVerticalAlignment,
+  cloneColumn
 }

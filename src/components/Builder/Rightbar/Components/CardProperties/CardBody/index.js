@@ -9,7 +9,6 @@ class CardBody extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          minimizer: true,
           showDeviceVisibilityCheckBox: false,
           hideInDeviceList: "",
           spacing: {
@@ -90,7 +89,7 @@ class CardBody extends React.Component {
       }
 
   render() {
-    const { builderData } = this.props;
+    const { builderData, minimizer } = this.props;
     const activePage = _.find(builderData, page => { return page.active === true } );
     let defaultCardMarginValue = "";
     let defaultCardPaddingValue = "";
@@ -107,20 +106,70 @@ class CardBody extends React.Component {
       defaultCardBodyColor = activePage.component.data.body.color;
       defaultCardBodySize = activePage.component.data.body.size;
     }
+    const disablerStyle = {
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      width: "100%",
+      height: "202px",
+      left: "0",
+      top: "24px",
+      position: "absolute",
+      display: "block",
+      zIndex: "1"
+    };
     return (
         <div className="box">
-        <div onClick={() => this.setState({minimizer: !this.state.minimizer}) } className="head bordered">
+        <div onClick={() => this.props.setTab("body", !minimizer)} className="head bordered">
             BODY PROPERTIES
             <span className="minimizer-icon">
-              <span className={`slds-icon_container slds-icon-utility-${this.state.minimizer ? "add": "dash"}`}>
+              <span className={`slds-icon_container slds-icon-utility-${minimizer ? "dash": "add"}`}>
                 <svg className="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
-                  <use href={`/assets/icons/utility-sprite/svg/symbols.svg#${this.state.minimizer ? "add": "dash"}`}></use>
+                  <use href={`/assets/icons/utility-sprite/svg/symbols.svg#${minimizer ? "dash": "add"}`}></use>
                 </svg>
               </span>
             </span>
         </div>
-        <div className={`content ${this.state.minimizer ? 'collapse': ''}`}>
+        <div className={`content ${!minimizer ? 'collapse': ''}`}>
           <div>
+          <div className="property">
+                <div className="slds-grid slds-p-left_small slds-p-right_small">
+                  <div className="slds-col slds-large-size_6-of-12 value key">
+                    Remove
+                    </div>
+                    <div className="slds-col slds-large-size_6-of-12 value">
+                      <div className="slds-form-element">
+                        <div className="slds-form-element__control">
+                          <div className="slds-select_container">
+                            <select className="slds-select" value={this.props.removeElementData} onChange={this.props.removeElement}>
+                              <option value={false}>No</option>
+                              <option value={true}>Yes</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            <div style={this.props.removeElementData ? disablerStyle: {}}></div>
+          <div className="property">
+                <div className="slds-grid slds-p-left_small slds-p-right_small">
+                  <div className="slds-col slds-large-size_6-of-12 value key">
+                    Remove
+                    </div>
+                    <div className="slds-col slds-large-size_6-of-12 value">
+                      <div className="slds-form-element">
+                        <div className="slds-form-element__control">
+                          <div className="slds-select_container">
+                            <select className="slds-select" value={this.props.removeElementData} onChange={this.props.removeElement}>
+                              <option value={false}>No</option>
+                              <option value={true}>Yes</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            <div style={this.props.removeElementData ? disablerStyle: {}}></div>
             <div className="property">
               <div className="slds-grid slds-p-left_small slds-p-right_small">
                 <div className="slds-col slds-large-size_6-of-12 value property">

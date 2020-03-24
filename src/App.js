@@ -9,6 +9,7 @@ import {
   Route
 } from "react-router-dom";
 import { HomeScreen, BuilderScreen } from './screens';
+import OnlyDesktop from './OnlyDesktop';
 import './App.css'
 
 // Imports: Redux Persist Persister
@@ -16,19 +17,22 @@ import { store, persistor } from './redux/store/store';
 
 function App() {
   return (
-    <Provider store={store}>
-      <PersistGate 
-        loading={null}
-        persistor={persistor}
-      >
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/builder" component={BuilderScreen} />
-        </Switch>
-        </Router>
-      </PersistGate>
-    </Provider>
+    <React.Fragment>
+       <OnlyDesktop/>
+       <Provider store={store}>
+          <PersistGate 
+            loading={null}
+            persistor={persistor}
+          >
+          <Router>
+            <Switch>
+              <Route exact path="/" component={HomeScreen} />
+              <Route exact path="/builder" component={BuilderScreen} />
+            </Switch>
+            </Router>
+          </PersistGate>
+        </Provider>
+    </React.Fragment>
   );
 }
 

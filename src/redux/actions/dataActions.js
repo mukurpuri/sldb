@@ -32,3 +32,9 @@ export const getBuilderData = () => ({
     component: component
   })
   
+  export const removeElement = val => ({
+    type: 'REMOVE_ELEMENT',
+    val: val
+  })
+
+  

@@ -20,65 +20,28 @@ const builderDataElement =  {
 }
 const ComponentList = [
 "Alert"
-,"Avatar"
-,"Avatar Group"
-,"Badges"
-,"Brand Band"
-,"Breadcrumbs"
 ,"Button Groups"
 ,"Button Icons"
 ,"Buttons"
-,"Cards"
 ,"Checkbox"
 ,"Checkbox Button"
 ,"Checkbox Button Group"
-,"Checkbox Toggle"
-,"Color Picker"
 ,"Combobox"
 ,"Data Tables"
-,"Datepickers"
-,"Datetime Picker"
-,"Dynamic Icons"
-,"Dynamic Menu"
-,"Expandable Section"
-,"File Selector"
-,"Files"
-,"Form Element"
+// ,"Datepickers"
 ,"Icons"
-,"Illustration"
 ,"Input"
-,"Lookups"
-,"Map"
-,"Menus"
 ,"Modals"
-,"Notifications"
-,"Panels"
-,"Picklist"
-,"Pills"
-,"Popovers"
-,"Progress Bar"
-,"Progress Indicator"
-,"Progress Ring"
-,"Prompt"
+// ,"Notifications"
+// ,"Panels"
+// ,"Pills"
 ,"Radio Button Group"
 ,"Radio Group"
-,"Rich Text Editor"
-,"Scoped Notifications"
-,"Scoped Tabs"
 ,"Select"
-,"Slider"
-,"Spinners"
-,"Summary Detail"
-,"Tabs"
+// ,"Tabs"
 ,"Textarea"
-,"Tiles"
-,"Timepicker"
-,"Toast"
-,"Tooltips"
-,"Trees"
-,"Vertical Navigation"
-,"Vertical Tabs"
-,"Visual Picker"
+// ,"Toast"
+// ,"Tooltips"
 ];
 
 const gridData  = {
@@ -121,7 +84,7 @@ const gridData  = {
             cols: [
               {
                 height: 80,
-                size: 12,
+                size: 6,
                 visible: [],
                 hide: [],
                 active: true,
@@ -159,7 +122,7 @@ const gridData  = {
             cols: [
               {
                 height: 80,
-                size: 12,
+                size: 6,
                 visible: [],
                 hide: [],
                 active: true,
@@ -197,7 +160,7 @@ const gridData  = {
             cols: [
               {
                 height: 80,
-                size: 12,
+                size: 6,
                 visible: [],
                 hide: [],
                 active: true,
@@ -241,7 +204,7 @@ const gridRow = {
   cols: [
     {
       height: 80,
-      size: 12,
+      size: 6,
       visible: [],
       hide: [],
       active: false,
@@ -279,7 +242,16 @@ const cardData = {
       "right": ""
     }
   },
+  remove: {
+    header: false,
+    icon: false,
+    title: false,
+    button: false,
+    body: false,
+    footer: false
+  },
   header: {
+    remove: false,
     hidden: [],
     spacings: {
       margin: {
@@ -298,6 +270,7 @@ const cardData = {
     alignment: "",
     flip: "",
     icon: {
+      remove: false,
       hidden: [],
       name: "custom5",
       size: "",
@@ -320,6 +293,7 @@ const cardData = {
       }
     },
     title: {
+      remove: false,
       hidden: [],
       text: "Accounts",
       size: "slds-text-title",
@@ -341,6 +315,7 @@ const cardData = {
       }
     },
     button: {
+      remove: false,
       streched: "",
       hidden: [],
       text: "Button",
@@ -369,6 +344,7 @@ const cardData = {
     }
   },
   body: {
+    remove: false,
     color: "slds-text-color_default",
     hidden: [],
     text: "Anything can go into the card body",
@@ -390,6 +366,7 @@ const cardData = {
     size: ""
   },
   footer: {
+    remove: false,
     hidden: [],
     spacings: {
       margin: {
@@ -408,6 +385,126 @@ const cardData = {
     align: "slds-text-align_center",
     textAlign: "",
     text: "View All"
+  },
+  selectedProperties: {
+    header:true,
+    headerIcon: false,
+    headerTitle: false,
+    headerButton: false,
+    body: false,
+    footer: false
+  }
+}
+const textareaData = {
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  },
+  hidden: [],
+  value: "",
+  isDisabled: false,
+  isRequired: true,
+  isReadonly: false,
+  isError: true,
+  label: {
+    text: "Textarea Label",
+    spacings: {
+      margin: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      },
+      padding: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      }
+    },
+    hidden: [],
+  },
+  error: {
+    text: "This field is required",
+    astreik: {
+      float: "left",
+      spacings: {
+        margin: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        },
+        padding: {
+          "top": "",
+          "bottom": "",
+          "left": "",
+          "right": ""
+        }
+      },
+      hidden: [],
+    },
+    isfloatRight: "slds-float--right",
+    spacings: {
+      margin: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      },
+      padding: {
+        "top": "",
+        "bottom": "",
+        "left": "",
+        "right": ""
+      }
+    },
+    hidden: [],
+  }
+}
+const alertData = {
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  },
+  hidden: [],
+  text: "",
+  theme: "",
+  icon: {
+    name: "",
+    type: "",
+    hidden: []
+  },
+  link: {
+    href: "",
+    text: ""
+  },
+  close: {
+    icon: {
+      name: "",
+      type: "",
+      hidden: []
+    }
   }
 }
 const iconList = [
@@ -1374,4 +1471,13 @@ const iconList = [
   }
 ]
 const builderData = [ builderDataElement ];
-export { builderData, ComponentList, builderDataElement, gridData, gridRow, cardData, iconList };
+export { builderData, 
+  ComponentList, 
+  builderDataElement, 
+  gridData, 
+  gridRow, 
+  cardData, 
+  textareaData, 
+  iconList,
+  alertData
+};

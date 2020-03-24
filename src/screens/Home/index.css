@@ -1,0 +1,66 @@
+.home {
+    width: 100%;
+    min-height: 100vh;
+    background: url(/static/media/bgBuilder.2db5e5a0.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+}
+.headline {
+    font-size:10rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #0000003b;
+}
+.sub-headline {
+    font-size: 1.6rem;
+    margin-top: -50px;
+}
+.headline-info {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.homebody {
+    width: 100%;
+}
+.c2a {
+    margin-top: 110px;
+}
+h3 {
+    font-size: 2rem;
+}
+.builderNavigate {
+    display: inline-block;
+    background: white;
+    border: 0;
+    padding: 30px;
+    border-radius: 110px;
+    border: 0px solid #F44336;
+    box-shadow: 2px 2px 2px #00000036;
+    font-size: 23px;
+    font-weight: bold;
+    color: #cf317c;
+    outline: none;
+    line-height: 0px;
+    height: 61px;
+    transition: all 0.2s;
+}
+.builderNavigate:hover {
+    font-size: 25px;
+}
+
+.home-header {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+    height: 100px;
+}
+.screenshots-wrappers {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+.screenshot-container {
+    border-radius: 6px;
+    overflow: hidden;
+    padding-bottom: 150px;
+}

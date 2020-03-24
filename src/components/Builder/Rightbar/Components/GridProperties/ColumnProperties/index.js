@@ -80,7 +80,7 @@ class ColumnProperties extends React.Component {
     let defaultColumnMarginValue = 0; 
     let defaultColumnPaddingValue = 0;
     let columnWidth = 1;
-    if(activePage.component.data.properties.data[activeEditor][activeRow] && activePage.component.data.properties.data[activeEditor][activeRow].cols.length >= 1) {
+    if(activePage.component.data.properties.data[activeEditor][activeRow] && activePage.component.data.properties.data[activeEditor][activeRow].cols.length >= 1 && activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn]) {
       defaultColumnMarginValue = (activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
       defaultColumnPaddingValue = (activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
       columnWidth = activePage.component.data.properties.data[activeEditor][activeRow].cols[activeColumn].size;
@@ -192,13 +192,13 @@ class ColumnProperties extends React.Component {
               </div>
           </div>
         </div>
-        <div className="property">
+        {/* <div className="property slds-hide">
           <div className="slds-grid">
             <div className="slds-col slds-large-size_12-of-12 key slds-text-align_center slds-p-around_x-small">
               <a onClick={() => this.props.deleteSelectedcolumn()} href="#" className="link-button">Delete Column</a>
             </div>
           </div>
-        </div>
+        </div> */}
         </div>
       </div>
     );

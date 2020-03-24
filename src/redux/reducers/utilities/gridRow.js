@@ -17,10 +17,6 @@
     _.each(deviceData, deviceRow => {
       _.each(deviceRow, (row, index) => {
         if(index === (activeRow)) {
-          // console.log(row.cols);
-          // _.each(row.cols, col => {
-          //     col.height = height;
-          // })
           row.height = height;
           row.cols[activeColumn].active = true;
           row.active = true;
@@ -67,12 +63,12 @@
     return newData;
   }
   function deleteRowFromGrid(data) {
-    const newData = data.slice();
-    const activePage = _.find(newData, page => {return page.active === true});
+    let newData = data.slice();
+    let activePage = _.find(newData, page => {return page.active === true});
     var deviceData = activePage.component.data.properties.data;
-    const sm = [];
-    const md = [];
-    const lg = [];
+    let sm = [];
+    let md = [];
+    let lg = [];
     _.each(deviceData, (deviceRow, index) => {
       if(index === "sm") {
         _.each(deviceRow, dr => {
@@ -96,22 +92,16 @@
         });
       }
     });
-    if(sm[0]) {
-      sm[0].active = true;
-      md[0].active = true;
-      lg[0].active = true;
-      sm[0].cols[0].active = true;
-      md[0].cols[0].active = true;
-      lg[0].cols[0].active = true;
-    }
     deviceData.sm = sm;
     deviceData.md = md;
     deviceData.lg = lg;
+
     activePage.component.data.activeRow = 0;
     activePage.component.data.activeColumn = 0;
-    
+
     return newData;
   }
+
   function setRowPosition(data, i ,f) {
 
     const newData = data.slice();
@@ -168,6 +158,18 @@
     }
     return newData;
   }
+  function cloneRow(data) {
+    const newData = data.slice();
+    const activePage = _.find(newData, page => {return page.active === true});
+    const devicesData = activePage.component.data.properties.data;
+    _.each(devicesData, device => {
+      let rowToClone = device[activePage.component.data.activeRow];
+      rowToClone.active = false;
+      device.push(JSON.parse(JSON.stringify(rowToClone)));
+    })
+    return newData;
+  }
+
   export {
     setRowGutter,
     setRowHeight,
@@ -176,5 +178,6 @@
     deleteRowFromGrid,
     setRowPosition,
     updateGridSpacing,
-    updateRowSpacing
+    updateRowSpacing,
+    cloneRow
   }

@@ -6,6 +6,10 @@ var Helpers = {
     uniqueArray: function(str) {
         return _.uniq(str.split(","));
     },
+    extraSpaceRemover: function(str) {
+      let newString = str.replace(/ {2}/g, " ");
+      return newString.trim();
+    },
     getSpacings: function(data) {
         const spacings = data.spacings;
         const margins = spacings.margin || "";

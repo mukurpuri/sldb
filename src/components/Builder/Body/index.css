@@ -1,5 +1,5 @@
 .body {
-    width: 60%;
+    width: 55%;
     margin: 0 auto;
     padding-top: 61px;
 }
@@ -128,4 +128,16 @@
     background: #00000008;
     width: 70%;
     margin: 0 auto;
+}
+.builderRow {
+    position: relative;
+}
+.builderRow.active .rowAction{
+    display: block;
+}
+.builderColumn:hover .addColumnAction{
+    display: block;
+}
+#textarea-sldb {
+    resize: none;
 }

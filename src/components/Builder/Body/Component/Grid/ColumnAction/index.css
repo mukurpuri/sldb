@@ -1,0 +1,25 @@
+.addColumnAction {
+    overflow: hidden;
+    position: absolute;
+    background: #4baf50;
+    width: 60px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    top: 30%;
+    display: none;
+    z-index: 1;
+
+}
+.columnAction {
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 4px;
+    cursor: pointer;
+}
+.columnAction:first-child {
+    border-right: 1px solid #31a158;
+}

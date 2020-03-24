@@ -157,3 +157,8 @@ export const setCardFooterText = val => ({
   type: 'UPDATE_CARD_FOOTER_TEXT',
   val: val
 })
+export const setCardTab = (type, val) => ({
+  type: 'UPDATE_CARD_TAB',
+  val: val,
+  tabtype: type
+})

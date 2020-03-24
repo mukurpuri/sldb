@@ -10,7 +10,7 @@ function Sidebar(props) {
       <Pagination pages={props.data}/>
       { props.builderData.length > 0 ? <Controls /> : null }
       <div className="footer-author slds-text-align_center">
-        Handicraft with love by <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/mukurrr">@mukurrr</a>
+        Built for Trailblazers by <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/mukurrr">@mukurrr</a>
       </div>
     </div>
   );

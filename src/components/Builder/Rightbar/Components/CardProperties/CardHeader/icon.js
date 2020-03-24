@@ -4,12 +4,11 @@ import _ from 'lodash';
 import { setCardHeaderIconColor, updateCardHeaderIconSpacing, cardHeaderIconHideInDeviceList, setCardHeaderIconFlip, setCardHeaderIcon, setCardHeaderIconSize } from '../../../../../../redux/actions/cardActions';
 import CheckboxSelect from '../../../../../../components/UI/CheckboxSelect'
 import IconSelectorModal from '../../../../../UI/IconSelector';
-
+import PropertyIconBox from '../../../../../UI/PropertyIconBox';
 class CardHeaderIcon extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      minimizer: true,
       showDeviceVisibilityCheckBox: false,
       modalIsOpen: false,
       hideInDeviceList: "",
@@ -105,7 +104,7 @@ class CardHeaderIcon extends React.Component {
   }
   
   render() {
-    const { builderData } = this.props;
+    const { builderData, minimizer } = this.props;
     const activePage = _.find(builderData, page => { return page.active === true } );
     let defaultCardMarginValue = "";
     let defaultCardPaddingValue = "";
@@ -114,29 +113,65 @@ class CardHeaderIcon extends React.Component {
     let headerIcon = activePage.component.data.header.icon;
     let headerIconHiddenDevices = headerIcon.hidden.slice();
     let defaultHeaderIconColor = "";
+    let defaultHeaderIcon = "";
     if(activePage.component.data) {
       defaultCardMarginValue = (headerIcon.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
       defaultCardPaddingValue = (headerIcon.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
       defaultFlipValue = headerIcon.flip;
       defaultHeaderIconSize = headerIcon.size;
       defaultHeaderIconColor = headerIcon.color;
+      defaultHeaderIcon = {
+        name: headerIcon.name,
+        type: headerIcon.type
+      }
+
     }
+    const disablerStyle = {
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      width: "100%",
+      height: "175px",
+      left: "0",
+      top: "24px",
+      position: "absolute",
+      display: "block",
+      zIndex: "1"
+    };
     return (
       <React.Fragment>
       <IconSelectorModal selectClose={() => {this.setState({modalIsOpen: false})}} selectIconClose={this.selectIcon} modalOpen={this.state.modalIsOpen} />
       <div className="box">
-      <div onClick={() => this.setState({minimizer: !this.state.minimizer}) } className="head bordered">
+      <div onClick={() => this.props.setTab("headerIcon", !minimizer)} className="head bordered">
           HEADER ICON PROPERTIES
           <span className="minimizer-icon">
-              <span className={`slds-icon_container slds-icon-utility-${this.state.minimizer ? "add": "dash"}`}>
+              <span className={`slds-icon_container slds-icon-utility-${minimizer ? "dash": "add"}`}>
                 <svg className="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
-                  <use href={`/assets/icons/utility-sprite/svg/symbols.svg#${this.state.minimizer ? "add": "dash"}`}></use>
+                  <use href={`/assets/icons/utility-sprite/svg/symbols.svg#${minimizer ? "dash": "add"}`}></use>
                 </svg>
               </span>
             </span>
       </div>
-      <div className={`content ${this.state.minimizer ? 'collapse': ''}`}>
+      <div className={`content ${ !minimizer ? 'collapse': ''}`}>
         <div>
+        <div className="property">
+                <div className="slds-grid slds-p-left_small slds-p-right_small">
+                  <div className="slds-col slds-large-size_6-of-12 value key">
+                    Remove
+                    </div>
+                    <div className="slds-col slds-large-size_6-of-12 value">
+                      <div className="slds-form-element">
+                        <div className="slds-form-element__control">
+                          <div className="slds-select_container">
+                            <select className="slds-select" value={this.props.removeElementData} onChange={this.props.removeElement}>
+                              <option value={false}>No</option>
+                              <option value={true}>Yes</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+          <div style={this.props.removeElementData ? disablerStyle: {}}></div>
           <div className="property">
             <div className="slds-grid slds-p-left_small slds-p-right_small">
               <div className="slds-col slds-large-size_6-of-12 value property">
@@ -252,6 +287,7 @@ class CardHeaderIcon extends React.Component {
             <div className="slds-grid slds-p-left_small slds-p-right_small">
               <div className="slds-col slds-large-size_6-of-12 key">
                   Change Icon
+                  {/* <PropertyIconBox icon={defaultHeaderIcon} /> */}
                 </div>
                 <div className="slds-col slds-large-size_6-of-12 value">
                   <div className="icon-selector">
@@ -298,6 +334,7 @@ class CardHeaderIcon extends React.Component {
                           <option value="slds-icon-text-warning">Warning</option>
                           <option value="slds-icon-text-error">Error</option>
                           <option value="slds-icon-text-light">Light</option>
+                          <option value="slds-text-color_inverse">White</option>
                         </select>
                       </div>
                     </div>
