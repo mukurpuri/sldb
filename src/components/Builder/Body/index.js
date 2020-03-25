@@ -264,8 +264,8 @@ class Body extends React.Component {
               <textarea value={textArea.value} disabled={textAreaisDisabled} id="textarea-sldb" required="" aria-describedby="error-01" className="slds-textarea" placeholder="Placeholder Text"></textarea>
             </div>
             :
-            <div class="slds-form-element__control slds-border_bottom">
-              <div class="slds-form-element__static">
+            <div className="slds-form-element__control slds-border_bottom">
+              <div className="slds-form-element__static">
                 <p>{textArea.value}</p>
               </div>
             </div>

@@ -3,8 +3,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './index.css';
-import { createNewPage, deletePage, makePageActive } from '../../../../redux/actions/dataActions';
-import Constants from '../../../../config/constants';
+import { createNewPage, deletePage, makePageActive } from '../../../redux/actions/dataActions';
+import Constants from '../../../config/constants';
 import _ from 'lodash';
 
 
@@ -29,17 +29,16 @@ class Pagination extends React.Component {
     var gradClasses = Constants.gradClasses;
     //var gradient = gradClasses[[Math.floor(Math.random() * Math.floor(gradClasses.length))]];
     _.each(this.props.pages, (page,index) => {
-      var li = <li onClick={() => { this.makePageActive(page.id)}} key={page.id} className={page.active ? Constants.appGradientTheme : ""} id={page.id}>{page.name} <span className="minus-page" title="Close this page" onClick={(e) => {this.deletePage(page.id, e)}}>+</span></li>;
+      var li = <li onClick={() => { this.makePageActive(page.id)}} key={page.id} className={page.active ? "active" : ""} id={page.id}>{page.name} <span className="minus-page" title="Close this page" onClick={(e) => {this.deletePage(page.id, e)}}>+</span></li>;
       pages.push(li);
     });
-    
     return (
-      <div className="box">
-          <div className="head">
-              PAGES <span title="Add new page" onClick={() => this.addBuilderPage()} className="add">ADD NEW</span>
-          </div>
+      <div>
           <ul className="pages">
-              {_.reverse(pages)}
+              {(pages)}
+              <li className="addNewTab" onClick={() => this.addBuilderPage()}>
+                <div dir="ltr"><span class="slds-icon_container slds-icon-utility-add" title="add"><svg class="slds-icon_small slds-icon slds-icon-text-default" aria-hidden="true"><use href="/assets/icons/utility-sprite/svg/symbols.svg#add"></use></svg><span class="slds-assistive-text">Description of the icon</span></span></div>
+              </li>
           </ul>
       </div>
     );

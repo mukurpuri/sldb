@@ -1,11 +1,7 @@
 .pages {
     margin: 0;
     padding: 0;
-    margin: 0;
-    padding: 0;
-    max-height: 130px;
-    overflow-y: auto;
-    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
 }
 .pages li {
     padding: 5px 18px;
@@ -16,9 +12,51 @@
     max-width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
+    float: left;
+    min-width: 110px;
 }
-
+.pages li.active {
+    background: #f4f4f4;
+    color: #000;
+    border: 1px solid #e5e5e5;
+    border-bottom: 0;
+    border-radius: 4px 4px 0 0;
+}
+.pages li.active:before {
+    top: 4px;
+    width: 1px;
+    content: "";
+    position: absolute;
+    left: -3px;
+    height: 21px;
+    background: #fff;
+}
+.pages li.active:after {
+    display: none;
+}
+.pages li:after {
+    width: 1px;
+    content: "";
+    position: absolute;
+    right: 1px;
+    height: 16px;
+    background: #e5e5e5;
+    top: 6px;
+}
+.pages li.addNewTab {
+    min-width: auto !important;
+    padding-left: 10px;
+    padding-top: 1px;
+    padding-right: 10px;
+    border-right: 0;
+}
+.pages li.addNewTab:after {
+    display: none !important;
+    
+}
+.pages li.addNewTab svg {
+    width: 1rem;
+}
 .add {
     min-width: 40px;
     height: 18px;
