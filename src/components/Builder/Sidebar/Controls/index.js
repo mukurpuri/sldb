@@ -63,11 +63,11 @@ class Controls extends React.Component {
           </div>
           <div className="head">
           COMPONENTS
-            <span onClick={this.toggleComponentSearch} className="slds-icon_container slds-icon-utility-search" title="Description of icon when needed">
+            {/* <span onClick={this.toggleComponentSearch} className="slds-icon_container slds-icon-utility-search" title="Description of icon when needed">
               <svg className="slds-icon slds-search slds-icon-text-default slds-icon_x-small" aria-hidden="true">
                 <use href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
               </svg>
-            </span>
+            </span> */}
           </div>
           <div style={this.state.showComponentSearch ? {"height": "30px" } : {"height": "0px"}} className="control-search">
             <input id="component-search-input" type="text" onChange={this.searchComponents} placeholder="Search components..." className="search text" />

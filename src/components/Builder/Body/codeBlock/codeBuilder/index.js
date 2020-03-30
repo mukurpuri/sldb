@@ -8,12 +8,119 @@ export function codeBuilder(data, type) {
             return gridbuilder(data);
         case "card":
             return cardbuilder(data);
+        case "button":
+            return buttonbuilder(data);
+        case "checkbox":
+            return checkboxBuilder(data)
+        case "icon":
+            return iconBuilder(data)
     
         default:
             return null;
     }
 }
+function iconBuilder(icon) {
+    let iconSize =  icon.size;
+    let iconColor= icon.color;
+    let iconFloat= icon.float || "";
+    let iconFlip = icon.flip ? " slds-icon_flip" : "";
+    let iconMarginsPaddings = Helpers.getSpacings(icon);
+    let iconDescription = icon.description;
 
+    let useNode = `<use href="/assets/icons/${icon.type}-sprite/svg/symbols.svg#${(icon.name)}"></use>`;
+    let svgClasses = Helpers.extraSpaceRemover(`${iconColor} ${iconSize} slds-icon ${icon.type === "utility" ? "slds-icon-text-default" : ""}`);
+    let svgNode = Helpers.extraSpaceRemover(`<svg class="${svgClasses}" aria-hidden="true">${useNode}</svg>`);
+
+    let assertiveTextDescription = "";
+    assertiveTextDescription = `  <span class="${`slds-assistive-text`}">${iconDescription}</span>`
+
+    let iconName = renameIcon(icon.name);
+    let iconContainerClass = Helpers.extraSpaceRemover(`class="${Helpers.extraSpaceRemover(`slds-icon_container slds-icon-${icon.type}-${iconName} ${iconFlip}`)}" title="${iconName}"`);
+    let iconContainer = `<span ${iconContainerClass}>${svgNode}${assertiveTextDescription}</span>`;
+
+    let iconDirectionProps = `dir="${icon.flip ? "rtl" : "ltr"}"`
+    let iconDirection = `<div ${iconDirectionProps}>${iconContainer}</div>`
+    
+    let iconCapsuleClasses = Helpers.extraSpaceRemover(`${iconMarginsPaddings} ${iconFloat}`);
+    iconCapsuleClasses = iconCapsuleClasses.trim() !== "" ? `class="${iconCapsuleClasses}"` : "";
+    let iconCapsule = `<div ${iconCapsuleClasses}>${iconDirection}</div>`;
+
+    return iconCapsule
+}
+function checkboxBuilder(checkbox) {
+    let checkboxText = checkbox.label || "";
+    let checkboxSpacing = Helpers.getSpacings(checkbox);
+    let checkboxIsDisabled= checkbox.isDisabled;
+    let checkboxHasError= checkbox.showError;
+    let checkboxIsRequired= checkbox.isRequired;
+    let checkboxChecked = (checkbox.checked);
+    let checkboxFloat= checkbox.float;
+    let checkboxErrorLabel = checkbox.errorLabel || "";
+    let errorClass = "";
+    if(checkboxHasError === "true") {
+      errorClass = "slds-has-error"
+    }
+    
+    const abbr = checkboxIsRequired === "true" ? <abbr class="slds-required" title="required">*</abbr> : "";
+    let disabledString = checkboxIsDisabled === "true" ?  "disabled" : ""; 
+    const checkBoxInput = checkboxChecked === "true" ?
+    `<input type="checkbox" name="options" id="checkbox-id" value="checkbox-id" checked  ${disabledString} />` :
+    `<input type="checkbox" name="options" id="checkbox-id" value="checkbox-id" ${disabledString} />`;
+    const checkboxFaux = `<span class="slds-checkbox_faux ${checkbox.hasLabel ? "": "slds-m-right--none"}"></span>`;
+    let checkBoxLabel = "";
+    if(checkbox.hasLabel) {
+        checkBoxLabel = `<span class="slds-form-element__label">${checkboxText}</span>`
+    }
+    const checkboxLabelContainer = `<label class="slds-checkbox__label" htmlFor="checkbox-id">${checkboxFaux}${checkBoxLabel}</label>`;
+    let formControl = `<div class="slds-form-element__control"><div class="slds-checkbox">${abbr}${checkBoxInput}${checkboxLabelContainer}</div></div>`;
+    let errorLabel = "";
+    if(checkboxHasError === "true") {
+        errorLabel = `<div class="slds-form-element__help" id="showError">${checkboxErrorLabel}</div>`;
+    }
+    const checkBoxContainerClass =  Helpers.extraSpaceRemover(`slds-form-element ${errorClass}  ${checkboxFloat} ${checkboxSpacing}`);
+    const checkBoxContainer = `<div class="${checkBoxContainerClass}">${formControl}${errorLabel}</div>`;
+    return (
+        checkBoxContainer  
+    );
+}
+function buttonbuilder(button) {
+    let buttonText = button.text || "";
+    let buttonHasIcon = button.hasIcon;
+    let buttonStreched = button.streched ? "slds-button_stretch" : "";
+    let buttonType = button.theme;
+    let buttonStrong = button.strong;
+    let buttonSpacing = Helpers.getSpacings(button);
+    let buttonIsDisabled= button.isDisabled;
+    let buttonFloat= button.float;
+
+    let buttonIcon = button.icon;
+    let buttonIconName = buttonIcon.name;
+    let buttonIconType = buttonIcon.type;
+    let buttonIconPosition = buttonIcon.position;
+    let buttonIconSize = buttonIcon.size;
+    let hiddenButton = "";
+    if(buttonText === "") {
+      buttonIconPosition = "";
+    }
+
+    let iconUse = `<use href="/assets/icons/${buttonIconType}-sprite/svg/symbols.svg#${buttonIconName}"></use>`
+    let svgClasses  = Helpers.extraSpaceRemover(`slds-button__icon ${buttonIconPosition} ${buttonIconSize} slds-m-bottom_xx-small`);
+    let iconCode = buttonHasIcon === "true" ? (
+      `<svg class="${svgClasses}" aria-hidden="true">${iconUse}</svg>`) : "";
+    if(button.hidden.length > 0) {
+      _.each(button.hidden, cls => {
+        hiddenButton += `${cls} `;
+      })
+    }
+    
+    buttonText = buttonStrong ? `<strong>${buttonText}</strong>` : `${buttonText}`;
+    let buttonTextWithIconPosition = `<span>${buttonIconPosition === "slds-button__icon_left" ? `${iconCode}${buttonText}` : `${buttonText}${iconCode}`}</span>`;
+    let classes = `slds-button ${buttonFloat} ${hiddenButton} ${buttonSpacing} ${buttonType} ${buttonStreched}`;
+    return (
+        `<button ${buttonIsDisabled ? "disabled": ""} class="${Helpers.extraSpaceRemover(classes)}">${buttonTextWithIconPosition}</button>`
+    )
+
+}
 function gridbuilder(properties) {
     //console.log("properties" ,properties);
     const gridClasses = {
@@ -42,8 +149,6 @@ function gridbuilder(properties) {
     const gridCode = `<div class="${gridRowCode}"><div${gridGutters}>${rows}</div></div>`;
     return gridCode;
 }
-
-
 function renameIcon(icon) {
     let icon_name = icon.replace(/_/g, "-");
     return icon_name;

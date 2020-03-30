@@ -141,3 +141,12 @@
 #textarea-sldb {
     resize: none;
 }
+.componenet-builder-container {
+    width: 100%;
+    border: 1px dashed #cdcdcd;
+    background: #00000003;
+    overflow: hidden;
+}
+.componenet-builder-container > .icon-container {
+    display: inline-block;
+}

@@ -29,8 +29,8 @@
     cursor: pointer;
     margin: 0 auto;
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 0px;
+    top: -56px;
 }
 
 .minified pre code{

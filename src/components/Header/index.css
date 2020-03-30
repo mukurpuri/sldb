@@ -15,39 +15,20 @@
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #e5e5e5;
+    padding: 3px 0px;
 }
 .header-logo img{
-    width: 150px;
-}
-.pageActions {
-    float: right;
-}
-.pageActions .pageControl {
-    padding: 10px;
-    border-bottom: 0;
-    border-radius: 4px 4px 0 0;
-    border: 1px solid transparent;
-    cursor: pointer;
-}
-.pageActions .pageControl.active {
-    background: #f4f4f4;
-    border: 1px solid #d8d6d6;
-    border-bottom: 0;
-}
-.pageActions .pageControl .icon-title {
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-    color: #706e6b;
+    width: 86px;
+    padding-left: 8px;
 }
 .cloud {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 5px;
+    top: 4px;
 }
 .slds-cloud {
     position: absolute;
@@ -79,5 +60,5 @@
     width: 50%;
 }
 .pageTabs {
-    margin-top: 19px;
+    margin-top: 11px;
 }

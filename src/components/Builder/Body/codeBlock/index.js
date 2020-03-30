@@ -30,10 +30,21 @@ class CodeBlock extends React.Component {
       case 'card':
         code = this.state.activePage.component.data;
         break;
+      case 'button':
+        code = this.state.activePage.component.data;
+        break;
+        case 'checkbox':
+          code = this.state.activePage.component.data;
+          break;
+
+        case 'icon':
+          code = this.state.activePage.component.data;
+          break;
       default:
         console.log('undefined');
     }
-    this.props.setCode(codeBuilder(code, this.state.activePage.component.type));
+    let codeBuilderCode = codeBuilder(code, this.state.activePage.component.type);
+    this.props.setCode(codeBuilderCode);
   }
 
   copyCode = () => {

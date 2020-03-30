@@ -6,9 +6,9 @@
     text-align: center;
     border-radius: 4px;
     margin: 0 auto;
-    right: 0;
-    left: 0;
-    top: 30%;
+    right: auto;
+    left: 22px;
+    top: 5%;
     display: none;
     z-index: 1;
 

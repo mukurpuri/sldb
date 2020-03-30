@@ -331,7 +331,7 @@ class CardHeaderButton extends React.Component {
                     <div className="slds-select_container">
                         <select value={defaultHeaderButtonStrong} onChange={(e) => this.props.setCardHeaderButtonStrong(e.target.value)} className="slds-select">
                         <option value="">No</option>
-                        <option value="slds-button_stretch">Yes</option>
+                        <option value="slds-button_stretch">Bold</option>
                         </select>
                     </div>
                   </div>

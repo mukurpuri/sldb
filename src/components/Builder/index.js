@@ -15,24 +15,11 @@ class Builder extends React.Component {
     this.props.reduxAddBuilderPage();
   }
 
-  fetchSidebarData = pages => {
-    var sidebarData = [];
-    _.each(pages, page => {
-      sidebarData.push({
-        id: page.id,
-        name: page.name,
-        active: page.active
-      });
-    });
-    return sidebarData;
-  }
-
   render() {
     const { builderData } = this.props;
-    const sidebarData = this.fetchSidebarData(builderData);
     return (
       <div className="builder">
-          <Sidebar builderData={builderData} data={sidebarData}></Sidebar>
+          <Sidebar builderData={builderData}></Sidebar>
           <Body builderData={builderData}></Body>
           <Rightbar></Rightbar>
       </div>

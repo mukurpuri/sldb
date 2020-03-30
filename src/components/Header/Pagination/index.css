@@ -1,19 +1,19 @@
 .pages {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    max-width: 80%;
 }
 .pages li {
     padding: 5px 18px;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.5px;
     cursor: pointer;
     position: relative;
     max-width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
-    float: left;
-    min-width: 110px;
+    height: 35px;
+    padding-top: 9px;
 }
 .pages li.active {
     background: #f4f4f4;
@@ -46,7 +46,7 @@
 .pages li.addNewTab {
     min-width: auto !important;
     padding-left: 10px;
-    padding-top: 1px;
+    padding-top: 5px;
     padding-right: 10px;
     border-right: 0;
 }
@@ -94,7 +94,7 @@
     font-size: 19px;
     font-weight: 100;
     right: 5px;
-    top: -1px;
+    top: 2px;
     display: none;
     transform: rotate(45deg);
 }

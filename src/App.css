@@ -18,7 +18,7 @@ body {
     z-index: 1;
 
 }
-.noTab {
+/* .noTab {
     position: fixed;
     left: 0px;
     width: 100%;
@@ -30,7 +30,7 @@ body {
 }
 @media only screen and (max-width: 1000px) {
     .noTab {
-      display: block;
+      display: none;
       z-index: 99;
       display: flex;
       justify-content: center;
@@ -42,7 +42,7 @@ body {
       color: white;
       font-size: 19px;
     }
-  }
+  } */
 .box .head {
     font-size: 10px;
     letter-spacing: 0.5px;

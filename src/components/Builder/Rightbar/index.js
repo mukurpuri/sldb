@@ -8,6 +8,10 @@ import GridProperties from './Components/GridProperties';
 import CodeProperties from './codeProperties';
 import { getBuilderData } from '../../../redux/actions/dataActions';
 import CardProperties from './Components/CardProperties';
+import ButtonProperty from './Components/ButtonProperty';
+import CheckBoxProperty  from './Components/CheckProperty';
+import IconProperty from './Components/IconProperty';
+import PageMode from './PageMode';
 
 class Rightbar extends React.Component {
 
@@ -33,6 +37,15 @@ class Rightbar extends React.Component {
         case 'card':
         return <CardProperties/>
 
+        case 'button':
+        return <ButtonProperty/>
+
+        case 'checkbox':
+        return <CheckBoxProperty/>
+
+        case 'icon':
+        return <IconProperty/>
+
         default:
         return null
       }
@@ -43,7 +56,8 @@ class Rightbar extends React.Component {
   render() {
     const { builderData } = this.props;
     return (
-      <div className="rightbar">
+      <div className="rightbar slds-show_large">
+        <PageMode/>
         <PageDetails/>
         { this.renderComponentProperties(builderData) }
         { this.renderCodeProperty(builderData) }

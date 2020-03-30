@@ -1,5 +1,12 @@
 // Initial State
-import {builderDataElement, gridData, cardData, textareaData, alertData } from '../../config/dataSkeletons';
+import {builderDataElement,
+  gridData,
+  cardData,
+  textareaData,
+  buttonData,
+  checkBoxData,
+  iconData
+} from '../../config/dataSkeletons';
 import _ from 'lodash';
 import {
   setRowGutter,
@@ -53,6 +60,40 @@ import { updateCardSpacing,
   setCardFooterText,
   setCardTab
  } from './utilities/card';
+ import {
+  updateButtonSpacing,
+  buttonHideInDeviceList,
+  setButtonText,
+  setButtonTheme,
+  setButtonStreched,
+  setButtonStrong,
+  setButtonDisabled,
+  setButtonIcon,
+  setButtonFloat,
+  setButtonHasIcon,
+  setButtonHasPosition,
+  setButtonIconSize,
+  setButtonIconFlip
+} from './utilities/button';
+import {
+  setCheckBoxText,
+  setCheckBoxDisabled,
+  setCheckBoxFloat,
+  setCheckBoxSpacing,
+  setCheckBoxState,
+  setCheckBoxShowError,
+  setCheckBoxShowRequired,
+  setCheckBoxShowErrorLabel
+} from './utilities/checkbox'
+import {
+  updateIconSpacing,
+  setIconColor,
+  setIconSize,
+  setIcon,
+  setIconFloat,
+  setIconFlip,
+  setIconDescription
+} from './utilities/icon'
 const initialState = {
     builderData: []
   };
@@ -531,6 +572,185 @@ const initialState = {
         }
       }
 
+      case 'UPDATE_BUTTON_SPACING': {
+        return {
+          ...state,
+          builderData: updateButtonSpacing(state.builderData,action.key,action.val)
+        }
+      }
+      case 'BUTTON_HIDE_IN_DEVICE_LIST': {
+        return {
+          ...state,
+          builderData: buttonHideInDeviceList(state.builderData,action.device, action.state)
+        }
+      }
+      case 'SET_BUTTON_TEXT': {
+        return {
+          ...state,
+          builderData: setButtonText(state.builderData,action.val)
+        }
+      }
+      case 'SET_BUTTON_THEME': {
+        return {
+          ...state,
+          builderData: setButtonTheme(state.builderData,action.val)
+        }
+      }
+      case 'SET_BUTTON_STRECHED': {
+        return {
+          ...state,
+          builderData: setButtonStreched(state.builderData,action.val)
+        }
+      }
+      case 'SET_BUTTON_STRONG': {
+        return {
+          ...state,
+          builderData: setButtonStrong(state.builderData,action.val)
+        }
+      }
+      case 'SET_BUTTON_DISABLED': {
+        return {
+          ...state,
+          builderData: setButtonDisabled(state.builderData,action.val)
+        }
+      }
+      case 'SET_BUTTON_ICON': {
+        return {
+          ...state,
+          builderData: setButtonIcon(state.builderData,action.val)
+        }
+      }
+      case 'SET_BUTTON_FLOAT': {
+        return {
+          ...state,
+          builderData: setButtonFloat(state.builderData , action.val)
+        }
+      }
+      case 'SET_BUTTON_HAS_ICON': {
+        return {
+          ...state,
+          builderData: setButtonHasIcon(state.builderData , action.val)
+        }
+      }
+      case 'SET_BUTTON_HAS_POSITION': {
+        return {
+          ...state,
+          builderData: setButtonHasPosition(state.builderData , action.val)
+        }
+      }
+      case 'SET_BUTTON_ICON_SIZE': {
+        return {
+          ...state,
+          builderData: setButtonIconSize(state.builderData , action.val)
+        }
+      }
+      case 'SET_BUTTON_ICON_FLIP': {
+        return {
+          ...state,
+          builderData: setButtonIconFlip(state.builderData , action.val)
+        }
+      }
+      
+      
+        case 'SET_CHECKBOX_TEXT': {
+          return {
+            ...state,
+            builderData:setCheckBoxText(state.builderData, action.val)
+          }
+        }
+    
+        case 'SET_CHECKBOX_DISABLED': {
+          return {
+            ...state,
+            builderData:setCheckBoxDisabled(state.builderData, action.val)
+          }
+        }
+    
+        case 'SET_CHECKBOX_FLOAT': {
+          return {
+            ...state,
+            builderData:setCheckBoxFloat(state.builderData, action.val)
+          }
+        }
+
+        case 'UPDATE_CHECKBOX_SPACING': {
+          return {
+            ...state,
+            builderData:setCheckBoxSpacing(state.builderData,action.key,action.val)
+          }
+        }
+
+        case 'SET_CHECKBOX_STATE': {
+          return {
+            ...state,
+            builderData:setCheckBoxState(state.builderData, action.val)
+          }
+        }
+
+        case 'SET_CHECKBOX_SHOW_ERROR': {
+          return {
+            ...state,
+            builderData:setCheckBoxShowError(state.builderData, action.val)
+          }
+        }
+
+        case 'SET_CHECKBOX_SHOW_REQUIRED': {
+          return {
+            ...state,
+            builderData:setCheckBoxShowRequired(state.builderData, action.val)
+          }
+        }
+
+        case 'SET_CHECKBOX_ERROR_LABEL': {
+          return {
+            ...state,
+            builderData:setCheckBoxShowErrorLabel(state.builderData, action.val)
+          }
+        }
+
+        case 'UPDATE_ICON_SPACING':  {
+          return {
+            ...state,
+            builderData: updateIconSpacing(state.builderData,action.key,action.val)
+          }
+        }
+        case 'SET_ICON_COLOR':  {
+          return {
+            ...state,
+            builderData: setIconColor(state.builderData, action.val)
+          }
+        }
+        case 'SET_ICON_SIIZE':  {
+          return {
+            ...state,
+            builderData: setIconSize(state.builderData, action.val)
+          }
+        }
+        case 'SET_ICON':  {
+          return {
+            ...state,
+            builderData: setIcon(state.builderData, action.val)
+          }
+        }
+        case 'SET_ICON_FLOAT':  {
+          return {
+            ...state,
+            builderData: setIconFloat(state.builderData, action.val)
+          }
+        }
+        case 'SET_ICON_FLIP':  {
+          return {
+            ...state,
+            builderData: setIconFlip(state.builderData, action.val)
+          }
+        }
+        case 'SET_ICON_DESCRIPTION':{
+          return {
+            ...state,
+            builderData: setIconDescription(state.builderData, action.val)
+          }
+        }
+
       // Default
       default: {
         return state;
@@ -627,18 +847,26 @@ const initialState = {
         activePage.component.data = JSON.parse(JSON.stringify(gridData));    
         break;
 
-        case "card":
-          activePage.component.type = componentType;
-          activePage.component.data = JSON.parse(JSON.stringify(cardData));    
-          break;
-        case "textarea":
-          activePage.component.type = componentType;
-          activePage.component.data = JSON.parse(JSON.stringify(textareaData));
-          break;
-          case "alert":
-            activePage.component.type = componentType;
-            activePage.component.data = JSON.parse(JSON.stringify(alertData));
-            break;
+      case "card":
+        activePage.component.type = componentType;
+        activePage.component.data = JSON.parse(JSON.stringify(cardData));    
+        break;
+      case "textarea":
+        activePage.component.type = componentType;
+        activePage.component.data = JSON.parse(JSON.stringify(textareaData));
+        break;
+      case "button":
+        activePage.component.type = componentType;
+        activePage.component.data = JSON.parse(JSON.stringify(buttonData));
+        break;
+      case "icon":
+        activePage.component.type = componentType;
+        activePage.component.data = JSON.parse(JSON.stringify(iconData));
+        break;
+      case "checkbox":
+        activePage.component.type = componentType;
+        activePage.component.data = JSON.parse(JSON.stringify(checkBoxData));
+        break;
       default:
     }
     return newData;

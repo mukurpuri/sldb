@@ -30,16 +30,95 @@ class Body extends React.Component {
         
         case 'textarea':
           return this.renderTextArea(data)
+        
+          case 'button':
+            return this.renderButton(data)
+        
+            case 'checkbox':
+              return this.renderCheckBox(data)
+
+              case 'icon':
+              return this.renderIcon(data)
 
         default:
         return <p>Add component</p>;
     }
   }
+  renderIcon = icon => {
+    let iconSize =  icon.size;
+    let iconColor= icon.color;
+    let iconFloat= icon.float;
+    let iconFlip = icon.flip ? " slds-icon_flip" : "";
+    let iconMarginsPaddings = Helpers.getSpacings(icon);
+    let iconDescription = icon.description;
+    
+    let iconNode = 
+    <div className="componenet-builder-container">
+      <div className={`icon-container ${iconMarginsPaddings} ${iconFloat}`}>
+        <div dir={icon.flip ? `rtl` : "ltr"} >
+          <span className={`slds-icon_container slds-icon-${icon.type}-${this.renameIcon(icon.name)}${iconFlip}`} title={`${this.renameIcon(icon.name)}`}>
+            <svg className={`${iconColor} ${iconSize} slds-icon ${icon.type === "utility" ? "slds-icon-text-default" : ""}`} aria-hidden={true}>
+            <use href={`/assets/icons/${icon.type}-sprite/svg/symbols.svg#${(icon.name)}`}></use>
+            </svg>
+            <span className={`slds-assistive-text`}>{iconDescription}</span>
+          </span>
+        </div>
+      </div>
+    </div>
 
+    return iconNode;
+  }
   renderAlert = data => {
     return <p>Alert</p>
   }
-  
+  renderCheckBox = data => {
+    let checkbox = data;
+    let checkboxText = checkbox.label || "";
+    let checkboxSpacing = Helpers.getSpacings(checkbox);
+    let checkboxIsDisabled= checkbox.isDisabled;
+    let checkboxHasError= checkbox.showError;
+    let checkboxIsRequired= checkbox.isRequired;
+    let checkboxChecked = (checkbox.checked);
+    let checkboxFloat= checkbox.float;
+    let checkboxErrorLabel = checkbox.errorLabel || "";
+    let errorClass = "";
+    if(checkboxHasError === "true") {
+      errorClass = "slds-has-error"
+    }
+    return (
+    <div className="componenet-builder-container">
+      <div className={`slds-form-element ${errorClass}  ${checkboxFloat} ${checkboxSpacing}`}>
+        <div className="slds-form-element__control">
+          <div className="slds-checkbox">
+            { checkboxIsRequired === "true" ?
+              <abbr className="slds-required" title="required">*</abbr> : null
+            }
+            {
+              checkboxChecked === "true" ?
+              <input onChange={() => { return true; }} type="checkbox" name="options" id="checkbox-id" value="checkbox-id" checked  disabled={checkboxIsDisabled} /> :
+              <input type="checkbox" name="options" id="checkbox-id" value="checkbox-id" disabled={checkboxIsDisabled} />
+            }
+            
+              <label className="slds-checkbox__label" htmlFor="checkbox-id">
+              <span className={`slds-checkbox_faux ${checkbox.hasLabel ? "": "slds-m-right--none"}`}></span>
+                { 
+                  checkbox.hasLabel ? 
+                  (
+                    <React.Fragment>
+                    <span className="slds-form-element__label">{checkboxText}</span>
+                    </React.Fragment>
+                  ) : null
+                }
+            </label>
+          </div>
+        </div>
+        {
+          checkboxHasError === "true" ? 
+          <div className="slds-form-element__help" id="showError">{checkboxErrorLabel}</div> : null
+        }
+      </div>
+    </div>);
+  }
   renderGrid = data => {
       const properties = data.properties;
       const gutters = properties.gutters || "";
@@ -125,7 +204,6 @@ class Body extends React.Component {
         hiddenHeaderIcon += `${cls} `;
       })
     }
-
 
     let headerTitle = header.title;
     let headerText = headerTitle.text;
@@ -223,7 +301,6 @@ class Body extends React.Component {
     let textArea = data;
     let textAreaSpacing = Helpers.getSpacings(textArea);
     let textAreaisDisabled = textArea.isDisabled;
-    console.log(textAreaisDisabled);
     let textAreaisRequired = textArea.isRequired;
     let textAreaisReadonly = textArea.isReadonly;
     let textAreaisError = textArea.isError;
@@ -274,6 +351,46 @@ class Body extends React.Component {
           textAreaisError ? 
           <div className={textAreaErrorLabelClasses} id="error-01">{textAreaErrorText}</div> : null
         }
+      </div>
+    )
+  }
+
+  renderButton = data => {
+    let button = data;
+    let buttonText = button.text || "";
+    let buttonHasIcon = button.hasIcon;
+    let buttonStreched = button.streched ? "slds-button_stretch" : "";
+    let buttonType = button.theme;
+    let buttonStrong = button.strong;
+    let buttonSpacing = Helpers.getSpacings(button);
+    let buttonIsDisabled= button.isDisabled;
+    let buttonFloat= button.float;
+
+    let buttonIcon = button.icon;
+    let buttonIconName = buttonIcon.name;
+    let buttonIconType = buttonIcon.type;
+    let buttonIconPosition = buttonIcon.position;
+    let buttonIconSize = buttonIcon.size;
+    let hiddenButton = "";
+    if(buttonText === "") {
+      buttonIconPosition = "";
+    }
+
+    let iconUse = <use href={`/assets/icons/${buttonIconType}-sprite/svg/symbols.svg#${buttonIconName}`}></use>
+    let iconCode = buttonHasIcon === "true" ? (
+      <svg className={`slds-button__icon ${buttonIconPosition} ${buttonIconSize} slds-m-bottom_xx-small` } aria-hidden="true">{iconUse}</svg>) : "";
+    if(button.hidden.length > 0) {
+      _.each(button.hidden, cls => {
+        hiddenButton += `${cls} `;
+      })
+    }
+    
+    buttonText = buttonStrong ? <strong>{buttonText}</strong> : `${buttonText}`;
+    let buttonTextWithIconPosition = <span>{buttonIconPosition === "slds-button__icon_left" ? <React.Fragment>{iconCode}{buttonText}</React.Fragment> : <React.Fragment>{buttonText}{iconCode}</React.Fragment>}</span>
+    let classes = Helpers.extraSpaceRemover(` slds-button ${buttonFloat} ${hiddenButton} ${buttonSpacing} ${buttonType} ${buttonStreched}`)
+    return (
+      <div className="componenet-builder-container">
+        <button disabled={buttonIsDisabled} className={`${classes}`}>{buttonTextWithIconPosition}</button>
       </div>
     )
   }

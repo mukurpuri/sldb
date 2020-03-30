@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { setCardHeaderIconColor, updateCardHeaderIconSpacing, cardHeaderIconHideInDeviceList, setCardHeaderIconFlip, setCardHeaderIcon, setCardHeaderIconSize } from '../../../../../../redux/actions/cardActions';
-import CheckboxSelect from '../../../../../../components/UI/CheckboxSelect'
-import IconSelectorModal from '../../../../../UI/IconSelector';
-import PropertyIconBox from '../../../../../UI/PropertyIconBox';
-class CardHeaderIcon extends React.Component {
+import { updateIconSpacing,setIconColor,setIconSize,setIcon, setIconFloat, setIconFlip, setIconDescription } from '../../../../../redux/actions/iconActions';
+import IconSelectorModal from '../../../../UI/IconSelector';
+import CheckboxSelect from '../../../../UI/CheckboxSelect';
+class IconProperty extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,27 +34,27 @@ class CardHeaderIcon extends React.Component {
     this.setState(spacing)
   }
 
-  setCardMargin = e => {
+  setIconMargin = e => {
     let value = e.target.value;
-    this.updateCardHeaderSpacing(this.state.spacing.margin.property, value , "margin");
+    this.updateIconSpacing(this.state.spacing.margin.property, value , "margin");
   }
 
-  setCardPadding = e => {
+  setIconPadding = e => {
     let value = e.target.value;
-    this.updateCardHeaderSpacing(this.state.spacing.padding.property, value , "padding");
+    this.updateIconSpacing(this.state.spacing.padding.property, value , "padding");
   }
 
-  updateCardHeaderSpacing = (key, value, property) => {
+  updateIconSpacing = (key, value, property) => {
     key =  key.split("-")[1];
     switch(property) {
       case 'margin':
       value = `slds-m-${key}_${value}`
-      this.props.updateCardHeaderSpacing(key, value);
+      this.props.updateIconSpacing(key, value);
       break;
 
       case 'padding':
       value = `slds-p-${key}_${value}`
-      this.props.updateCardHeaderSpacing(key, value);
+      this.props.updateIconSpacing(key, value);
       break;
 
       default:
@@ -66,14 +65,6 @@ class CardHeaderIcon extends React.Component {
       this.setState({
           showDeviceVisibilityCheckBox: !this.state.showDeviceVisibilityCheckBox
       })
-  }
-
-  setDataHideinDevices = (val, state) => {
-    this.setState({
-      showDeviceVisibilityCheckBox: false
-    }, () => {
-      this.props.cardHeaderHideInDeviceList(val, state);
-    })
   }
 
   reduceHideIn = (str) => {
@@ -99,79 +90,45 @@ class CardHeaderIcon extends React.Component {
     this.setState({
       modalIsOpen: false
     }, ()=> {
-      this.props.setHeaderIcon(icon)
+      this.props.setIcon(icon)
     })
   }
   
   render() {
-    const { builderData, minimizer } = this.props;
+    const { builderData } = this.props;
     const activePage = _.find(builderData, page => { return page.active === true } );
-    let defaultCardMarginValue = "";
-    let defaultCardPaddingValue = "";
+    let Icon = activePage.component.data;
+    let defaultIconMarginValue = "";
+    let defaultIconPaddingValue = "";
     let defaultFlipValue = "";
-    let defaultHeaderIconSize = "";
-    let headerIcon = activePage.component.data.header.icon;
-    let headerIconHiddenDevices = headerIcon.hidden.slice();
-    let defaultHeaderIconColor = "";
-    let defaultHeaderIcon = "";
+    let defaultIconSize = "";
+    let defaultIconColor = "";
+    let defaultIcon = "";
+    let defaultIconFloat = "";
+    let defaultIconDescription = "";
     if(activePage.component.data) {
-      defaultCardMarginValue = (headerIcon.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
-      defaultCardPaddingValue = (headerIcon.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
-      defaultFlipValue = headerIcon.flip;
-      defaultHeaderIconSize = headerIcon.size;
-      defaultHeaderIconColor = headerIcon.color;
-      defaultHeaderIcon = {
-        name: headerIcon.name,
-        type: headerIcon.type
+      defaultIconMarginValue = (Icon.spacings.margin[this.state.spacing.margin.property.split("-")[1]]).split("_")[1] || "";
+      defaultIconPaddingValue = (Icon.spacings.padding[this.state.spacing.padding.property.split("-")[1]]).split("_")[1] || "";
+      defaultFlipValue = Icon.flip;
+      defaultIconSize = Icon.size;
+      defaultIconColor = Icon.color;
+      defaultIconFloat = Icon.float;
+      defaultIconDescription = Icon.description;
+      defaultIcon = {
+        name: Icon.name,
+        type: Icon.type
       }
 
     }
-    const disablerStyle = {
-      backgroundColor: "rgba(255, 255, 255, 0.5)",
-      width: "100%",
-      height: "175px",
-      left: "0",
-      top: "24px",
-      position: "absolute",
-      display: "block",
-      zIndex: "1"
-    };
     return (
       <React.Fragment>
       <IconSelectorModal selectClose={() => {this.setState({modalIsOpen: false})}} selectIconClose={this.selectIcon} modalOpen={this.state.modalIsOpen} />
       <div className="box">
-      <div onClick={() => this.props.setTab("headerIcon", !minimizer)} className="head bordered">
-          HEADER ICON PROPERTIES
-          <span className="minimizer-icon">
-              <span className={`slds-icon_container slds-icon-utility-${minimizer ? "dash": "add"}`}>
-                <svg className="slds-icon slds-icon-text-default slds-icon_xx-small" aria-hidden="true">
-                  <use href={`/assets/icons/utility-sprite/svg/symbols.svg#${minimizer ? "dash": "add"}`}></use>
-                </svg>
-              </span>
-            </span>
+      <div className="head bordered">
+          ICON PROPERTIES
       </div>
-      <div className={`content ${ !minimizer ? 'collapse': ''}`}>
+      <div className={`content`}>
         <div>
-        <div className="property">
-                <div className="slds-grid slds-p-left_small slds-p-right_small">
-                  <div className="slds-col slds-large-size_6-of-12 value key">
-                    Remove
-                    </div>
-                    <div className="slds-col slds-large-size_6-of-12 value">
-                      <div className="slds-form-element">
-                        <div className="slds-form-element__control">
-                          <div className="slds-select_container">
-                            <select className="slds-select" value={this.props.removeElementData} onChange={this.props.removeElement}>
-                              <option value={false}>No</option>
-                              <option value={true}>Yes</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              </div>
-          <div style={this.props.removeElementData ? disablerStyle: {}}></div>
           <div className="property">
             <div className="slds-grid slds-p-left_small slds-p-right_small">
               <div className="slds-col slds-large-size_6-of-12 value property">
@@ -192,7 +149,7 @@ class CardHeaderIcon extends React.Component {
                   <div className="slds-form-element">
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
-                        <select value={defaultCardMarginValue} onChange={this.setCardMargin} className="slds-select">
+                        <select value={defaultIconMarginValue} onChange={this.setIconMargin} className="slds-select">
                           <option value="">None</option>
                           <option value="xxx-small">xxx-Small</option>
                           <option value="xx-small">xx-Small</option>
@@ -229,7 +186,7 @@ class CardHeaderIcon extends React.Component {
                   <div className="slds-form-element">
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
-                        <select value={defaultCardPaddingValue} onChange={this.setCardPadding} className="slds-select">
+                        <select value={defaultIconPaddingValue} onChange={this.setIconPadding} className="slds-select">
                           <option value="">None</option>
                           <option value="x-small">x-Small</option>
                           <option value="small">Small</option>
@@ -244,23 +201,33 @@ class CardHeaderIcon extends React.Component {
                 </div>
               </div>
           </div>
-          <div className="property">
+          {/* <div className="property">
             <div className="slds-grid slds-p-left_small slds-p-right_small">
               <div className="slds-col slds-large-size_6-of-12 key">
                   Hide in device(s)
                 </div>
                 <div className="slds-col slds-large-size_6-of-12 value">
-                  <input placeholder="None" value={this.reduceHideIn(headerIconHiddenDevices)} readOnly onClick={this.showCheckboxSelected} className="value text inputSelector" type="text" />
+                  <input placeholder="None" value={this.reduceHideIn(IconHiddenDevices)} readOnly onClick={this.showCheckboxSelected} className="value text inputSelector" type="text" />
                   {
                       this.state.showDeviceVisibilityCheckBox ?
                       <CheckboxSelect setData={this.setDataHideinDevices} data={[
-                      { isSelected: headerIconHiddenDevices.indexOf("slds-hide") >= 0 ? true : false, value: "hide", label: "All"},
-                      { isSelected: headerIconHiddenDevices.indexOf("slds-show_small") >= 0 ? true : false, value: "small", label: "Small"},
-                      { isSelected: headerIconHiddenDevices.indexOf("slds-show_medium") >= 0 ? true : false, value: "medium", label: "Medium"},
-                      { isSelected: headerIconHiddenDevices.indexOf("slds-show_large") >= 0 ? true : false, value: "large", label: "Large"},
-                      {  isSelected: headerIconHiddenDevices.indexOf("slds-show_x-large") >= 0 ? true : false, value: "x-large", label: "Extra Large"}
+                      { isSelected: IconHiddenDevices.indexOf("slds-hide") >= 0 ? true : false, value: "hide", label: "All"},
+                      { isSelected: IconHiddenDevices.indexOf("slds-show_small") >= 0 ? true : false, value: "small", label: "Small"},
+                      { isSelected: IconHiddenDevices.indexOf("slds-show_medium") >= 0 ? true : false, value: "medium", label: "Medium"},
+                      { isSelected: IconHiddenDevices.indexOf("slds-show_large") >= 0 ? true : false, value: "large", label: "Large"},
+                      {  isSelected: IconHiddenDevices.indexOf("slds-show_x-large") >= 0 ? true : false, value: "x-large", label: "Extra Large"}
                       ]}/> : null
                   }
+                </div>
+              </div>
+          </div> */}
+          <div className="property">
+            <div className="slds-grid slds-p-left_small slds-p-right_small">
+              <div className="slds-col slds-large-size_6-of-12 key">
+                  Description
+                </div>
+                <div className="slds-col slds-large-size_6-of-12 value">
+                    <input value={defaultIconDescription} onChange={e => this.props.setIconDescription(e.target.value)} className="value text" type="text" />
                 </div>
               </div>
           </div>
@@ -273,7 +240,7 @@ class CardHeaderIcon extends React.Component {
                   <div className="slds-form-element">
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
-                        <select value={defaultFlipValue} onChange={(e) => this.props.setCardHeaderFlip(e.target.value)} className="slds-select">
+                        <select value={defaultFlipValue} onChange={(e) => this.props.setIconFlip(e.target.value)} className="slds-select">
                           <option value="">No</option>
                           <option value="slds-grid_reverse">Yes</option>
                         </select>
@@ -286,8 +253,27 @@ class CardHeaderIcon extends React.Component {
           <div className="property">
             <div className="slds-grid slds-p-left_small slds-p-right_small">
               <div className="slds-col slds-large-size_6-of-12 key">
+                  Float
+                </div>
+                <div className="slds-col slds-large-size_6-of-12 value">
+                  <div className="slds-form-element">
+                    <div className="slds-form-element__control">
+                      <div className="slds-select_container">
+                        <select value={defaultIconFloat} onChange={(e) => this.props.setIconFloat(e.target.value)} className="slds-select">
+                          <option value="">None</option>
+                          <option value="slds-float--left">Left</option>
+                          <option value="slds-float--right">Right</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div className="property">
+            <div className="slds-grid slds-p-left_small slds-p-right_small">
+              <div className="slds-col slds-large-size_6-of-12 key">
                   Change Icon
-                  {/* <PropertyIconBox icon={defaultHeaderIcon} /> */}
                 </div>
                 <div className="slds-col slds-large-size_6-of-12 value">
                   <div className="icon-selector">
@@ -305,7 +291,7 @@ class CardHeaderIcon extends React.Component {
                   <div className="slds-form-element">
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
-                        <select value={defaultHeaderIconSize} onChange={(e) => this.props.setCardHeaderIconSize(e.target.value)} className="slds-select">
+                        <select value={defaultIconSize} onChange={(e) => this.props.setIconSize(e.target.value)} className="slds-select">
                           <option value="slds-icon_medium">Medium</option>
                           <option value="slds-icon_xx-small">xx-Small</option>
                           <option value="slds-icon_x-small">x-Small</option>
@@ -327,7 +313,7 @@ class CardHeaderIcon extends React.Component {
                   <div className="slds-form-element">
                     <div className="slds-form-element__control">
                       <div className="slds-select_container">
-                        <select value={defaultHeaderIconColor} onChange={(e) => this.props.setCardHeaderIconColor(e.target.value)} className="slds-select">
+                        <select value={defaultIconColor} onChange={(e) => this.props.setIconColor(e.target.value)} className="slds-select">
                           <option value="slds-icon-text-default">Default</option>
                           <option value="slds-current-color">Current</option>
                           <option value="slds-icon-text-success">Success</option>
@@ -358,13 +344,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCardHeaderSpacing: (key, value) => dispatch(updateCardHeaderIconSpacing(key, value)),
-        cardHeaderHideInDeviceList: (device, state) => dispatch(cardHeaderIconHideInDeviceList(device, state)),
-        setCardHeaderFlip: val => dispatch(setCardHeaderIconFlip(val)),
-        setHeaderIcon: icon => dispatch(setCardHeaderIcon(icon)),
-        setCardHeaderIconSize: iconSize => dispatch(setCardHeaderIconSize(iconSize)),
-        setCardHeaderIconColor: color => dispatch(setCardHeaderIconColor(color))
+        updateIconSpacing: (key, value) => dispatch(updateIconSpacing(key, value)),
+        setIconFlip: val => dispatch(setIconFlip(val)),
+        setIcon: icon => dispatch(setIcon(icon)),
+        setIconSize: iconSize => dispatch(setIconSize(iconSize)),
+        setIconColor: color => dispatch(setIconColor(color)),
+        setIconFloat: val => dispatch(setIconFloat(val)),
+        setIconDescription: val => dispatch(setIconDescription(val))
    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardHeaderIcon);
+export default connect(mapStateToProps, mapDispatchToProps)(IconProperty);

@@ -19,17 +19,15 @@ const builderDataElement =  {
     }
 }
 const ComponentList = [
-"Alert"
-,"Button Groups"
-,"Button Icons"
-,"Buttons"
+"Button"
+// "Button Groups"
 ,"Checkbox"
-,"Checkbox Button"
-,"Checkbox Button Group"
-,"Combobox"
-,"Data Tables"
+// ,"Checkbox Button"
+// ,"Checkbox Button Group"
+// ,"Combobox"
+// ,"Data Tables"
 // ,"Datepickers"
-,"Icons"
+,"Icon"
 ,"Input"
 ,"Modals"
 // ,"Notifications"
@@ -472,7 +470,15 @@ const textareaData = {
     hidden: [],
   }
 }
-const alertData = {
+const buttonData = {
+  streched: "",
+  hasIcon: false,
+  hidden: [],
+  text: "Button",
+  strong: false,
+  isDisabled: false,
+  float: "slds-float--none",
+  theme: "slds-button_neutral",
   spacings: {
     margin: {
       "top": "",
@@ -487,23 +493,60 @@ const alertData = {
       "right": ""
     }
   },
-  hidden: [],
-  text: "",
-  theme: "",
   icon: {
-    name: "",
-    type: "",
-    hidden: []
+    name: "download",
+    type: "utility",
+    position: "slds-button__icon_right",
+    size: "",
+    flip: false
   },
-  link: {
-    href: "",
-    text: ""
-  },
-  close: {
-    icon: {
-      name: "",
-      type: "",
-      hidden: []
+}
+const checkBoxData = {
+  streched: "",
+  hidden: [],
+  label: "Checkbox",
+  hasLabel: true,
+  isDisabled: false,
+  isRequired: false,
+  showError: false,
+  checked: false,
+  errorLabel: "This field is required",
+  float: "slds-float--none",
+  theme: "",
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  }
+}
+const iconData = {
+  name: "custom5",
+  description: "Description of Icon",
+  size: "",
+  flip: "",
+  type: "custom",
+  color: "",
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
     }
   }
 }
@@ -1479,5 +1522,7 @@ export { builderData,
   cardData, 
   textareaData, 
   iconList,
-  alertData
+  buttonData,
+  checkBoxData,
+  iconData
 };
