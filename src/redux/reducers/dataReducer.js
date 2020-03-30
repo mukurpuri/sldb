@@ -5,7 +5,8 @@ import {builderDataElement,
   textareaData,
   buttonData,
   checkBoxData,
-  iconData
+  iconData,
+  inputData
 } from '../../config/dataSkeletons';
 import _ from 'lodash';
 import {
@@ -867,6 +868,10 @@ const initialState = {
         activePage.component.type = componentType;
         activePage.component.data = JSON.parse(JSON.stringify(checkBoxData));
         break;
+      case "input":
+          activePage.component.type = componentType;
+          activePage.component.data = JSON.parse(JSON.stringify(inputData));
+          break;
       default:
     }
     return newData;

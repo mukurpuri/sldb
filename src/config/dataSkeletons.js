@@ -29,7 +29,7 @@ const ComponentList = [
 // ,"Datepickers"
 ,"Icon"
 ,"Input"
-,"Modals"
+// ,"Modals"
 // ,"Notifications"
 // ,"Panels"
 // ,"Pills"
@@ -535,6 +535,32 @@ const iconData = {
   flip: "",
   type: "custom",
   color: "",
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  }
+}
+const inputData = {
+  streched: "",
+  label: "Checkbox",
+  hasLabel: true,
+  isDisabled: false,
+  isRequired: false,
+  showError: false,
+  checked: false,
+  errorLabel: "This field is required",
+  float: "slds-float--none",
+  theme: "",
   spacings: {
     margin: {
       "top": "",
@@ -1524,5 +1550,6 @@ export { builderData,
   iconList,
   buttonData,
   checkBoxData,
-  iconData
+  iconData,
+  inputData
 };
