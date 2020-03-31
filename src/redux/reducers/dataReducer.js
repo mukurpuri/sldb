@@ -114,6 +114,21 @@ import {
   setInputShowInlineHelp,
   setInputInlineHelpText
 } from './utilities/input'
+import {
+  updateRadioSpacing,
+  setRadioLabelValue,
+  setRadioHasLabel,
+  setRadioIsRequired,
+  setRadioIsDisabled,
+  setRadioHasError,
+  setRadioErrorText,
+  setRadioButtonText,
+  setRadioButtonDisabled,
+  setRadioDirection,
+  setRadioSpacing,
+  deleteRadioButton,
+  addNewRadioButton
+} from './utilities/radio'
 const initialState = {
     builderData: []
   };
@@ -881,6 +896,97 @@ const initialState = {
           }
         }
 
+        case 'SET_RADIO_SPACING': {
+          return {
+            ...state,
+            builderData: updateRadioSpacing(state.builderData,action.key,action.val)
+          }
+        }
+
+        case 'SET_RADIO_LABEL_VALUE': {
+          return {
+            ...state,
+            builderData: setRadioLabelValue(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_HAS_LABEL': {
+          return {
+            ...state,
+            builderData: setRadioHasLabel(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_IS_REQUIRED': {
+          return {
+            ...state,
+            builderData: setRadioIsRequired(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_IS_DISABLED': {
+          return {
+            ...state,
+            builderData: setRadioIsDisabled(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_HAS_ERROR': {
+          return {
+            ...state,
+            builderData: setRadioHasError(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_ERROR_TEXT': {
+          return {
+            ...state,
+            builderData: setRadioErrorText(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_BUTTON_TEXT': {
+          return {
+            ...state,
+            builderData: setRadioButtonText(state.builderData,action.val,action.index)
+          }
+        }
+
+        case 'SET_RADIO_BUTTON_DISABLED': {
+          return {
+            ...state,
+            builderData: setRadioButtonDisabled(state.builderData,action.val,action.index)
+          }
+        }
+
+        case 'SET_RADIO_DIRECTION': {
+          return {
+            ...state,
+            builderData: setRadioDirection(state.builderData,action.val)
+          }
+        }
+
+        case 'SET_RADIO_GAPPINGS': {
+          return {
+            ...state,
+            builderData: setRadioSpacing(state.builderData,action.val)
+          }
+        }
+
+        case 'DELETE_RADIO_BUTTON': {
+          return {
+            ...state,
+            builderData: deleteRadioButton(state.builderData,action.val)
+          }
+        }
+
+        case 'ADD_NEW_RADIO_BUTTON': {
+          return {
+            ...state,
+            builderData: addNewRadioButton(state.builderData)
+          }
+        }
+        
       // Default
       default: {
         return state;

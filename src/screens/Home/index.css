@@ -4,6 +4,7 @@
     background: url('./bgBuilder.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
     color: white;
 }
 .headline {
@@ -21,6 +22,7 @@
 }
 .homebody {
     width: 100%;
+    padding-top: 100px;
 }
 .c2a {
     margin-top: 110px;

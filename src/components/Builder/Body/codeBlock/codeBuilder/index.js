@@ -17,15 +17,49 @@ export function codeBuilder(data, type) {
         case "input":
             return inputBuilder(data)
         case "radio-group":
-            return radioGroup(data)
+            return radioGroupBuilder(data)
     
         default:
             return null;
     }
 }
-function radioGroup (code) {
-    let codeStrnig = "";
-    return <p>Input Radio</p>;
+function radios(radio) {
+    let radioFloat = radio.floatChildren;
+    let radios = radio.radioButtons;
+    
+    let radioButtons = "";
+    _.each(radios, (rad, index) => {
+      const radioIndex = index;
+      const radioChecked = (rad.checked === "true");
+      let isDisabled = rad.isDisabled;
+      let marginBottom = "";
+      if(radio.innerGapping !== "") {
+        marginBottom = `slds-m-bottom--${radio.innerGapping}`
+      }
+      let isDisabledCode = isDisabled === "true" ? "disabled" : "";
+      let classes = `class="slds-radio ${radioFloat} ${marginBottom}"`
+      radioButtons += `<span key=${index} ${classes}><input defaultChecked="${radioChecked}" type="radio" id="${radioIndex}" name="default" ${isDisabledCode} /><label class="slds-radio__label" for="${radioIndex}"><span class="slds-radio_faux"></span><span class="slds-form-element__label">${rad.text}</span></label></span>`;
+    });
+    return radioButtons;
+}
+function radioGroupBuilder (radio) {
+    
+    let radioMarginsPaddings = Helpers.getSpacings(radio);
+    let radioLabel = radio.label;
+    let radioHasLabel = radio.hasLabel;
+    let isRequired = radio.isRequired;
+    let radioHasError = radio.hasError ? "slds-has-error" : "";
+    let legendClasses = `class="slds-form-element__legend slds-form-element__label slds-m-bottom--${radio.innerGapping}"`;
+    let abbr = isRequired ? `<abbr class="slds-required" title="required">*</abbr>` : "";
+    const legend = radioHasLabel ? `<legend ${legendClasses}>${abbr}${radioLabel}</legend>` : "";
+    let radioError = radio.hasError ?
+    `<div><br/><div id="error_01" class="slds-form-element__help">${radio.erroLabel}</div></div>`
+    : "";
+    let spacingClasses = radioMarginsPaddings.trim() === "" ? "" : ` class="${radioMarginsPaddings}"`;
+    let capsuleRadio =  Helpers.extraSpaceRemover(`slds-form-element ${radioHasError}`);
+    const radioGroupField =
+        `<div${spacingClasses}><fieldset class="${capsuleRadio}">${legend}<div class="slds-form-element__control">${radios(radio)}</div>${radioError}</fieldset></div>`
+    return radioGroupField;
 }
 function inputBuilder(input) {
     let inputMarginsPaddings = Helpers.getSpacings(input);

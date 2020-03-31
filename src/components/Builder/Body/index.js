@@ -59,9 +59,13 @@ class Body extends React.Component {
       const radioIndex = index;
       const radioChecked = (rad.checked === "true");
       let isDisabled = rad.isDisabled;
+      let marginBottom = "";
+      if(radio.innerGapping !== "") {
+        marginBottom = `slds-m-bottom--${radio.innerGapping}`
+      }
       radioButtons.push(
-        <span className={`slds-radio ${radioFloat}`}>
-          <input defaultChecked={radioChecked} type="radio" id={radioIndex} name="default" disabled={isDisabled} />
+        <span key={index} className={`slds-radio ${radioFloat} ${marginBottom}`}>
+          <input defaultChecked={radioChecked} type="radio" id={radioIndex} name="default" disabled={isDisabled === "true"} />
           <label className="slds-radio__label" htmlFor={radioIndex}>
             <span className="slds-radio_faux"></span>
             <span className="slds-form-element__label">{rad.text}</span>
@@ -74,15 +78,23 @@ class Body extends React.Component {
   renderRadioGroup = radio => {
   let radioMarginsPaddings = Helpers.getSpacings(radio);
   let radioLabel = radio.label;
+  let radioHasLabel = radio.hasLabel;
+  let isRequired = radio.isRequired;
   let radioHasError = radio.hasError ? "slds-has-error" : "";
-  const radioGroupField = 
-  <div className="componenet-builder-container">
+  const legend = radioHasLabel ? <legend className={`slds-form-element__legend slds-form-element__label slds-m-bottom--${radio.innerGapping}`}>{isRequired ? <abbr className="slds-required" title="required">*</abbr> : ""}{radioLabel}</legend> : "";
+  
+  const radioGroupField = <div className="componenet-builder-container">
     <div className={radioMarginsPaddings}>
-      <fieldset className={`"slds-form-element  ${radioHasError}"`}>
-      <legend className="slds-form-element__legend slds-form-element__label">{radioLabel}</legend>
+      <fieldset className={`slds-form-element  ${radioHasError}`}>
+      {legend}
         <div className="slds-form-element__control">
           {this.radios(radio)}
         </div>
+        {
+          radio.hasError ?
+          <div><br/><div id="error_01" className="slds-form-element__help">{radio.erroLabel}</div></div>
+          : null 
+        }
       </fieldset>
     </div>
   </div> 

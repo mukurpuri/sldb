@@ -1,7 +1,5 @@
 .controls {
     border-top: 1px solid #e5e5e5;
-    overflow-y: scroll;
-    border-bottom: 1px solid #e5e5e5;
     -webkit-user-select: none;
     user-select: none;
     -o-user-select: none;

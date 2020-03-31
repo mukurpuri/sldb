@@ -602,21 +602,16 @@ const radioGroupData = {
       "right": ""
     }
   },
+  hasLabel: true,
   label: "Radio Group Label",
-  floatChildren: "",
+  floatChildren: "slds-float--left",
   isDisabled: false,
   isRequired: false,
   hasError: false,
   erroLabel: "This field is required",
-  innergapping: "small",
+  innerGapping: "",
   radioButtons: [{
-    checked: "true",
-    text: "Radio Label 1",
-    isDisabled: false
-  },
-  {
-    checked: "false",
-    text: "Radio Label 2",
+    text: "Radio Label",
     isDisabled: false
   }]
 }

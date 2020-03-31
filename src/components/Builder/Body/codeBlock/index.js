@@ -42,11 +42,13 @@ class CodeBlock extends React.Component {
         case 'input':
           code = this.state.activePage.component.data;
           break;
+          case 'radio-group':
+            code = this.state.activePage.component.data;
+            break;
       default:
         console.log('undefined');
     }
     let codeBuilderCode = codeBuilder(code, this.state.activePage.component.type);
-    console.log(codeBuilderCode)
     this.props.setCode(codeBuilderCode);
   }
 

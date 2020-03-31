@@ -12,6 +12,7 @@ import ButtonProperty from './Components/ButtonProperty';
 import CheckBoxProperty  from './Components/CheckProperty';
 import IconProperty from './Components/IconProperty';
 import InputProperty from './Components/InputProperty';
+import RadioProperty from './Components/RadioProperty';
 import PageMode from './PageMode';
 
 class Rightbar extends React.Component {
@@ -49,6 +50,9 @@ class Rightbar extends React.Component {
 
         case 'input':
         return <InputProperty/>
+
+        case 'radio-group':
+        return <RadioProperty/>
 
         default:
         return null
