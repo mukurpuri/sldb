@@ -31,18 +31,130 @@ class Body extends React.Component {
         case 'textarea':
           return this.renderTextArea(data)
         
-          case 'button':
-            return this.renderButton(data)
+        case 'button':
+          return this.renderButton(data)
         
-            case 'checkbox':
-              return this.renderCheckBox(data)
+        case 'checkbox':
+          return this.renderCheckBox(data)
 
-              case 'icon':
-              return this.renderIcon(data)
+        case 'icon':
+          return this.renderIcon(data)
+
+        case 'input':
+          return this.renderInput(data)
+        
+        case 'radio-group':
+          return this.renderRadioGroup(data)
 
         default:
         return <p>Add component</p>;
     }
+  }
+  radios = radio => {
+    let radioFloat = radio.floatChildren;
+    let radios = radio.radioButtons;
+    
+    let radioButtons = [];
+    _.each(radios, (rad, index) => {
+      const radioIndex = index;
+      const radioChecked = (rad.checked === "true");
+      let isDisabled = rad.isDisabled;
+      radioButtons.push(
+        <span className={`slds-radio ${radioFloat}`}>
+          <input defaultChecked={radioChecked} type="radio" id={radioIndex} name="default" disabled={isDisabled} />
+          <label className="slds-radio__label" htmlFor={radioIndex}>
+            <span className="slds-radio_faux"></span>
+            <span className="slds-form-element__label">{rad.text}</span>
+          </label>
+        </span>
+      )
+    });
+    return radioButtons;     
+  }
+  renderRadioGroup = radio => {
+  let radioMarginsPaddings = Helpers.getSpacings(radio);
+  let radioLabel = radio.label;
+  let radioHasError = radio.hasError ? "slds-has-error" : "";
+  const radioGroupField = 
+  <div className="componenet-builder-container">
+    <div className={radioMarginsPaddings}>
+      <fieldset className={`"slds-form-element  ${radioHasError}"`}>
+      <legend className="slds-form-element__legend slds-form-element__label">{radioLabel}</legend>
+        <div className="slds-form-element__control">
+          {this.radios(radio)}
+        </div>
+      </fieldset>
+    </div>
+  </div> 
+  return radioGroupField;
+  }
+  renderInput = input => {
+    let inputMarginsPaddings = Helpers.getSpacings(input);
+    let inputLabel = input.label;
+    let inputHasLabel = input.hasLabel;
+    let inputPlaceholder = input.placeholder;
+    let inputIsRequired = input.isRequired;
+    let inputIsDisabled = input.isDisabled;
+    
+    let inputHasError = input.hasError  ? "slds-has-error" : "";
+    let inputErrorLabel = input.errorLabel;
+    let inputReadOnly = input.readOnly;
+    let inputValue = input.value;
+
+    let inputHasIcon = input.hasIcon;
+    let inputIconDirection = input.icon.direction;
+    let inputIconName = input.icon.name;
+    let inputIconType = input.icon.type;
+    let clearButton = input.clearButton;
+
+    let iconDirection = clearButton ? `` : `slds-input-has-icon_${inputIconDirection}`
+    let iconClasses = inputHasIcon ? `slds-input-has-icon ${iconDirection}` : "";
+
+    
+    let clearButtonClass = clearButton && inputHasIcon ? `slds-input-has-icon slds-input-has-icon_left-right` : ""
+
+    let inlineHelp = input.inlineHelp;
+
+    const inputField = 
+    <div className="componenet-builder-container">
+    <div className={`slds-form-element ${inputMarginsPaddings} ${inputHasError}`}>
+        {
+          inputHasLabel ?
+          <label className="slds-form-element__label" htmlFor="inputText">
+          {
+            inputIsRequired ?
+            <abbr className="slds-required" title="required">* </abbr> : ""
+          }
+          {inputLabel}</label> : ""
+        }
+      <div className={`slds-form-element__control ${iconClasses} ${clearButtonClass}`}>
+        {
+          inputHasIcon ?
+          <svg className={`slds-icon slds-input__icon slds-input__icon_${inputIconDirection} slds-icon-text-default`} aria-hidden="true">
+            <use href={`/assets/icons/${inputIconType}-sprite/svg/symbols.svg#${inputIconName}`}></use>
+          </svg> : null
+        }
+        <input defaultValue={inputValue} readOnly={inputReadOnly} disabled={inputIsDisabled}  type="text" id="inputText" placeholder={inputPlaceholder} required={inputIsRequired} className="slds-input" />
+        {
+          clearButton && inputHasIcon ?
+          <button className="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Clear">
+            <svg className="slds-button__icon slds-icon-text-light" aria-hidden="true">
+              <use href="/assets/icons/utility-sprite/svg/symbols.svg#clear"></use>
+            </svg>
+            <span className="slds-assistive-text">Clear</span>
+          </button> : null
+        }
+      </div>
+      { inputHasError ?
+        <div className="slds-form-element__help" id="error-message-inputText">{inputErrorLabel}</div> : ""
+      }
+      {
+        inlineHelp.visible ?
+        <div className="slds-form-element__help">{inlineHelp.text}</div> : ""
+      }
+    </div>
+    </div>
+    return inputField;
   }
   renderIcon = icon => {
     let iconSize =  icon.size;
@@ -172,12 +284,10 @@ class Body extends React.Component {
 
       return <div className="gridBuilder"><DeviceToggler/><div className="code-target"><div className={`grid-container ${data.activeEditor}  ${parentGridClasses}`}><div className={`${marginsPaddings}`} ><div className={`${gutters}`}>{grid}</div></div></div></div></div>;
   }
-
   renameIcon = (icon) => {
     let icon_name = icon.replace(/_/g, "-");
     return icon_name;
   }
-
   renderCard = data => {
     let marginsPaddings = Helpers.getSpacings(data);
     let header = data.header;
@@ -296,7 +406,6 @@ class Body extends React.Component {
         </article>
       </div>);
   }
-
   renderTextArea = data => {
     let textArea = data;
     let textAreaSpacing = Helpers.getSpacings(textArea);
@@ -354,7 +463,6 @@ class Body extends React.Component {
       </div>
     )
   }
-
   renderButton = data => {
     let button = data;
     let buttonText = button.text || "";
@@ -394,7 +502,6 @@ class Body extends React.Component {
       </div>
     )
   }
-
   generateComponent = () => {
     const gridBuilder = this.props.builderData;
     if(gridBuilder.length > 0) {

@@ -11,6 +11,7 @@ import CardProperties from './Components/CardProperties';
 import ButtonProperty from './Components/ButtonProperty';
 import CheckBoxProperty  from './Components/CheckProperty';
 import IconProperty from './Components/IconProperty';
+import InputProperty from './Components/InputProperty';
 import PageMode from './PageMode';
 
 class Rightbar extends React.Component {
@@ -45,6 +46,9 @@ class Rightbar extends React.Component {
 
         case 'icon':
         return <IconProperty/>
+
+        case 'input':
+        return <InputProperty/>
 
         default:
         return null

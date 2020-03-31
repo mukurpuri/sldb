@@ -6,7 +6,8 @@ import {builderDataElement,
   buttonData,
   checkBoxData,
   iconData,
-  inputData
+  inputData,
+  radioGroupData
 } from '../../config/dataSkeletons';
 import _ from 'lodash';
 import {
@@ -95,6 +96,24 @@ import {
   setIconFlip,
   setIconDescription
 } from './utilities/icon'
+import {
+  updateInputSpacing,
+  setHasLabel,
+  setInputLabel,
+  setInputDisable,
+  setInputRequire,
+  setInputReadOnly,
+  setInputValue,
+  setInputPlaceholder,
+  setInputSetError,
+  setInputSetErrorText,
+  setInputIcon,
+  setInputIconDirection,
+  setInputIconData,
+  setInputShowClearIcon,
+  setInputShowInlineHelp,
+  setInputInlineHelpText
+} from './utilities/input'
 const initialState = {
     builderData: []
   };
@@ -751,6 +770,116 @@ const initialState = {
             builderData: setIconDescription(state.builderData, action.val)
           }
         }
+        case 'UPDATE_INPUT_SPACING': {
+          return {
+            ...state,
+            builderData: updateInputSpacing(state.builderData,action.key,action.val)
+          }
+        }
+        case 'UPDATE_INPUT_HAS_LABEL': {
+          return {
+            ...state,
+            builderData: setHasLabel(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_LABEL': {
+          return {
+            ...state,
+            builderData: setInputLabel(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_DISABLE': {
+          return {
+            ...state,
+            builderData: setInputDisable(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_REQUIRE': {
+          return {
+            ...state,
+            builderData: setInputRequire(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_READONLY': {
+          return {
+            ...state,
+            builderData: setInputReadOnly(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_VALUE': {
+          return {
+            ...state,
+            builderData: setInputValue(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_PLACEHOLDER': {
+          return {
+            ...state,
+            builderData: setInputPlaceholder(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_SET_ERROR': {
+          return {
+            ...state,
+            builderData: setInputSetError(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_ERROR_TEXT': {
+          return {
+            ...state,
+            builderData: setInputSetErrorText(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_ICON': {
+          return {
+            ...state,
+            builderData: setInputIcon(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_DIRECTION': {
+          return {
+            ...state,
+            builderData: setInputIconDirection(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_ICON_DATA': {
+          return {
+            ...state,
+            builderData: setInputIconData(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_SHOW_CLEAR_ICON': {
+          return {
+            ...state,
+            builderData: setInputShowClearIcon(state.builderData,action.val)
+          }
+        }
+        
+        case 'UPDATE_INPUT_SHOW_INLINE_HELP': {
+          return {
+            ...state,
+            builderData: setInputShowInlineHelp(state.builderData,action.val)
+          }
+        }
+
+        case 'UPDATE_INPUT_INLINE_HELP_TEXT': {
+          return {
+            ...state,
+            builderData: setInputInlineHelpText(state.builderData,action.val)
+          }
+        }
 
       // Default
       default: {
@@ -871,6 +1000,10 @@ const initialState = {
       case "input":
           activePage.component.type = componentType;
           activePage.component.data = JSON.parse(JSON.stringify(inputData));
+          break;
+      case "radio-group":
+          activePage.component.type = componentType;
+          activePage.component.data = JSON.parse(JSON.stringify(radioGroupData));
           break;
       default:
     }

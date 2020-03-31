@@ -33,7 +33,7 @@ const ComponentList = [
 // ,"Notifications"
 // ,"Panels"
 // ,"Pills"
-,"Radio Button Group"
+// ,"Radio Button Group"
 ,"Radio Group"
 ,"Select"
 // ,"Tabs"
@@ -551,16 +551,6 @@ const iconData = {
   }
 }
 const inputData = {
-  streched: "",
-  label: "Checkbox",
-  hasLabel: true,
-  isDisabled: false,
-  isRequired: false,
-  showError: false,
-  checked: false,
-  errorLabel: "This field is required",
-  float: "slds-float--none",
-  theme: "",
   spacings: {
     margin: {
       "top": "",
@@ -574,7 +564,61 @@ const inputData = {
       "left": "",
       "right": ""
     }
+  },
+  float: "slds-float--none",
+  label: "Input Label",
+  hasLabel: true,
+  isDisabled: false,
+  isRequired: false,
+  readOnly: false,
+  hasError: false,
+  value: "",
+  placeholder: "Placeholder Text",
+  errorLabel: "This field is required",
+  hasIcon: false,
+  icon: {
+    name: "search",
+    type: "utility",
+    direction: "left"
+  },
+  clearButton: false,
+  inlineHelp: {
+    visible: false,
+    text: "Inline Help"
   }
+}
+const radioGroupData = {
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  },
+  label: "Radio Group Label",
+  floatChildren: "",
+  isDisabled: false,
+  isRequired: false,
+  hasError: false,
+  erroLabel: "This field is required",
+  innergapping: "small",
+  radioButtons: [{
+    checked: "true",
+    text: "Radio Label 1",
+    isDisabled: false
+  },
+  {
+    checked: "false",
+    text: "Radio Label 2",
+    isDisabled: false
+  }]
 }
 const iconList = [
   {
@@ -1551,5 +1595,6 @@ export { builderData,
   buttonData,
   checkBoxData,
   iconData,
-  inputData
+  inputData,
+  radioGroupData
 };

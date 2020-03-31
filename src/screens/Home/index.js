@@ -11,11 +11,11 @@ function HomeScreen() {
   let match = useRouteMatch();
   return (
     <div className="home">
-      <div className="home-header">
+      {/* <div className="home-header">
         <div className="cloud">
           <div className={`slds-cloud  whiteCloud`}></div>
         </div>
-      </div>
+      </div> */}
       <div className="homebody slds-text-align--center"> 
         <h1 className="headline slds-m-bottom--none">
           SLDB

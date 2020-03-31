@@ -14,10 +14,69 @@ export function codeBuilder(data, type) {
             return checkboxBuilder(data)
         case "icon":
             return iconBuilder(data)
+        case "input":
+            return inputBuilder(data)
+        case "radio-group":
+            return radioGroup(data)
     
         default:
             return null;
     }
+}
+function radioGroup (code) {
+    let codeStrnig = "";
+    return <p>Input Radio</p>;
+}
+function inputBuilder(input) {
+    let inputMarginsPaddings = Helpers.getSpacings(input);
+    let inputLabel = input.label;
+    let inputHasLabel = input.hasLabel;
+    let inputPlaceholder = input.placeholder;
+    let inputIsRequired = input.isRequired;
+    let inputIsDisabled = input.isDisabled;
+    
+    let inputHasError = input.hasError  ? "slds-has-error" : "";
+    let inputErrorLabel = input.errorLabel;
+    let inputReadOnly = input.readOnly;
+    let inputValue = input.value;
+
+    let inputHasIcon = input.hasIcon;
+    let inputIconDirection = input.icon.direction;
+    let inputIconName = input.icon.name;
+    let inputIconType = input.icon.type;
+    let clearButton = input.clearButton;
+
+    let iconDirection = clearButton ? `` : `slds-input-has-icon_${inputIconDirection}`
+    let iconClasses = inputHasIcon ? `slds-input-has-icon ${iconDirection}` : "";
+    let clearButtonClass = clearButton && inputHasIcon ? `slds-input-has-icon slds-input-has-icon_left-right` : ""
+    let inlineHelp = input.inlineHelp;
+
+    let abbrCode = inputIsRequired ? `<abbr class="slds-required" title="required">* </abbr>` : ""
+    let labelCode = inputHasLabel ? `<label class="slds-form-element__label" htmlFor="inputText">${abbrCode}${inputLabel}</label>` : "";
+    
+    let inputIcons =
+        inputHasIcon ?
+        `<svg class="slds-icon slds-input__icon slds-input__icon_${inputIconDirection} slds-icon-text-default" aria-hidden="true">
+          <use href="/assets/icons/${inputIconType}-sprite/svg/symbols.svg#${inputIconName}"></use>
+        </svg>` : "";
+    let mainInput = "";
+    let defaultValue = inputValue ? `value="${inputValue}"` : "";
+    mainInput = `<input ${defaultValue} ${inputReadOnly ? "readOnly": ""} ${inputIsDisabled ? "disabled": ""}  type="text" id="inputText" placeholder="${inputPlaceholder}" ${inputIsRequired ? "required": ""} class="slds-input" />`
+    
+    let inlineText = inlineHelp.visible ? `<div class="slds-form-element__help">${inlineHelp.text}</div>` : "";
+    let inputHasErrorCode =  inputHasError ? `<div class="slds-form-element__help" id="error-message-inputText">${inputErrorLabel}</div>` : "";
+    let clearButtonCode = clearButton && inputHasIcon ?
+              `<button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Clear">
+                <svg class="slds-button__icon slds-icon-text-light" aria-hidden="true">
+                  <use href="/assets/icons/utility-sprite/svg/symbols.svg#clear"></use>
+                </svg>
+                <span class="slds-assistive-text">Clear</span>
+              </button>` : ""
+    const trimClasses = Helpers.extraSpaceRemover(`slds-form-element ${inputMarginsPaddings} ${inputHasError}`);
+    const trimClasses2 = Helpers.extraSpaceRemover(`slds-form-element__control ${iconClasses} ${clearButtonClass}`);
+    const inputField = 
+    `<div class="${trimClasses}">${labelCode}<div class="${trimClasses2}">${inputIcons}${mainInput}${clearButtonCode}</div>${inputHasErrorCode}${inlineText}</div>`
+    return inputField;
 }
 function iconBuilder(icon) {
     let iconSize =  icon.size;

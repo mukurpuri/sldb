@@ -20,11 +20,11 @@
     color: white;
 }
 .pageActions .pageControl.active .icon-title {
-    color: initial !important;
+    color: #686868 !important;
 }
 .pageActions .pageControl .slds-icon_small{
     fill: white;
 }
 .pageActions .pageControl.active .slds-icon_small{
-    fill: initial !important;
+    fill: #686868 !important;
 }

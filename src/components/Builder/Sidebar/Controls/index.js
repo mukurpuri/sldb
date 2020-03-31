@@ -54,28 +54,27 @@ class Controls extends React.Component {
       return (
         <div className="box">
           <div className="head">
-            CONTAINERS
+            COMPONENTS
           </div>
           <div className="controls">
             <div className="btn" onClick={() => this.props.addComponentToCanvas("grid")}><p>Grid</p></div>
             <div className="btn" onClick={() => this.props.addComponentToCanvas("card")}><p>Card</p></div>
-            
+            {componentsList}
           </div>
-          <div className="head">
+          {/* <div className="head">
           COMPONENTS
             {/* <span onClick={this.toggleComponentSearch} className="slds-icon_container slds-icon-utility-search" title="Description of icon when needed">
               <svg className="slds-icon slds-search slds-icon-text-default slds-icon_x-small" aria-hidden="true">
                 <use href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
               </svg>
-            </span> */}
-          </div>
-          <div style={this.state.showComponentSearch ? {"height": "30px" } : {"height": "0px"}} className="control-search">
+            </span>}
+          </div> */}
+          {/* <div style={this.state.showComponentSearch ? {"height": "30px" } : {"height": "0px"}} className="control-search">
             <input id="component-search-input" type="text" onChange={this.searchComponents} placeholder="Search components..." className="search text" />
           </div>
           <div className="comp controls">
             {componentsList}
-          </div>
-          
+          </div> */}
         </div>
         );
       }

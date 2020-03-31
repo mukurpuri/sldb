@@ -36,14 +36,17 @@ class CodeBlock extends React.Component {
         case 'checkbox':
           code = this.state.activePage.component.data;
           break;
-
         case 'icon':
+          code = this.state.activePage.component.data;
+          break;
+        case 'input':
           code = this.state.activePage.component.data;
           break;
       default:
         console.log('undefined');
     }
     let codeBuilderCode = codeBuilder(code, this.state.activePage.component.type);
+    console.log(codeBuilderCode)
     this.props.setCode(codeBuilderCode);
   }
 
