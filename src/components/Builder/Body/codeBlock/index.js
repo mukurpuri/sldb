@@ -17,7 +17,8 @@ class CodeBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activePage: _.find(this.props.builderData, d => {return d.active === true})
+      activePage: _.find(this.props.builderData, d => {return d.active === true}),
+      showCopied: false
     }
   }
 
@@ -60,6 +61,11 @@ class CodeBlock extends React.Component {
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     document.execCommand("copy");
+    setTimeout(() => {
+      this.setState({
+        showCopied: false
+      })
+    }, 50)
   }
 
   setMessage = (activePage) => {
@@ -79,10 +85,12 @@ class CodeBlock extends React.Component {
       canvasCode = canvasCode.replace(/Inner Text/g, "");
       }
       this.setState({
-          textToBeCopied: canvasCode
+          textToBeCopied: canvasCode,
+          showCopied: true
       }, () => {
           this.copyCode();
       })
+      //document.getElementsByTagName("pre").style.opacity = 0;
   }
 
 
@@ -99,6 +107,10 @@ class CodeBlock extends React.Component {
     }
     return (
       <div className={`codeBlock ${Constants.appGradientTheme} ${this.state.activePage.code.isMinified ? "minified": ""}`}>
+          {
+            this.state.showCopied ? <div className={`copied ${Constants.appGradientTheme}`}></div> : null
+          }
+          
           <button onClick={() => this.setMessage(this.state.activePage)} className={`copyButton ${Constants.appGradientTheme}`}>Copy Code to Clipboard</button>
           <SyntaxHighlighter language="html" style={darcula}>
                 {(canvasCode)}

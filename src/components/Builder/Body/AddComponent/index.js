@@ -21,7 +21,7 @@ class AddComponent extends React.Component {
         <h2>This is your Component Builder</h2>
         <h3 className="slds-m-top_x-large">Select components, elements and containers</h3>
         <h3 className="slds-m-top_x-small">Start building UI with zero CSS</h3>
-        <h3 className="slds-m-top_x-large">Press <span className="code-key slds-m-left--small  slds-m-right--small">{codeKey}</span><span className="slds-hide code-key slds-m-left--small  slds-m-right--small">{window.navigator.userAgent.indexOf("Mac") !== -1 ? "Cmd" : "Ctrl"} + Shift + N</span> to work in a new page</h3>
+        {/* <h3 className="slds-m-top_x-large">Press <span className="code-key slds-m-left--small  slds-m-right--small">{codeKey}</span><span className="slds-hide code-key slds-m-left--small  slds-m-right--small">{window.navigator.userAgent.indexOf("Mac") !== -1 ? "Cmd" : "Ctrl"} + Shift + N</span> to work in a new page</h3> */}
       </div>
     );
   }
