@@ -22,6 +22,19 @@ class Pagination extends React.Component {
     this.props.reduxMakePageActive(id);
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", event => {
+      if(navigator.platform.indexOf("Mac") >= 0) {
+        if (event.metaKey) {
+          this.props.reduxCreateNewPage()
+        }
+      } else {
+        if (event.ctrlKey) {
+          this.props.reduxCreateNewPage()
+        }
+      }
+    });
+  }
   
 
   render() {
