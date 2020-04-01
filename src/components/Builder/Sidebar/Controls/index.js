@@ -47,8 +47,9 @@ class Controls extends React.Component {
     var components = ComponentList.slice();
     var componentsList = [];
     _.each(components, (comp,index) => {
+      const controlName = this.nameReducer(comp);
       if(comp.toLowerCase().indexOf(this.state.searchComponent.toLowerCase()) >= 0) {
-        componentsList.push(<div onClick={() => this.props.addComponentToCanvas(this.nameReducer(comp))} key={index} className="btn"><p>{comp}</p></div>)
+        componentsList.push(<div onClick={() => this.props.addComponentToCanvas(controlName)} key={index} className="btn"><p>{comp}</p> <div className={`control-elem`}><img alt={controlName} title={controlName} width="40" src={`./controls/${controlName}.png`}/></div> </div>)
       }
       });
       return (

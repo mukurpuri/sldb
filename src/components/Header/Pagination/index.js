@@ -27,9 +27,12 @@ class Pagination extends React.Component {
   render() {
     var pages = [];
     var gradClasses = Constants.gradClasses;
+    var { builderData } = this.props;
     //var gradient = gradClasses[[Math.floor(Math.random() * Math.floor(gradClasses.length))]];
     _.each(this.props.pages, (page,index) => {
-      var li = <li onClick={() => { this.makePageActive(page.id)}} key={page.id} className={page.active ? "active slds-col" : "slds-col"} id={page.id}>{page.name} <span className="minus-page" title="Close this page" onClick={(e) => {this.deletePage(page.id, e)}}>+</span></li>;
+      let isHide = builderData.length === 1 ? "slds-hide" : "";
+      isFinite()
+      var li = <li onClick={() => { this.makePageActive(page.id)}} key={page.id} className={page.active ? "active slds-col" : "slds-col"} id={page.id}>{page.name} <span className={`minus-page ${isHide}`} title="Close this page" onClick={(e) => {this.deletePage(page.id, e)}}>+</span></li>;
       pages.push(li);
     });
     return (

@@ -7,11 +7,19 @@
 .controls .btn {
     padding: 10px;
     overflow: hidden;
-    border-bottom: 1px dashed #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
     cursor: move;
+    width: 124px;
+    float: left;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    border-right: 1px solid #e5e5e5;
 }
-.controls .btn:last-child {
-    border-bottom: 0;
+.controls .btn:nth-child(even) {
+    border-right: 0;
 }
 .controls .btn:hover {
     background: #f7f7f7;
@@ -25,7 +33,7 @@
     font-weight: bold;
     color: #646464;
     float: left;
-    margin-top: -2px;
+    margin-top: 10px;
     text-transform: uppercase;
 }
 .slds-search {
@@ -49,4 +57,7 @@
     padding-left: 10px;
     border-right: 0;
     background: #fafafa;
+}
+.control-elem.grid {
+
 }
