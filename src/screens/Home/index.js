@@ -29,12 +29,6 @@ function HomeScreen() {
             Launch Builder 
           </button>
         </Link>
-        
-        </div>
-        <div className="screenshots-wrappers">
-          <div className="screenshot-container">
-            <img src="./screen1.png" />
-          </div>
         </div>
       </div>
         
