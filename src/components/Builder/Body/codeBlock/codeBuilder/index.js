@@ -18,10 +18,33 @@ export function codeBuilder(data, type) {
             return inputBuilder(data)
         case "radio-group":
             return radioGroupBuilder(data)
-    
+        case "select":
+            return selectBuilder(data)
         default:
             return null;
     }
+}
+function selectBuilder(select) {
+    let radioMarginsPaddings = Helpers.getSpacings(select);
+    let selectLabel = select.label;
+    let selectHasLabel = select.hasLabel;
+    let selectIsDisabled = select.isDisabled
+    let isRequired = select.isRequired;
+    let selectHasError = select.hasError ? "slds-has-error" : "";
+    let selectErrorText = select.erroLabel;
+
+    let selectRequired = isRequired ? `<abbr class="slds-required" title="required">* </abbr>` : ""
+    let selectLabelCode = selectHasLabel ? `<label class="slds-form-element__label" htmlFor="select-1">${selectRequired}${selectLabel}</label>`: ""
+    let spacingClasses = radioMarginsPaddings.trim() === "" ? "" : ` class="${radioMarginsPaddings}"`;
+    let errorCode = Helpers.extraSpaceRemover(`slds-form-element ${selectHasError}`);
+    let disableCodeString =  selectIsDisabled ? `disabled` : "";
+    let innerCode = `<div class="slds-form-element__control"><div class="slds-select_container"><select class="slds-select" ${disableCodeString} id="select-1"><option value="">Please select</option><option>Option One</option><option>Option Two</option><option>Option Three</option></select></div></div>`
+    
+
+    let errorTextCode = selectHasError ? `<div class="slds-form-element__help" id="select-error-1">${selectErrorText}</div>` : ""
+    const selectField = 
+      `<div${spacingClasses}><div class="${errorCode}">${selectLabelCode}${innerCode}${errorTextCode}</div></div>`
+    return selectField
 }
 function radios(radio) {
     let radioFloat = radio.floatChildren;

@@ -57,8 +57,6 @@ class Controls extends React.Component {
             COMPONENTS
           </div>
           <div className="controls">
-            <div className="btn" onClick={() => this.props.addComponentToCanvas("grid")}><p>Grid</p></div>
-            <div className="btn" onClick={() => this.props.addComponentToCanvas("card")}><p>Card</p></div>
             {componentsList}
           </div>
           {/* <div className="head">

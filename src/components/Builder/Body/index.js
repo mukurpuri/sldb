@@ -46,9 +46,49 @@ class Body extends React.Component {
         case 'radio-group':
           return this.renderRadioGroup(data)
 
+        case 'select':
+          return this.renderSelect(data)
+
         default:
         return <p>Add component</p>;
     }
+  }
+  renderSelect = select  => {
+    let radioMarginsPaddings = Helpers.getSpacings(select);
+    let selectLabel = select.label;
+    let selectHasLabel = select.hasLabel;
+    let selectIsDisabled = select.isDisabled
+    let isRequired = select.isRequired;
+    let selectHasError = select.hasError ? "slds-has-error" : "";
+    let selectErrorText = select.erroLabel;
+    const selectField = 
+    <div className="componenet-builder-container">
+      <div className={radioMarginsPaddings}>
+        <div className={`slds-form-element ${selectHasError}`}>
+        {
+          selectHasLabel  ? 
+          <label className="slds-form-element__label" htmlFor="select-1">
+          { isRequired ? <abbr class="slds-required" title="required">* </abbr> : null }
+          {selectLabel}</label>
+          : null
+        }
+        <div className="slds-form-element__control">
+          <div className="slds-select_container">
+            <select className="slds-select" disabled={selectIsDisabled} id="select-1">
+              <option value="">Please select</option>
+              <option>Option One</option>
+              <option>Option Two</option>
+              <option>Option Three</option>
+            </select>
+          </div>
+        </div>
+        {
+          selectHasError ? <div class="slds-form-element__help" id="select-error-1">{selectErrorText}</div> : null
+        }
+        </div>
+      </div>
+    </div>
+    return selectField
   }
   radios = radio => {
     let radioFloat = radio.floatChildren;

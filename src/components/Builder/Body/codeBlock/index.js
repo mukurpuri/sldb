@@ -45,6 +45,9 @@ class CodeBlock extends React.Component {
           case 'radio-group':
             code = this.state.activePage.component.data;
             break;
+          case 'select':
+            code = this.state.activePage.component.data;
+            break;
       default:
         console.log('undefined');
     }

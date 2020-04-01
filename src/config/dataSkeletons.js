@@ -19,6 +19,8 @@ const builderDataElement =  {
     }
 }
 const ComponentList = [
+"grid",
+"card",
 "Button"
 // "Button Groups"
 ,"Checkbox"
@@ -37,7 +39,7 @@ const ComponentList = [
 ,"Radio Group"
 ,"Select"
 // ,"Tabs"
-,"Textarea"
+// ,"Textarea"
 // ,"Toast"
 // ,"Tooltips"
 ];
@@ -613,6 +615,31 @@ const radioGroupData = {
   radioButtons: [{
     text: "Radio Label",
     isDisabled: false
+  }]
+}
+const selectData = {
+  spacings: {
+    margin: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    },
+    padding: {
+      "top": "",
+      "bottom": "",
+      "left": "",
+      "right": ""
+    }
+  },
+  hasLabel: true,
+  label: "Radio Group Label",
+  isDisabled: false,
+  isRequired: false,
+  hasError: false,
+  erroLabel: "This field is required",
+  list: [{
+    text: "Radio Label"
   }]
 }
 const iconList = [
@@ -1591,5 +1618,6 @@ export { builderData,
   checkBoxData,
   iconData,
   inputData,
-  radioGroupData
+  radioGroupData,
+  selectData
 };

@@ -84,16 +84,12 @@ function updateColumnSpacing(data, key, value) {
     activePage.component.data.properties.data = JSON.parse(JSON.stringify(deviceData));
     activePage.component.data.activeRow = 0;
     activePage.component.data.activeColumn = 0;
-    console.log(activePage)
     newData[activePageIndex] =  Object.assign({}, JSON.parse(JSON.stringify(activePage)));
-    console.log(newData)
     return newData;
   }
 
   function deleteSelectedcolumn(data, ids) {
     const { rowId, id } = ids;
-    // console.log(rowId)
-    // console.log(id)
     const newData = data.slice();
     const activePage = _.find(newData, page => {return page.active === true});
     const activeRow  = rowId;

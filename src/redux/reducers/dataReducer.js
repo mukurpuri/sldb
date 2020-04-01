@@ -7,7 +7,8 @@ import {builderDataElement,
   checkBoxData,
   iconData,
   inputData,
-  radioGroupData
+  radioGroupData,
+  selectData
 } from '../../config/dataSkeletons';
 import _ from 'lodash';
 import {
@@ -129,6 +130,15 @@ import {
   deleteRadioButton,
   addNewRadioButton
 } from './utilities/radio'
+import {
+  updateSelectSpacing,
+  setSelectLabelValue,
+  setSelectHasLabel,
+  setSelectIsRequired,
+  setSelectIsDisabled,
+  setSelectHasError,
+  setSelectErrorText
+} from './utilities/select'
 const initialState = {
     builderData: []
   };
@@ -986,6 +996,63 @@ const initialState = {
             builderData: addNewRadioButton(state.builderData)
           }
         }
+
+        
+        case 'SET_SELECT_SPACING': {
+          return {
+            ...state,
+            builderData: updateSelectSpacing(state.builderData, action.key, action.val)
+          }
+        }
+
+        
+        case 'SET_SELECT_LABEL_VALUE': {
+          return {
+            ...state,
+            builderData: setSelectLabelValue(state.builderData, action.val)
+          }
+        }
+
+        
+        case 'SET_SELECT_HAS_LABEL': {
+          return {
+            ...state,
+            builderData: setSelectHasLabel(state.builderData, action.val)
+          }
+        }
+
+        
+        case 'SET_SELECT_IS_REQUIRED': {
+          return {
+            ...state,
+            builderData: setSelectIsRequired(state.builderData, action.val)
+          }
+        }
+
+        
+        case 'SET_SELECT_IS_DISABLED': {
+          return {
+            ...state,
+            builderData: setSelectIsDisabled(state.builderData, action.val)
+          }
+        }
+
+        
+        case 'SET_SELECT_HAS_ERROR': {
+          return {
+            ...state,
+            builderData: setSelectHasError(state.builderData, action.val)
+          }
+        }
+
+        
+        case 'SET_SELECT_ERROR_TEXT': {
+          return {
+            ...state,
+            builderData: setSelectErrorText(state.builderData, action.val)
+          }
+        }
+
         
       // Default
       default: {
@@ -1111,7 +1178,11 @@ const initialState = {
           activePage.component.type = componentType;
           activePage.component.data = JSON.parse(JSON.stringify(radioGroupData));
           break;
-      default:
+      case "select":
+        activePage.component.type = componentType;
+        activePage.component.data = JSON.parse(JSON.stringify(selectData));
+        break;
+          default:
     }
     return newData;
   }
