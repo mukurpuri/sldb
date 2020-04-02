@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './index.css';
-import { addComponentToCanvas } from '../../../../redux/actions/dataActions';
+import { addComponentToCanvas, addComponentToNewPage } from '../../../../redux/actions/dataActions';
 import { ComponentList } from '../../../../config/dataSkeletons';
 import _ from 'lodash';
 
@@ -37,19 +37,25 @@ class Controls extends React.Component {
     newName = newName.replace(" ", "-");
     return newName;
   }
+
+  setPage(controlName, activePage) {
+    if(activePage.component && activePage.component.type !== null) {
+      this.props.addComponentToNewPage(controlName)
+    } else {
+      this.props.addComponentToCanvas(controlName)
+    }
+  }
   
   render() {
     const { builderData } = this.props;
     const activePage = _.find(builderData, d => { return d.active === true; });
-    if(activePage.component && activePage.component.type !== null) {
-      return null;
-    }
     var components = ComponentList.slice();
     var componentsList = [];
     _.each(components, (comp,index) => {
       const controlName = this.nameReducer(comp);
+      const activeBtn = activePage.component.type === controlName ? "active": "";
       if(comp.toLowerCase().indexOf(this.state.searchComponent.toLowerCase()) >= 0) {
-        componentsList.push(<div onClick={() => this.props.addComponentToCanvas(controlName)} key={index} className="btn"><p>{comp}</p> <div className={`control-elem`}><img alt={controlName} title={controlName} width="40" src={`./controls/${controlName}.png`}/></div> </div>)
+        componentsList.push(<div onClick={() => this.setPage(controlName, activePage)} key={index} className={`btn ${activeBtn}`}><p>{comp}</p> <div className={`control-elem`}><img alt={controlName} title={controlName} width="40" src={`./controls/${controlName}.png`}/></div> </div>)
       }
       });
       return (
@@ -87,7 +93,9 @@ class Controls extends React.Component {
     
     const mapDispatchToProps = (dispatch) => {
       return {
-        addComponentToCanvas: component => dispatch(addComponentToCanvas(component))
+        addComponentToCanvas: component => dispatch(addComponentToCanvas(component)),
+        addComponentToNewPage: component => dispatch(addComponentToNewPage(component))
+        
       };
     };
     

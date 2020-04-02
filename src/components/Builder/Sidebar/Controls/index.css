@@ -24,6 +24,12 @@
 .controls .btn:hover {
     background: #f7f7f7;
 }
+.controls .btn.active {
+    background: #f7f7f7;
+}
+.controls .btn.active p{
+    color: #09F;
+}
 .controls .btn img{
     float: left;
 }

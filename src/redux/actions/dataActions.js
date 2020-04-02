@@ -31,6 +31,10 @@ export const getBuilderData = () => ({
     type: 'ADD_COMPONENT_TO_CANVAS',
     component: component
   })
+  export const addComponentToNewPage = component => ({
+    type: 'ADD_COMPONENT_TO_NEW_PAGE',
+    component: component
+  })
   
   export const removeElement = val => ({
     type: 'REMOVE_ELEMENT',

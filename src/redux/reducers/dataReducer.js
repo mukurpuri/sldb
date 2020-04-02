@@ -196,6 +196,13 @@ const initialState = {
         }
       }
 
+      case 'ADD_COMPONENT_TO_NEW_PAGE': {
+        return {
+          ...state,
+          builderData: addComponentToNewPage(state.builderData, action.component)
+        }
+      }
+
       case 'SET_ACTIVE_GRID_DEVICE': {
         return {
           ...state,
@@ -1110,7 +1117,7 @@ const initialState = {
   }
   function addNewPage(data) {
     var newData = data.slice();
-    if(newData.length < 50) {
+    if(newData.length < 100) {
       var newBuilderDataElement = JSON.parse(JSON.stringify(builderDataElement));
       if(Array.isArray(data)) {
         _.map(newData, nd => {
@@ -1138,6 +1145,10 @@ const initialState = {
       page = _.max(pageNumbers);
     }
     return page + 1;
+  }
+  function addComponentToNewPage(data, componentType) {
+    const newData = addNewPage(data.slice());
+    return addComponentToCanvas(newData, componentType)
   }
   function addComponentToCanvas(data, componentType) {
     const newData = data.slice();
