@@ -61,7 +61,7 @@ function radios(radio) {
       }
       let isDisabledCode = isDisabled === "true" ? "disabled" : "";
       let classes = `class="slds-radio ${radioFloat} ${marginBottom}"`
-      radioButtons += `<span key=${index} ${classes}><input defaultChecked="${radioChecked}" type="radio" id="${radioIndex}" name="default" ${isDisabledCode} /><label class="slds-radio__label" for="${radioIndex}"><span class="slds-radio_faux"></span><span class="slds-form-element__label">${rad.text}</span></label></span>`;
+      radioButtons += `<span ${classes}><input defaultChecked="${radioChecked}" type="radio" id="${radioIndex}" name="default" ${isDisabledCode} /><label class="slds-radio__label" for="${radioIndex}"><span class="slds-radio_faux"></span><span class="slds-form-element__label">${rad.text}</span></label></span>`;
     });
     return radioButtons;
 }
